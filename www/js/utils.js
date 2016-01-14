@@ -1,4 +1,4 @@
-angular.module('repairsystem.utils', [])
+angular.module('ticflow.utils', [])
 
 .factory('$localStorage', ['$window', function($window) {
   return {

@@ -1,4 +1,4 @@
-angular.module('repairsystem.controllers', ['repairsystem.services'])
+angular.module('ticflow.controllers', ['ticflow.services'])
 
 .controller('SignInCtrl', function ($rootScope, $scope, API, $window) {
     $scope.user = {

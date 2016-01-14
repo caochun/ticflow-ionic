@@ -1,4 +1,4 @@
-angular.module('repairsystem.services', ['repairsystem.utils'])
+angular.module('ticflow.services', ['ticflow.utils'])
  .factory('API', function ($rootScope, $http, $ionicLoading, $window, $localStorage) {
 
        var userKey = 'user';
