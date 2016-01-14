@@ -93,10 +93,12 @@ angular.module('repairsystem.controllers', ['repairsystem.services'])
 .controller('NewListCtrl', function ($rootScope, $scope, API, $window) {
 
     $scope.list = {
-        clientName: "",
-        clientAddress: "",
-        clientPhoneNumber: "",
-        clientUnit: "",
+        client: {
+            name: "",
+            address: "",
+            phone_no: "",
+            unit: "",
+        },
         machineType: "",
         fixType: "",
         servicesType: "",
@@ -104,26 +106,28 @@ angular.module('repairsystem.controllers', ['repairsystem.services'])
     };
 
     $scope.newList = function() {
-        var clientName = this.list.clientName;
-        var clientAddress = this.list.clientAddress;
-        var clientPhoneNumber = this.list.clientPhoneNumber;
-        var clientUnit = this.list.clientUnit;
+        var clientName = this.list.client.name;
+        var clientAddress = this.list.client.address;
+        var clientPhone_no = this.list.client.phone_no;
+        var clientUnit = this.list.client.unit;
         var machineType = this.list.machineType;
         var fixType = this.list.fixType;
         var serviceType = this.list.serviceType;
         var reporter = this.list.reporter;
 
-        if (!clientName || !clientAddress || !clientPhoneNumber || !clientUnit ||
+        if (!clientName || !clientAddress || !clientPhone_no || !clientUnit ||
             !machineType || !fixType || !serviceType || !reporter) {
             $rootScope.notify("Please enter valid data");
             return false;
         }
 
         var list = {
-            clientName: clientName,
-            clientAddress: clientAddress,
-            clientPhoneNumber: clientPhoneNumber,
-            clientUnit: clientUnit,
+            client: {
+                name: clientName,
+                address: clientAddress,
+                phone_no: clientPhone_no,
+                unit: clientUnit,
+            },
             machineType: machineType,
             fixType: fixType,
             serviceType: serviceType,

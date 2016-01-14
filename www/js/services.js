@@ -5,9 +5,9 @@ angular.module('repairsystem.services', ['repairsystem.utils'])
        var authenticatedKey = 'authenticated';
        var user = $localStorage.get(userKey);
 
-       var base = "http://moon.nju.edu.cn:3000";
+       //var base = "http://moon.nju.edu.cn:3000";
        //var base = "http://114.212.86.184:3000"; //lzl wired network @ room 812
-       //var base = "http://localhost:3000";
+       var base = "http://localhost:3000";
 
        $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
