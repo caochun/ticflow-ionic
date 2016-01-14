@@ -162,6 +162,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
 })
 
 .controller('ListsCtrl', function ($rootScope, $scope, API, $window) {
+
     $rootScope.$on('refreshLists', function() {
         API.getLists()
             .success(function (lists) {
@@ -180,12 +181,21 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 $rootScope.hide();
             })
             .error(function () {
-                $rootScope.hide();
                 $rootScope.notify("Oops something went wrong!! Please try again later");
             });
     });
 
     $rootScope.$broadcast('refreshLists');
+
+    $scope.showList = function(_id) {
+        API.getList(_id)
+            .success(function (list) {
+                console.log(JSON.stringify(list));
+            })
+            .error(function () {
+                $rootScope.notify("Oops something went wrong!! Please try again later");
+            });
+    };
 })
 
 .controller('DispatchListsCtrl', function ($rootScope, $scope, API, $window) {
@@ -198,7 +208,6 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 $rootScope.hide();
             })
             .error(function () {
-                $rootScope.hide();
                 $rootScope.notify("Oops something went wrong!! Please try again later");
             });
         API.getEngineers()
@@ -214,8 +223,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 }*/
                 $rootScope.hide();
             })
-            .error(function (data, status, headers, config) {
-                $rootScope.hide();
+            .error(function () {
                 $rootScope.notify("Oops something went wrong!! Please try again later");
             });
     });
@@ -251,7 +259,6 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 $rootScope.hide();
             })
             .error(function () {
-                $rootScope.hide();
                 $rootScope.notify("Oops something went wrong!! Please try again later");
             });
     });

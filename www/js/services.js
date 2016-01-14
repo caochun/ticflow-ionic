@@ -83,14 +83,17 @@ angular.module('ticflow.services', ['ticflow.utils'])
             getLists: function() {
                 return $http.get(base+'/lists');
             },
-            getListsUndispatched: function() {
+            getList: function(_id) {    // 根据_id获取订单详情
+                return $http.get(base + '/lists/' + _id);
+            },
+            getListsUndispatched: function() {  // 获取未分配的报修单
                 return $http.get(base+'/lists/undispatched');
             },
-            getEngineers: function() {
+            getEngineers: function() {  // 获取所有工程师
                 return $http.get(base+'/users/engineers');
             },
-            getListsUncompleted: function() {
-                return $http.get(base+'/lists/uncompleted', {
+            getListsUncompleted: function() {   // 获取某个工程师未完成的报修单
+                return $http.get(base + '/lists/uncompleted', {
                     params: {
                         id: user.id
                     }
