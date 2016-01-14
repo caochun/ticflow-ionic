@@ -1,0 +1,41 @@
+<ion-view view-title="工单管理" >
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <ion-list can-swipe="true" >
+        <ion-item class="item"  ng-repeat="list_uncompleted in lists_uncompleted" >
+          <div class="item">
+            <div class="row">
+              <div class="col">
+                <h2><i class="icon ion-person"></i> {{list_uncompleted.clientName}}</h2>
+              </div>
+              <div class="col ">
+                <h2><i class="icon ion-ios-telephone"></i> {{list_uncompleted.clientPhoneNumber}}</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h3><i class="icon ion-home"></i> {{list_uncompleted.clientAddress}}</h3>
+              </div>
+              <div class="col ">
+                <h3><i class="icon ion-wrench"></i> {{list_uncompleted.fixType}}</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <p>{{list_uncompleted.date}}</p>
+              </div>
+              <div class="col">
+                  <i class="button button-small button-outline button-assertive" ng-click="submitList(list_uncompleted._id)">提交完成</i>
+              </div>
+            </div>
+          </div>
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-view>
+

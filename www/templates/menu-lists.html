@@ -1,0 +1,119 @@
+<ion-view view-title="报修单统计">
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-content  overflow-scroll="true">
+    <div class="card">
+      <div class="item item-divider item-positive">
+        报修单统计
+      </div>
+      <div class="item item-text-wrap">
+        共<strong>{{lists_uncompleted.length + lists_completed.length}}</strong>份报修单,其中<br>
+        待完成<strong>{{lists_uncompleted.length}}</strong>份
+        已完成<strong>{{lists_completed.length}}</strong>份<br>
+      </div>
+    </div>
+
+    <div class="item item-divider item-positive">
+      待完成报修单
+    </div>
+      <ion-list can-swipe="true" >
+        <ion-item class="item item-thumbnail-left"  ng-repeat="list_uncompleted in lists_uncompleted">
+          <img ng-src="img/ionic.png">
+          <div class="row">
+            <div class="col">
+              <h2><i class="icon ion-person"></i> {{list_uncompleted.clientName}}</h2>
+            </div>
+            <div class="col ">
+              <h2><i class="icon ion-ios-telephone"></i> {{list_uncompleted.clientPhoneNumber}}</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h3><i class="icon ion-home"></i> {{list_uncompleted.clientAddress}}</h3>
+            </div>
+            <div class="col ">
+              <h3><i class="icon ion-wrench"></i> {{list_uncompleted.fixType}}</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>{{list_uncompleted.date}}</p>
+            </div>
+            <!-- <div class="col">
+                <i class="button button-small button-outline button-assertive" ui-sref='sidemenu.repair({repair_id: list_uncompleted.id})'>处理中 > </i>
+            </div> -->
+          </div>
+        </ion-item>
+      </ion-list>
+
+    <div class="item item-divider item-positive">
+      已完成报修单
+    </div>
+      <ion-list can-swipe="true">
+        <ion-item class="item item-thumbnail-left"  ng-repeat="list_completed in lists_completed">
+          <img ng-src="img/ionic.png">
+          <div class="row">
+            <div class="col">
+              <h2><i class="icon ion-person"></i> {{list_completed.clientName}}</h2>
+            </div>
+            <div class="col ">
+              <h2><i class="icon ion-ios-telephone"></i> {{list_completed.clientPhoneNumber}}</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h3><i class="icon ion-home"></i> {{list_completed.clientAddress}}</h3>
+            </div>
+            <div class="col ">
+              <h3><i class="icon ion-wrench"></i> {{list_completed.fixType}}</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>{{list_completed.date}}</p>
+            </div>
+            <!-- <div class="col ">
+                <i class="button button-small button-outline button-balanced" ui-sref='sidemenu.repair({repair_id: list_completed.id})'>已完成 > </i>
+            </div> -->
+          </div>
+      </ion-item>
+    </ion-list>
+
+    <div class="item item-divider item-positive">
+      未分派报修单
+    </div>
+      <ion-list can-swipe="true">
+        <ion-item class="item item-thumbnail-left"  ng-repeat="list_undispatched in lists_undispatched">
+          <img ng-src="img/ionic.png">
+          <div class="row">
+            <div class="col">
+              <h2><i class="icon ion-person"></i> {{list_undispatched.clientName}}</h2>
+            </div>
+            <div class="col ">
+              <h2><i class="icon ion-ios-telephone"></i> {{list_undispatched.clientPhoneNumber}}</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h3><i class="icon ion-home"></i> {{list_undispatched.clientAddress}}</h3>
+            </div>
+            <div class="col ">
+              <h3><i class="icon ion-wrench"></i> {{list_undispatched.fixType}}</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>{{list_undispatched.date}}</p>
+            </div>
+            <!-- <div class="col ">
+                <i class="button button-small button-outline button-balanced" ui-sref='sidemenu.repair({repair_id: list_undispatched.id})'>已完成 > </i>
+            </div> -->
+          </div>
+      </ion-item>
+    </ion-list>
+    
+  </ion-content>
+</ion-view>
