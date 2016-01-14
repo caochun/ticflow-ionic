@@ -1,26 +1,14 @@
-.margin {
-    margin - left: 9px;
-    margin - right: 9px;
+.signup-page {
+  text-align: center;
+  padding: 40px;
 }
-.icon-actions {
-    font-size: 23px;
-}
-.checkbox {
-    vertical-align: middle;
-}
-.actions {
-    float: right;
-}
+
 .item-text-wrap {
     overflow: auto;
 }
-.ion-checkmark-circled.icon-actions.margin
-{
-  margin-right: 35px;
-}
-.item-select select
-{
+
+.item-select select {
     right: auto;
-    padding: 13px 45px 15px 0px;
+    padding: 13px 45px 15px 0;
     direction: ltr;
 }
