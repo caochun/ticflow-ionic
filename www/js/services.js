@@ -6,7 +6,7 @@ angular.module('ticflow.services', ['ticflow.utils'])
        var user = $localStorage.get(userKey);
 
        //var base = "http://moon.nju.edu.cn:3000";
-       //var base = "http://114.212.86.184:3000"; //lzl wired network @ room 812
+       //var base = "http://114.212.83.15:3000"; //lzl wired network @ room 812
        var base = "http://localhost:3000";
 
        $rootScope.show = function (text) {
@@ -19,7 +19,7 @@ angular.module('ticflow.services', ['ticflow.utils'])
             $ionicLoading.hide();
         };
  
-        $rootScope.notify =function(text){
+        $rootScope.notify = function(text){
             $rootScope.show(text);
             $window.setTimeout(function () {
               $rootScope.hide();
@@ -49,19 +49,21 @@ angular.module('ticflow.services', ['ticflow.utils'])
 
        return {
             signin: function (id, password) {
-                return $http.post(base+'/users/signin', {
+                return $http.post(base + '/users/signin', {
                     id: id,
                     password: password
                 });
             },
-            signup: function (id, password) {
-                return $http.post(base+'/users/signup', {
+            signup: function (id, password, role) {
+                return $http.post(base + '/users/signup', {
                     id: id,
-                    password: password
+                    password: password,
+                    role: role
                 });
             },
+
             login: function(id, role) {
-                $localStorage.set(userKey,{id: id, role: role});
+                $localStorage.set(userKey, {id: id, role: role});
                 $localStorage.set(authenticatedKey, true);
                 user = $localStorage.get(userKey);
             },
@@ -69,41 +71,37 @@ angular.module('ticflow.services', ['ticflow.utils'])
                 $localStorage.remove(userKey);
                 $localStorage.set(authenticatedKey, false);
             },
+            getId: function() {
+                return user.id;
+            },
             getRole: function() {
-                return user.role + "";
+                return user.role;
+            },
+
+            getUsers: function (query) {
+                return $http.get(base + '/users', {
+                    params: query
+                });
             },
             newList: function(list) {
-                return $http.post(base+'/lists', {
+                return $http.post(base + '/lists', {
                     list: list
                 });
             },
-            getWorkLoads: function() {
-                return $http.get(base + '/users/engineers/workloads');
-            },
-            getLists: function() {
-                return $http.get(base+'/lists');
-            },
-            getList: function(_id) {    // 根据_id获取订单详情
-                return $http.get(base + '/lists/' + _id);
-            },
-            getListsUndispatched: function() {  // 获取未分配的报修单
-                return $http.get(base+'/lists/undispatched');
-            },
-            getEngineers: function() {  // 获取所有工程师
-                return $http.get(base+'/users/engineers');
-            },
-            getListsUncompleted: function() {   // 获取某个工程师未完成的报修单
-                return $http.get(base + '/lists/uncompleted', {
-                    params: {
-                        id: user.id
-                    }
+
+            getLists: function(query) {
+                return $http.get(base + '/lists', {
+                    params: query
                 });
             },
-            dispatchList: function(_id, dispatchedEngineer) {
-                return $http.post(base+'/lists/'+_id, {engineer: dispatchedEngineer});
+            getList: function(_id) {
+                return $http.get(base + '/lists/' + _id);
             },
+
             submitList: function(_id) {
-                return $http.post(base+'/lists/'+_id, {completed: true});
+                return $http.post(base + '/lists/' + _id, {
+                    completed: true
+                });
             }
         };
  });

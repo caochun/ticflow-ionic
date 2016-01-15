@@ -30,107 +30,89 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
 
   $stateProvider
 
-    .state('auth',{
-      url: "/auth",
-      abstract: true,
-      templateUrl: "templates/auth.html",
-    })
-
-    .state('auth.signin',{
+    .state('signin',{
       url: "/signin",
-      views: {
-        'auth-signin': {
-          templateUrl: "templates/auth-signin.html",
-          controller: 'SignInCtrl'
-        }
-      }
-    })
-
-    .state('auth.signup',{
-      url: "/signup",
-      views: {
-        'auth-signup': {
-          templateUrl: "templates/auth-signup.html",
-          controller: 'SignUpCtrl'
-        }
-      }
+      templateUrl: "templates/signin.html",
+      controller: 'SignInCtrl'
     })
 
     .state('menu', {
-    url: '/menu',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'MenuCtrl'
-  })
+      url: '/menu',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'MenuCtrl'
+    })
 
-  .state('menu.homepage', {
-    url: '/homepage',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/menu-homepage.html',
-      }
-    }
-  })
-
-  .state('menu.newlist', {
+    .state('menu.newlist', { //新建工单
       url: '/newlist',
       views: {
         'menuContent': {
-          templateUrl: 'templates/menu-newlist.html',
+          templateUrl: 'templates/lists/newlist.html',
           controller: 'NewListCtrl'
         }
       }
     })
 
-    .state('menu.dispatchlists', {
-      url: '/dispatchlists',
+    .state('menu.uncompleted', { //未完成工单
+      url: '/uncompleted',
       views: {
         'menuContent': {
-          templateUrl: 'templates/menu-dispatchlists.html',
-          controller: 'DispatchListsCtrl',
+          templateUrl: 'templates/lists/uncompleted.html',
+          controller: 'ListsUncompletedCtrl',
         }
       }
     })
 
-  .state('menu.workloads', {
-    url: '/workloads',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/menu-workloads.html',
-        controller: 'WorkloadsCtrl',
+    .state('menu.completed', { //已完成工单
+      url: '/completed',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/completed.html',
+          controller: 'ListsCompletedCtrl',
+        }
       }
-    }
-  })
+    })
 
-  .state('menu.lists', {
-    url: '/lists',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/menu-lists.html',
-        controller: 'ListsCtrl',
+    .state('menu.checked', { //已审核工单
+      url: '/checked',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/checked.html',
+          controller: 'ListsCheckedCtrl',
+        }
       }
-    }
-  })
+    })
 
-  .state('menu.list', {
-    url: '/lists/:list_id',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/list.html',
-        controller: 'ListCtrl',
+    .state('menu.list', { //报修单详情
+      url: '/list/:_id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/detail.html',
+          controller: 'ListDetailCtrl',
+        }
       }
-    }
-  })
+    })
 
-  .state('menu.managelists', {
-    url: '/managelists',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/menu-managelists.html',
-        controller: 'ManageListsCtrl',
+    .state('menu.users', { //用户管理
+      url: '/users',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/users/users.html',
+          controller: 'UsersCtrl',
+        }
       }
-    }
-  });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/auth/signin');
+    })
+
+    .state('menu.newuser', { //新建用户
+      url: '/newuser',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/users/newuser.html',
+          controller: 'NewUserCtrl',
+        }
+      }
+    });
+
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/signin');
 });

@@ -1,34 +1,377 @@
 angular.module('ticflow.controllers', ['ticflow.services'])
 
 .controller('SignInCtrl', function ($rootScope, $scope, API, $window) {
+
     $scope.user = {
         id: "",
         password: ""
     };
- 
+
     $scope.validateUser = function () {
+
         var id = this.user.id;
         var password = this.user.password;
         if(!id || !password) {
-            $rootScope.notify("Please enter valid data");
+            $rootScope.notify("用户名和密码不能为空！");
             return false;
         }
         
-        $rootScope.show('Please wait.. Authenticating');
+        $rootScope.show('登录中...');
         API.signin(id, password)
             .success(function (user) {
+                if (user === null) {
+                    $rootScope.hide();
+                    $rootScope.notify("用户名或密码错误！");
+                    return false;
+                }
                 API.login(user.id, user.role);
                 $rootScope.hide();
-                $window.location.href = ('#/menu/homepage');
+                if (user.role == 'manager')
+                    $window.location.href = ('#/menu/newlist');
+                else if (user.role == 'saler' || user.role == 'engineer')
+                    $window.location.href = ('#/menu/uncompleted');
+                else
+                    $window.location.href = ('#/menu/users');
             }).error(function () {
                 $rootScope.hide();
-                $rootScope.notify("Invalid username or password");
+                $rootScope.notify("登录失败！请检查您的网络！");
             });
     };
  
 })
 
-.controller('SignUpCtrl', function ($rootScope, $scope, API, $window) {
+.controller('MenuCtrl', function ($rootScope, $scope, API, $window) {
+    $scope.logout = function() {
+        API.logout();
+        $window.location.href = ('#/auth/signin');
+    };
+    $scope.isManager = function () {
+        return API.getRole() == 'manager';
+    };
+    $scope.showUncompleted = function() {
+        var role = API.getRole();
+        return role == 'manager' || role == 'saler' || role == 'engineer';
+    };
+    $scope.showCompleted = function() {
+        var role = API.getRole();
+        return role == 'manager' || role == 'saler' || role == 'engineer';
+    };
+    $scope.showChecked = function() {
+        var role = API.getRole();
+        return role == 'manager' || role == 'saler' || role == 'engineer';
+    };
+    $scope.isAdmin = function() {
+        var role = API.getRole();
+        return API.getRole() == 'admin';
+    };
+
+    $scope.refreshListsUncompleted = function() {
+        $rootScope.$broadcast('refreshListsUncompleted');
+    };
+    $scope.refreshListsCompleted = function() {
+        $rootScope.$broadcast('refreshListsCompleted');
+    };
+    $scope.refreshListsChecked = function() {
+        $rootScope.$broadcast('refreshListsChecked');
+    };
+    $scope.refreshUsers = function() {
+        $rootScope.$broadcast('refreshUsers');
+    };
+})
+
+.controller('NewListCtrl', function ($rootScope, $scope, API, $window) {
+
+    $scope.list = {
+        client: {
+            name: "",
+            address: "",
+            phone_no: "",
+            unit: "",
+        },
+        deliver: "",
+        debug: "",
+        visit: "",
+        install: "",
+        warehouse: "",
+        outgoing: "",
+        serial_no: "",
+        saler: "",
+        value: "",
+        engineer: "",
+    };
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        API.getUsers({role: 'saler'})
+            .success(function (salers) {
+                $scope.salers = salers;
+            })
+            .error(function () {
+                $rootScope.notify("获取销售列表失败！请检查您的网络！");
+            });
+        API.getUsers({role: 'engineer'})
+            .success(function (engineers) {
+                $scope.engineers = engineers;
+            })
+            .error(function () {
+                $rootScope.notify("获取工程师列表失败！请检查您的网络！");
+            });
+    });
+
+    $scope.newList = function() {
+        var client_name = this.list.client.name;
+        var client_address = this.list.client.address;
+        var client_phone_no = this.list.client.phone_no;
+        var client_unit = this.list.client.unit;
+        var deliver = this.list.deliver;
+        var debug = this.list.debug;
+        var visit = this.list.visit;
+        var install = this.list.install;
+        var warehouse = this.list.warehouse;
+        var outgoing = this.list.outgoing;
+        var serial_no = this.list.serial_no;
+        var saler = this.list.saler;
+        var value = this.list.value;
+        var engineer = this.list.engineer;
+
+        if (!client_name) {
+            $rootScope.notify("客户姓名不能为空！");
+            return false;
+        }
+
+        if (!client_address) {
+            $rootScope.notify("客户地址不能为空！");
+            return false;
+        }
+
+        if (!client_phone_no) {
+            $rootScope.notify("客户电话不能为空！");
+            return false;
+        }
+
+        if (!client_unit) {
+            $rootScope.notify("客户单位不能为空！");
+            return false;
+        }
+
+        if (!saler) {
+            $rootScope.notify("销售不能为空！");
+            return false;
+        }
+
+        if (!value) {
+            $rootScope.notify("分值不能为空！");
+            return false;
+        }
+
+        if (!engineer) {
+            $rootScope.notify("工程师不能为空！");
+            return false;
+        }
+
+        var list = {
+            client: {
+                name: client_name,
+                address: client_address,
+                phone_no: client_phone_no,
+                unit: client_unit,
+            },
+            deviver: deliver,
+            debug: debug,
+            visit: visit,
+            install: install,
+            warehouse: warehouse,
+            outgoing: outgoing,
+            serial_no: serial_no,
+            saler: saler,
+            value: value,
+            engineer: engineer,
+        };
+        
+        API.newList(list)
+            .success(function (list) {
+                $rootScope.notify("创建成功!");
+            })
+            .error(function () {
+                $rootScope.notify("创建失败！请检查您的网络！");
+            });
+    };
+})
+
+// .controller('WorkloadsCtrl', function ($rootScope, $scope, API, $window) {
+//     $rootScope.$on('refreshWorkloads', function() {
+//         API.getWorkLoads()
+//             .success(function (workloads) {
+//                 $rootScope.show("Please wait... Processing");
+//                 $scope.workloads = workloads;
+//                 $rootScope.hide();
+//             })
+//             .error(function () {
+//                 $rootScope.hide();
+//                 $rootScope.notify("Oops something went wrong!! Please try again later");
+//             });
+//     });
+
+//     $rootScope.$broadcast('refreshWorkloads');
+// })
+
+.controller('ListsUncompletedCtrl', function ($rootScope, $scope, API, $window) {
+
+    $rootScope.$on('refreshListsUncompleted', function() {
+        var query = {completed: false};
+        if (API.getRole() == 'saler')
+            query.saler = API.getId();
+        else if (API.getRole() == 'engineer')
+            query.engineer = API.getId();
+
+        //console.log(JSON.stringify(query));
+
+        API.getLists(query)
+            .success(function (listsUncompleted) {
+                $scope.noData = false;
+                if (listsUncompleted.length === 0)
+                    $scope.noData = true;
+                $scope.listsUncompleted = listsUncompleted;
+            })
+            .error(function () {
+                $rootScope.notify("网络连接失败！请检查您的网络！");
+            });
+    });
+
+    $rootScope.$broadcast('refreshListsUncompleted');
+
+    // $scope.isEngineer = function () {
+    //     return API.getRole() == 'engineer';
+    // };
+
+    // $scope.submitList = function (_id) {
+    //     API.submitList(_id)
+    //         .success(function (list) {
+    //             $rootScope.notify("提交成功!");
+    //             $rootScope.$broadcast('refreshListsUncompleted');
+    //         })
+    //         .error(function () {
+    //             $rootScope.notify("提交失败！请检查您的网络！");
+    //         });
+    // };
+})
+
+.controller('ListsCompletedCtrl', function ($rootScope, $scope, API, $window) {
+    $rootScope.$on('refreshListsCompleted', function() {
+        var query = {completed: true, checked: false};
+        if (API.getRole() == 'saler')
+            query.saler = API.getId();
+        else if (API.getRole() == 'engineer')
+            query.engineer = API.getId();
+
+        //console.log(JSON.stringify(query));
+
+        API.getLists(query)
+            .success(function (listsCompleted) {
+                $scope.noData = false;
+                if (listsCompleted.length === 0)
+                    $scope.noData = true;
+                $scope.listsCompleted = listsCompleted;
+            })
+            .error(function () {
+                $rootScope.notify("网络连接失败！请检查您的网络！");
+            });
+    });
+
+    $rootScope.$broadcast('refreshListsCompleted');
+})
+
+.controller('ListsCheckedCtrl', function ($rootScope, $scope, API, $window) {
+    $rootScope.$on('refreshListsChecked', function() {
+        var query = {checked: true};
+        if (API.getRole() == 'saler')
+            query.saler = API.getId();
+        else if (API.getRole() == 'engineer')
+            query.engineer = API.getId();
+
+        //console.log(JSON.stringify(query));
+
+        API.getLists(query)
+            .success(function (listsChecked) {
+                $scope.noData = false;
+                if (listsChecked.length === 0)
+                    $scope.noData = true;
+                $scope.listsChecked = listsChecked;
+            })
+            .error(function () {
+                $rootScope.notify("网络连接失败！请检查您的网络！");
+            });
+    });
+
+    $rootScope.$broadcast('refreshListsChecked');
+})
+
+// .controller('ManageListsCtrl', function ($rootScope, $scope, API, $window) {
+//     $rootScope.$on('refreshListsUncompleted', function() {
+//         API.getListsUncompleted()
+//             .success(function (listsUncompleted) {
+//                 $rootScope.show("Please wait... Processing");
+//                 $scope.lists_uncompleted = listsUncompleted;
+//                 $rootScope.hide();
+//             })
+//             .error(function () {
+//                 $rootScope.notify("Oops something went wrong!! Please try again later");
+//             });
+//     });
+
+//     $rootScope.$broadcast('refreshListsUncompleted');
+
+//     $scope.submitList = function(_id) {
+//         API.submitList(_id)
+//             .success(function (list) {
+//                 $rootScope.show("Please wait... Processing");
+//                 $rootScope.$broadcast('refreshListsUncompleted');
+//                 $rootScope.hide();
+//             })
+//             .error(function () {
+//                 $rootScope.notify("Oops something went wrong!! Please try again later");
+//             });
+//     };
+// })
+
+.controller('ListDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams) {
+
+    $scope.list = {
+        client: {
+            name: "",
+            address: "",
+            phone_no: "",
+            unit: "",
+        },
+        deliver: "",
+        debug: "",
+        visit: "",
+        install: "",
+        warehouse: "",
+        outgoing: "",
+        serial_no: "",
+        saler: "",
+        value: "",
+        engineer: "",
+    };
+
+    var _id = $stateParams._id;
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        API.getList(_id)
+            .success(function (list) {
+                $scope.list = list;
+            })
+            .error(function () {
+                $rootScope.notify("网络连接失败！请检查您的网络！");
+            });
+    });
+})
+
+.controller('UsersCtrl', function ($rootScope, $scope, API, $window) {
+
+})
+
+.controller('NewUserCtrl', function ($rootScope, $scope, API, $window) {
     $scope.user = {
         id: "",
         password: ""
@@ -54,257 +397,61 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 $rootScope.notify("A user with this id already exists");
             });
     };
-})
-
-.controller('MenuCtrl', function ($rootScope, $scope, API, $window) {
-    $scope.logout = function() {
-        API.logout();
-        $window.location.href = ('#/auth/signin');
-    };
-    $scope.showMenuNew = function() {
-        return API.getRole() == "saler" || API.getRole() == "admin";
-    };
-    $scope.showMenuDispatch = function() {
-        return API.getRole() == "manager";
-    };
-    $scope.showMenuWorkloads = function() {
-        return API.getRole() == "admin";
-    };
-    $scope.showMenuLists = function() {
-        return API.getRole() == "admin";
-    };
-    $scope.showMenuManage = function() {
-        return API.getRole() == "engineer";
-    };
-    $scope.refreshLists = function() {
-        $rootScope.$broadcast('refreshLists');
-    };
-    $scope.refreshWorkloads = function() {
-        $rootScope.$broadcast('refreshWorkloads');
-    };
-    $scope.refreshListsUndispatched = function() {
-        $rootScope.$broadcast('refreshListsUndispatched');
-    };
-    $scope.refreshListsUncompleted = function() {
-        $rootScope.$broadcast('refreshListsUncompleted');
-    };
-})
-
-.controller('NewListCtrl', function ($rootScope, $scope, API, $window) {
-
-    $scope.list = {
-        client: {
-            name: "",
-            address: "",
-            phone_no: "",
-            unit: "",
-        },
-        machineType: "",
-        fixType: "",
-        servicesType: "",
-        reporter: ""
-    };
-
-    $scope.newList = function() {
-        var clientName = this.list.client.name;
-        var clientAddress = this.list.client.address;
-        var clientPhone_no = this.list.client.phone_no;
-        var clientUnit = this.list.client.unit;
-        var machineType = this.list.machineType;
-        var fixType = this.list.fixType;
-        var serviceType = this.list.serviceType;
-        var reporter = this.list.reporter;
-
-        if (!clientName || !clientAddress || !clientPhone_no || !clientUnit ||
-            !machineType || !fixType || !serviceType || !reporter) {
-            $rootScope.notify("Please enter valid data");
-            return false;
-        }
-
-        var list = {
-            client: {
-                name: clientName,
-                address: clientAddress,
-                phone_no: clientPhone_no,
-                unit: clientUnit,
-            },
-            machineType: machineType,
-            fixType: fixType,
-            serviceType: serviceType,
-            reporter: reporter,
-        };
-        
-        API.newList(list)
-            .success(function (list) {
-                $rootScope.notify("创建成功!");
-            })
-            .error(function () {
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-    };
-})
-
-.controller('WorkloadsCtrl', function ($rootScope, $scope, API, $window) {
-    $rootScope.$on('refreshWorkloads', function() {
-        API.getWorkLoads()
-            .success(function (workloads) {
-                $rootScope.show("Please wait... Processing");
-                $scope.workloads = workloads;
-                $rootScope.hide();
-            })
-            .error(function () {
-                $rootScope.hide();
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-    });
-
-    $rootScope.$broadcast('refreshWorkloads');
-})
-
-.controller('ListsCtrl', function ($rootScope, $scope, API, $window) {
-
-    $rootScope.$on('refreshLists', function() {
-        API.getLists()
-            .success(function (lists) {
-                $rootScope.show("Please wait... Processing");
-                $scope.lists_uncompleted = [];
-                $scope.lists_completed = [];
-                $scope.lists_undispatched = [];
-                for (var i = 0; i < lists.length; i++) {
-                    if (lists[i].engineer == "undispatched")
-                        $scope.lists_undispatched.push(lists[i]);
-                    else if (lists[i].completed === false)
-                        $scope.lists_uncompleted.push(lists[i]);
-                    else
-                        $scope.lists_completed.push(lists[i]);
-                }
-                $rootScope.hide();
-            })
-            .error(function () {
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-    });
-
-    $rootScope.$broadcast('refreshLists');
-
-    $scope.showList = function(_id) {
-        API.getList(_id)
-            .success(function (list) {
-                console.log(JSON.stringify(list));
-            })
-            .error(function () {
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-    };
-})
-
-.controller('ListCtrl', function ($rootScope, $scope, API, $window, $stateParams) {
-
-    $scope.list = {
-        client: {
-            name: "",
-            address: "",
-            phone_no: "",
-            unit: "",
-        },
-        machineType: "",
-        fixType: "",
-        servicesType: "",
-        reporter: ""
-    };
-
-    var list_id = $stateParams.list_id;
-
-    $scope.$on('$ionicView.beforeEnter', function () {
-        API.getList(list_id)
-            .success(function (list) {
-                $scope.list = list;
-            })
-            .error(function () {
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-    });
-})
-
-.controller('DispatchListsCtrl', function ($rootScope, $scope, API, $window) {
-
-    $rootScope.$on('refreshListsUndispatched', function() {
-        API.getListsUndispatched()
-            .success(function (listsUndispatched) {
-                $rootScope.show("Please wait... Processing");
-                $scope.listsUndispatched = listsUndispatched;
-                $rootScope.hide();
-            })
-            .error(function () {
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-        API.getEngineers()
-            .success(function (engineers) {
-                $rootScope.show("Please wait... Processing");
-                // $scope.engineers = [{value: "", id: "undispatched"}];
-                $scope.engineers = engineers;
-                /*for (var i = 0; i < data.length; i++) {
-                    $scope.engineers.push({
-                        value: "",
-                        id: data[i]
-                    });
-                }*/
-                $rootScope.hide();
-            })
-            .error(function () {
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-    });
-
-    $rootScope.$broadcast('refreshListsUndispatched');
-
-    $scope.dispatchLists = function() {
-        var flag = false;
-        $scope.listsUndispatched.forEach(function (listUndispatched) {
-            if (listUndispatched.engineer != "undispatched") {
-                flag = true;
-                API.dispatchList(listUndispatched._id, listUndispatched.engineer)
-                    .success(function () {
-                        $rootScope.$broadcast('refreshListsUndispatched');
-                    })
-                    .error(function () {
-                        $rootScope.notify("Oops something went wrong!! Please try again later");
-                    });
-            }
-        });
-        if (!flag) {
-            $rootScope.notify("no list dispatched!!");
-        }
-    };
-})
-
-.controller('ManageListsCtrl', function ($rootScope, $scope, API, $window) {
-    $rootScope.$on('refreshListsUncompleted', function() {
-        API.getListsUncompleted()
-            .success(function (listsUncompleted) {
-                $rootScope.show("Please wait... Processing");
-                $scope.lists_uncompleted = listsUncompleted;
-                $rootScope.hide();
-            })
-            .error(function () {
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-    });
-
-    $rootScope.$broadcast('refreshListsUncompleted');
-
-    $scope.submitList = function(_id) {
-        API.submitList(_id)
-            .success(function (list) {
-                $rootScope.show("Please wait... Processing");
-                $rootScope.$broadcast('refreshListsUncompleted');
-                $rootScope.hide();
-            })
-            .error(function () {
-                $rootScope.notify("Oops something went wrong!! Please try again later");
-            });
-    };
 });
+
+// .controller('DispatchListsCtrl', function ($rootScope, $scope, API, $window) {
+
+//     $rootScope.$on('refreshListsUndispatched', function() {
+//         API.getListsUndispatched()
+//             .success(function (listsUndispatched) {
+//                 $rootScope.show("Please wait... Processing");
+//                 $scope.listsUndispatched = listsUndispatched;
+//                 $rootScope.hide();
+//             })
+//             .error(function () {
+//                 $rootScope.notify("Oops something went wrong!! Please try again later");
+//             });
+//         API.getEngineers()
+//             .success(function (engineers) {
+//                 $rootScope.show("Please wait... Processing");
+//                 // $scope.engineers = [{value: "", id: "undispatched"}];
+//                 $scope.engineers = engineers;
+//                 for (var i = 0; i < data.length; i++) {
+//                     $scope.engineers.push({
+//                         value: "",
+//                         id: data[i]
+//                     });
+//                 }
+//                 $rootScope.hide();
+//             })
+//             .error(function () {
+//                 $rootScope.notify("Oops something went wrong!! Please try again later");
+//             });
+//     });
+
+//     $rootScope.$broadcast('refreshListsUndispatched');
+
+//     $scope.dispatchLists = function() {
+//         var flag = false;
+//         $scope.listsUndispatched.forEach(function (listUndispatched) {
+//             if (listUndispatched.engineer != "undispatched") {
+//                 flag = true;
+//                 API.dispatchList(listUndispatched._id, listUndispatched.engineer)
+//                     .success(function () {
+//                         $rootScope.$broadcast('refreshListsUndispatched');
+//                     })
+//                     .error(function () {
+//                         $rootScope.notify("Oops something went wrong!! Please try again later");
+//                     });
+//             }
+//         });
+//         if (!flag) {
+//             $rootScope.notify("no list dispatched!!");
+//         }
+//     };
+// })
+
+
 
 
 
