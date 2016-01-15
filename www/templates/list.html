@@ -1,11 +1,11 @@
-<!-- 订单详情页面
+<!-- 报修单单详情页面
  -->
 
- <ion-view view-title="详情">
+<!--  engineer -> 工单管理 -> 报修单详情
+ manager -> 派单管理 -> 报修单详情
+ admin -> 报修单统计 -> 报修单详情 -->
 
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
+ <ion-view view-title="报修单详情">
 
   <ion-content>
   
@@ -75,10 +75,6 @@
         <span class="input-label">报修人</span>
         <input type="text" ng-model="list.reporter">
       </label>
-    </div>
-
-    <div class="padding">
-      <button  class="button button-block button-positive" ng-click="newList()">创建</button>
     </div>
 
   </ion-content>

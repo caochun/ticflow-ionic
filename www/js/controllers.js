@@ -198,6 +198,34 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     };
 })
 
+.controller('ListCtrl', function ($rootScope, $scope, API, $window, $stateParams) {
+
+    $scope.list = {
+        client: {
+            name: "",
+            address: "",
+            phone_no: "",
+            unit: "",
+        },
+        machineType: "",
+        fixType: "",
+        servicesType: "",
+        reporter: ""
+    };
+
+    var list_id = $stateParams.list_id;
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        API.getList(list_id)
+            .success(function (list) {
+                $scope.list = list;
+            })
+            .error(function () {
+                $rootScope.notify("Oops something went wrong!! Please try again later");
+            });
+    });
+})
+
 .controller('DispatchListsCtrl', function ($rootScope, $scope, API, $window) {
 
     $rootScope.$on('refreshListsUndispatched', function() {

@@ -112,6 +112,16 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
     }
   })
 
+  .state('menu.list', {
+    url: '/lists/:list_id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/list.html',
+        controller: 'ListCtrl',
+      }
+    }
+  })
+
   .state('menu.managelists', {
     url: '/managelists',
     views: {

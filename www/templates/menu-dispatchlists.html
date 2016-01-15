@@ -7,7 +7,8 @@
   <ion-content>
 
     <ion-list can-swipe="true" >
-        <ion-item class="item"  ng-repeat="listUndispatched in listsUndispatched" >
+        <ion-item class="item"  ng-repeat="listUndispatched in listsUndispatched" 
+          ui-sref='menu.list({list_id: listUndispatched._id})'>
           <div class="item">
             <div class="row">
               <div class="col">
