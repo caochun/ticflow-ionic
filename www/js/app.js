@@ -58,7 +58,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       views: {
         'menuContent': {
           templateUrl: 'templates/lists/uncompleted.html',
-          controller: 'ListsUncompletedCtrl',
+          controller: 'UncompletedCtrl',
         }
       }
     })
@@ -68,7 +68,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       views: {
         'menuContent': {
           templateUrl: 'templates/lists/completed.html',
-          controller: 'ListsCompletedCtrl',
+          controller: 'CompletedCtrl',
         }
       }
     })
@@ -78,17 +78,37 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       views: {
         'menuContent': {
           templateUrl: 'templates/lists/checked.html',
-          controller: 'ListsCheckedCtrl',
+          controller: 'CheckedCtrl',
         }
       }
     })
 
-    .state('menu.list', { //报修单详情
-      url: '/list/:_id',
+    .state('menu.uncompleted_detail', { //未完成工单详情
+      url: '/uncompleted/:_id',
       views: {
         'menuContent': {
-          templateUrl: 'templates/lists/detail.html',
-          controller: 'ListDetailCtrl',
+          templateUrl: 'templates/lists/uncompleted_detail.html',
+          controller: 'UncompletedDetailCtrl',
+        }
+      }
+    })
+
+    .state('menu.completed_detail', { //已完成工单详情
+      url: '/completed/:_id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/completed_detail.html',
+          controller: 'CompletedDetailCtrl',
+        }
+      }
+    })
+
+    .state('menu.checked_detail', { //已审核工单详情
+      url: '/checked/:_id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/checked_detail.html',
+          controller: 'CheckedDetailCtrl',
         }
       }
     })

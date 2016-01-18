@@ -26,12 +26,17 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 }
                 API.login(user.id, user.role);
                 $rootScope.hide();
-                if (user.role == 'manager')
+                if (user.role == 'manager') {
                     $window.location.href = ('#/menu/newlist');
-                else if (user.role == 'saler' || user.role == 'engineer')
+                }
+                else if (user.role == 'saler' || user.role == 'engineer') {
                     $window.location.href = ('#/menu/uncompleted');
-                else
+                    $rootScope.$broadcast('refreshListsUncompleted');
+                }
+                else {
                     $window.location.href = ('#/menu/users');
+                    $rootScope.$broadcast('refreshUsers');
+                }
             }).error(function () {
                 $rootScope.hide();
                 $rootScope.notify("登录失败！请检查您的网络！");
@@ -214,7 +219,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
 //     $rootScope.$broadcast('refreshWorkloads');
 // })
 
-.controller('ListsUncompletedCtrl', function ($rootScope, $scope, API, $window) {
+.controller('UncompletedCtrl', function ($rootScope, $scope, API, $window) {
 
     $rootScope.$on('refreshListsUncompleted', function() {
         var query = {completed: false};
@@ -231,6 +236,9 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 if (listsUncompleted.length === 0)
                     $scope.noData = true;
                 $scope.listsUncompleted = listsUncompleted;
+                $scope.listsUncompleted.forEach(function (entry) {
+                    entry.date = entry.date.substr(0, 10);
+                });
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -238,10 +246,6 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     });
 
     $rootScope.$broadcast('refreshListsUncompleted');
-
-    // $scope.isEngineer = function () {
-    //     return API.getRole() == 'engineer';
-    // };
 
     // $scope.submitList = function (_id) {
     //     API.submitList(_id)
@@ -255,7 +259,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     // };
 })
 
-.controller('ListsCompletedCtrl', function ($rootScope, $scope, API, $window) {
+.controller('CompletedCtrl', function ($rootScope, $scope, API, $window) {
     $rootScope.$on('refreshListsCompleted', function() {
         var query = {completed: true, checked: false};
         if (API.getRole() == 'saler')
@@ -271,6 +275,9 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 if (listsCompleted.length === 0)
                     $scope.noData = true;
                 $scope.listsCompleted = listsCompleted;
+                $scope.listsCompleted.forEach(function (entry) {
+                    entry.date = entry.date.substr(0, 10);
+                });
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -280,7 +287,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     $rootScope.$broadcast('refreshListsCompleted');
 })
 
-.controller('ListsCheckedCtrl', function ($rootScope, $scope, API, $window) {
+.controller('CheckedCtrl', function ($rootScope, $scope, API, $window) {
     $rootScope.$on('refreshListsChecked', function() {
         var query = {checked: true};
         if (API.getRole() == 'saler')
@@ -296,6 +303,9 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                 if (listsChecked.length === 0)
                     $scope.noData = true;
                 $scope.listsChecked = listsChecked;
+                $scope.listsChecked.forEach(function (entry) {
+                    entry.date = entry.date.substr(0, 10);
+                });
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -305,35 +315,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     $rootScope.$broadcast('refreshListsChecked');
 })
 
-// .controller('ManageListsCtrl', function ($rootScope, $scope, API, $window) {
-//     $rootScope.$on('refreshListsUncompleted', function() {
-//         API.getListsUncompleted()
-//             .success(function (listsUncompleted) {
-//                 $rootScope.show("Please wait... Processing");
-//                 $scope.lists_uncompleted = listsUncompleted;
-//                 $rootScope.hide();
-//             })
-//             .error(function () {
-//                 $rootScope.notify("Oops something went wrong!! Please try again later");
-//             });
-//     });
-
-//     $rootScope.$broadcast('refreshListsUncompleted');
-
-//     $scope.submitList = function(_id) {
-//         API.submitList(_id)
-//             .success(function (list) {
-//                 $rootScope.show("Please wait... Processing");
-//                 $rootScope.$broadcast('refreshListsUncompleted');
-//                 $rootScope.hide();
-//             })
-//             .error(function () {
-//                 $rootScope.notify("Oops something went wrong!! Please try again later");
-//             });
-//     };
-// })
-
-.controller('ListDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams) {
+.controller('UncompletedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams) {
 
     $scope.list = {
         client: {
@@ -352,6 +334,111 @@ angular.module('ticflow.controllers', ['ticflow.services'])
         saler: "",
         value: "",
         engineer: "",
+        date: "",
+        completed: "",
+    };
+
+    $scope.isManager = (API.getRole() == 'manager');
+    $scope.isEngineer = (API.getRole() == 'engineer');
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        API.getUsers({role: 'saler'})
+            .success(function (salers) {
+                $scope.salers = salers;
+            })
+            .error(function () {
+                $rootScope.notify("获取销售列表失败！请检查您的网络！");
+            });
+        API.getUsers({role: 'engineer'})
+            .success(function (engineers) {
+                $scope.engineers = engineers;
+            })
+            .error(function () {
+                $rootScope.notify("获取工程师列表失败！请检查您的网络！");
+            });
+    });
+
+    var _id = $stateParams._id;
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        API.getList(_id)
+            .success(function (list) {
+                $scope.list = list;
+                $scope.list.date = $scope.list.date.substr(0, 10);
+                $scope.list.completed = "未完成";
+            })
+            .error(function () {
+                $rootScope.notify("网络连接失败！请检查您的网络！");
+            });
+    });
+})
+
+.controller('CompletedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams) {
+
+    $scope.list = {
+        client: {
+            name: "",
+            address: "",
+            phone_no: "",
+            unit: "",
+        },
+        deliver: "",
+        debug: "",
+        visit: "",
+        install: "",
+        warehouse: "",
+        outgoing: "",
+        serial_no: "",
+        saler: "",
+        value: "",
+        engineer: "",
+        date: "",
+        completed: "",
+        feedback: "",
+        checked: "",
+    };
+
+    $scope.isSaler = (API.getRole() == 'saler');
+
+    var _id = $stateParams._id;
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        API.getList(_id)
+            .success(function (list) {
+                $scope.list = list;
+                $scope.list.date = $scope.list.date.substr(0, 10);
+                $scope.list.completed = "已完成";
+                $scope.list.checked = "未审核";
+            })
+            .error(function () {
+                $rootScope.notify("网络连接失败！请检查您的网络！");
+            });
+    });
+})
+
+.controller('CheckedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams) {
+
+    $scope.list = {
+        client: {
+            name: "",
+            address: "",
+            phone_no: "",
+            unit: "",
+        },
+        deliver: "",
+        debug: "",
+        visit: "",
+        install: "",
+        warehouse: "",
+        outgoing: "",
+        serial_no: "",
+        saler: "",
+        value: "",
+        engineer: "",
+        date: "",
+        completed: "",
+        feedback: "",
+        checked: "",
     };
 
     var _id = $stateParams._id;
@@ -360,6 +447,9 @@ angular.module('ticflow.controllers', ['ticflow.services'])
         API.getList(_id)
             .success(function (list) {
                 $scope.list = list;
+                $scope.list.date = $scope.list.date.substr(0, 10);
+                $scope.list.completed = "已完成";
+                $scope.list.checked = "已审核";
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");

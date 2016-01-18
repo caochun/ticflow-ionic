@@ -14,27 +14,27 @@
     </div>
 
     <ion-item class="item"  ng-repeat="listUncompleted in listsUncompleted" 
-      ui-sref='menu.list({_id: listUncompleted._id})'>
+      ui-sref='menu.uncompleted_detail({_id: listUncompleted._id})'>
       <div class="item">
         <div class="row">
           <div class="col">
-            <h2><i class="icon ion-person"></i> {{listUncompleted.client.name}}</h2>
+            <h2><i>客户姓名: </i> {{listUncompleted.client.name}}</h2>
           </div>
           <div class="col ">
-            <h2><i class="icon ion-ios-telephone"></i> {{listUncompleted.client.phone_no}}</h2>
+            <h2><i>电话: </i> {{listUncompleted.client.phone_no}}</h2>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <h2><i class="icon ion-edit"></i> {{listUncompleted.saler}}</h2>
+            <h2><i>销售员: </i> {{listUncompleted.saler}}</h2>
           </div>
           <div class="col ">
-            <h2><i class="icon ion-wrench"></i> {{listUncompleted.engineer}}</h2>
+            <h2><i>工程师: </i> {{listUncompleted.engineer}}</h2>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <h2>{{listUncompleted.date}}</h2>
+            <h2><i>创建日期: </i>{{listUncompleted.date}}</h2>
           </div>
           <!-- <div class="col">
               <i class="button button-small button-outline button-assertive" ng-show="isEngineer()"

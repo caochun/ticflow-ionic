@@ -14,27 +14,27 @@
     </div>
 
     <ion-item class="item"  ng-repeat="listChecked in listsChecked" 
-      ui-sref='menu.list({_id: listChecked._id})'>
+      ui-sref='menu.checked_detail({_id: listChecked._id})'>
       <div class="item">
         <div class="row">
           <div class="col">
-            <h2><i class="icon ion-person"></i> {{listChecked.client.name}}</h2>
+            <h2><i>客户姓名: </i> {{listChecked.client.name}}</h2>
           </div>
           <div class="col ">
-            <h2><i class="icon ion-ios-telephone"></i> {{listChecked.client.phone_no}}</h2>
+            <h2><i>电话: </i> {{listChecked.client.phone_no}}</h2>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <h2><i class="icon ion-edit"></i> {{listChecked.saler}}</h2>
+            <h2><i>销售员: </i> {{listChecked.saler}}</h2>
           </div>
           <div class="col ">
-            <h2><i class="icon ion-wrench"></i> {{listChecked.engineer}}</h2>
+            <h2><i>工程师: </i> {{listChecked.engineer}}</h2>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <h2>{{listChecked.date}}</h2>
+            <h2><i>创建日期: </i> {{listChecked.date}}</h2>
           </div>
         </div>
       </div>
