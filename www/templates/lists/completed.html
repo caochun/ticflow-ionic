@@ -18,27 +18,10 @@
     <ion-item class="item"  ng-repeat="listCompleted in listsCompleted" 
       ui-sref='menu.completed_detail({_id: listCompleted._id})'>
       <div class="item">
-        <div class="row">
-          <div class="col">
-            <h2><i>客户姓名: </i> {{listCompleted.client.name}}</h2>
-          </div>
-          <div class="col ">
-            <h2><i>电话: </i> {{listCompleted.client.phone_no}}</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <h2><i>销售员: </i> {{listCompleted.saler}}</h2>
-          </div>
-          <div class="col ">
-            <h2><i>工程师: </i> {{listCompleted.engineer}}</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <h2><i>创建日期: </i> {{listCompleted.date}}</h2>
-          </div>
-        </div>
+        <h2><i>客户姓名:&emsp;</i> {{listCompleted.client.name}}</h2>
+        <h2><i>销售员:&emsp;</i> {{listCompleted.saler}}</h2>
+        <h2><i>工程师:&emsp;</i> {{listCompleted.engineer}}</h2>
+        <h2><i>创建日期:&emsp;</i> {{listCompleted.date}}</h2>
       </div>
     </ion-item>
   </ion-content>
