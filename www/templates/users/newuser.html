@@ -1,3 +1,37 @@
-<ion-view view-title="新建用户">
-</ion-view>
+<ion-view view-title="新建用户" >
 
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-content class="signup-page">
+
+    <label class="item item-input item-select">
+      <span class="input-label">角色</span>
+      <select ng-model="user.role">
+        <option value="">请选择</option>
+        <option value="manager">派单员</option>
+        <option value="saler">销售员</option>
+        <option value="engineer">工程师</option>
+        <option value="admin">管理员</option>
+      </select>
+    </label>
+
+    <label class="item item-input">
+      <span class="input-label">用户名</span>
+      <input type="text" ng-model="user.id">
+    </label>
+    <label class="item item-input">
+       <span class="input-label">密码</span>
+      <input type="password" ng-model="user.password">
+    </label>
+    <label class="item item-input">
+       <span class="input-label">确认密码</span>
+      <input type="password" ng-model="user.confirmPassword">
+    </label>
+          
+    <button class="button button-block button-positive" ng-click="newUser()">
+      新建
+    </button>
+  </ion-content>
+</ion-view>

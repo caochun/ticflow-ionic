@@ -54,15 +54,8 @@ angular.module('ticflow.services', ['ticflow.utils'])
                     password: password
                 });
             },
-            signup: function (id, password, role) {
-                return $http.post(base + '/users/signup', {
-                    id: id,
-                    password: password,
-                    role: role
-                });
-            },
 
-            login: function(id, role) {
+            login: function (id, role) {
                 $localStorage.set(userKey, {id: id, role: role});
                 $localStorage.set(authenticatedKey, true);
                 user = $localStorage.get(userKey);
@@ -83,26 +76,31 @@ angular.module('ticflow.services', ['ticflow.utils'])
                     params: query
                 });
             },
-            newList: function(list) {
-                return $http.post(base + '/lists', {
-                    list: list
+            signup: function (id, password, role) {
+                return $http.post(base + '/users/signup', {
+                    id: id,
+                    password: password,
+                    role: role
                 });
             },
 
-            getLists: function(query) {
+            newList: function (list) {
+                return $http.post(base + '/lists', list);
+            },
+            modifyList: function (_id, form) {
+                return $http.post(base + '/lists/' + _id, form);
+            },
+
+            getLists: function (query) {
                 return $http.get(base + '/lists', {
                     params: query
                 });
             },
-            getList: function(_id) {
+            getList: function (_id) {
                 return $http.get(base + '/lists/' + _id);
             },
 
-            submitList: function(_id) {
-                return $http.post(base + '/lists/' + _id, {
-                    completed: true
-                });
-            }
+            
         };
  });
 

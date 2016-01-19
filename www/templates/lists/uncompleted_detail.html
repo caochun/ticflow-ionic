@@ -8,6 +8,7 @@
 
 
   <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
     <label class="item item-input">
       <span class="input-label">客户姓名</span>
@@ -66,23 +67,31 @@
       <input type="text" ng-if="!isManager" disabled ng-model="list.serial_no" >
     </label>
 
-    <label class="item item-input item-select">
+    <label class="item item-input item-select" ng-if="isManager">
       <span class="input-label">销售员</span>
-      <select ng-model="list.saler" ng-if="isManager" ng-options="saler.id as saler.id for saler in salers">
+      <select ng-model="list.saler" ng-options="saler.id as saler.id for saler in salers">
         <option value="">请选择</option>
       </select>
-      <input type="text" ng-if="!isManager" disabled ng-model="list.saler" >
     </label>
+    <label class="item item-input" ng-if="!isManager">
+      <span class="input-label">销售员</span>
+      <input type="text" disabled ng-model="list.saler" >
+    </label>
+
     <label class="item item-input">
       <span class="input-label">分值</span>
       <input type="text" ng-if="isManager" ng-model="list.value" >
       <input type="text" ng-if="!isManager" disabled ng-model="list.value" >
     </label>
-    <label class="item item-input item-select">
+    
+    <label class="item item-input item-select" ng-if="isManager">
       <span class="input-label">工程师</span>
-      <select ng-model="list.engineer" ng-if="isManager" ng-options="engineer.id as engineer.id for engineer in engineers">
+      <select ng-model="list.engineer" ng-options="engineer.id as engineer.id for engineer in engineers">
         <option value="">请选择</option>
       </select>
+    </label>
+    <label class="item item-input" ng-if="!isManager">
+      <span class="input-label">工程师</span>
       <input type="text" ng-if="!isManager" disabled ng-model="list.engineer" >
     </label>
 

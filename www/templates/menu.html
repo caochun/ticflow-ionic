@@ -19,17 +19,17 @@
         <ion-item menu-close href="#/menu/newlist" class="item-icon-left" ng-show="isManager()">
           <a class="icon ion-plus-circled"></a>新建工单</ion-item>
         </ion-item>
-        <ion-item menu-close href="#/menu/uncompleted" class="item-icon-left" ng-show="showUncompleted()" ng-click="refreshListsUncompleted()">
+        <ion-item menu-close href="#/menu/uncompleted" class="item-icon-left" ng-show="showUncompleted()">
           <a class="icon ion-close-circled"></a>未完成工单</ion-item>
         </ion-item>
-	      <ion-item menu-close href="#/menu/completed" class="item-icon-left" ng-show="showCompleted()" ng-click="refreshListsCompleted()">
+	      <ion-item menu-close href="#/menu/completed" class="item-icon-left" ng-show="showCompleted()">
           <a class="icon ion-checkmark-circled"></a>已完成工单</ion-item>
         </ion-item>
-	      <ion-item menu-close href="#/menu/checked" class="item-icon-left" ng-show="showChecked()" ng-click="refreshListsChecked()">
+	      <ion-item menu-close href="#/menu/checked" class="item-icon-left" ng-show="showChecked()">
           <a class="icon ion-minus-circled"></a>已审核工单</ion-item>
         </ion-item>
 
-        <ion-item menu-close href="#/menu/users" class="item-icon-left" ng-show="isAdmin()" ng-click="refreshUsers()">
+        <ion-item menu-close href="#/menu/users" class="item-icon-left" ng-show="isAdmin()">
           <i class="icon ion-person"></i>用户管理</ion-item>
         </ion-item>
         <ion-item menu-close href="#/menu/newuser" class="item-icon-left" ng-show="isAdmin()">
