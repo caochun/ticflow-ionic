@@ -11,7 +11,7 @@
       <select ng-model="user.role">
         <option value="">请选择</option>
         <option value="manager">派单员</option>
-        <option value="saler">销售员</option>
+        <option value="saler">销售人员</option>
         <option value="engineer">工程师</option>
         <option value="admin">管理员</option>
       </select>
@@ -30,7 +30,7 @@
       <input type="password" ng-model="user.confirmPassword">
     </label>
           
-    <button class="button button-block button-positive" ng-click="newUser()">
+    <button class="button button-block button-positive" ng-click="createUser()">
       新建
     </button>
   </ion-content>

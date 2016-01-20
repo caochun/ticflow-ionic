@@ -136,3 +136,9 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/signin');
 });
+
+angular.module('ticflow.controllers', ['ticflow.services']);
+
+angular.module('ticflow.services', ['ticflow.utils']);
+
+angular.module('ticflow.utils', []);

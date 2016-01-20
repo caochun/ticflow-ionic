@@ -12,3 +12,8 @@
     padding: 13px 45px 15px 0;
     direction: ltr;
 }
+
+.inline {
+    display: inline;
+    text-align: center;
+}

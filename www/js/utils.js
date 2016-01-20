@@ -1,4 +1,4 @@
-angular.module('ticflow.utils', [])
+angular.module('ticflow.utils')
 
 .factory('$localStorage', ['$window', function($window) {
   return {

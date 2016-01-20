@@ -1,15 +1,15 @@
-angular.module('ticflow.services', ['ticflow.utils'])
+angular.module('ticflow.services')
  .factory('API', function ($rootScope, $http, $ionicLoading, $window, $localStorage) {
 
-       var userKey = 'user';
-       var authenticatedKey = 'authenticated';
-       var user = $localStorage.get(userKey);
+        var userKey = 'user';
+        var authenticatedKey = 'authenticated';
+        var user = $localStorage.get(userKey);
 
-       var base = "http://moon.nju.edu.cn:3000";
-       //var base = "http://114.212.83.15:3000"; //lzl wired network @ room 812
-       //var base = "http://localhost:3000";
+        //var base = "http://moon.nju.edu.cn:3000";
+        //var base = "http://114.212.83.15:3000"; //lzl wired network @ room 812
+        var base = "http://localhost:3000";
 
-       $rootScope.show = function (text) {
+        $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
                 template: text ? text : 'Loading',
             });
@@ -76,12 +76,15 @@ angular.module('ticflow.services', ['ticflow.utils'])
                     params: query
                 });
             },
-            signup: function (id, password, role) {
-                return $http.post(base + '/users/signup', {
+            createUser: function (id, password, role) {
+                return $http.post(base + '/users/create', {
                     id: id,
                     password: password,
                     role: role
                 });
+            },
+            removeUser: function (_id) {
+                return $http.post(base + '/users/remove/' + _id);
             },
 
             newList: function (list) {

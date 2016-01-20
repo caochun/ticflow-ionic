@@ -68,13 +68,13 @@
     </label>
 
     <label class="item item-input item-select" ng-if="isManager">
-      <span class="input-label">销售员</span>
+      <span class="input-label">销售人员</span>
       <select ng-model="list.saler" ng-options="saler.id as saler.id for saler in salers">
         <option value="">请选择</option>
       </select>
     </label>
     <label class="item item-input" ng-if="!isManager">
-      <span class="input-label">销售员</span>
+      <span class="input-label">销售人员</span>
       <input type="text" disabled ng-model="list.saler" >
     </label>
 
