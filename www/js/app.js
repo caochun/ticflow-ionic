@@ -131,6 +131,16 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
           controller: 'NewUserCtrl',
         }
       }
+    })
+
+    .state('menu.modifypassword', { //修改密码
+      url: '/modifypassword',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/modifypassword.html',
+          controller: 'ModifyPasswordCtrl',
+        }
+      }
     });
 
     // if none of the above states are matched, use this as the fallback

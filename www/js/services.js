@@ -86,6 +86,9 @@ angular.module('ticflow.services')
             removeUser: function (_id) {
                 return $http.post(base + '/users/remove/' + _id);
             },
+            updateUser: function (_id, form) {
+                return $http.post(base + '/users/update/' + _id, form);
+            },
 
             newList: function (list) {
                 return $http.post(base + '/lists', list);
