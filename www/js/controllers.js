@@ -175,7 +175,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
 //     $rootScope.$broadcast('refreshWorkloads');
 // })
 
-.controller('UncompletedCtrl', function ($rootScope, $scope, API, $window) {
+.controller('UncompletedCtrl', function ($rootScope, $scope, API, $window, $filter) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadUncompleted();
@@ -197,7 +197,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                     $scope.noData = true;
                 $scope.listsUncompleted = listsUncompleted;
                 $scope.listsUncompleted.forEach(function (entry) {
-                    entry.date = entry.date.substr(0, 10);
+                    entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
                 });
             })
             .error(function () {
@@ -212,7 +212,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     };
 })
 
-.controller('CompletedCtrl', function ($rootScope, $scope, API, $window) {
+.controller('CompletedCtrl', function ($rootScope, $scope, API, $window, $filter) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadCompleted();
@@ -234,7 +234,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                     $scope.noData = true;
                 $scope.listsCompleted = listsCompleted;
                 $scope.listsCompleted.forEach(function (entry) {
-                    entry.date = entry.date.substr(0, 10);
+                    entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
                 });
             })
             .error(function () {
@@ -249,7 +249,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     };
 })
 
-.controller('CheckedCtrl', function ($rootScope, $scope, API, $window) {
+.controller('CheckedCtrl', function ($rootScope, $scope, API, $window, $filter) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadChecked();
@@ -271,7 +271,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
                     $scope.noData = true;
                 $scope.listsChecked = listsChecked;
                 $scope.listsChecked.forEach(function (entry) {
-                    entry.date = entry.date.substr(0, 10);
+                    entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
                 });
             })
             .error(function () {
@@ -286,7 +286,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     };
 })
 
-.controller('UncompletedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup) {
+.controller('UncompletedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup, $filter) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadUncompletedDetail();
@@ -316,7 +316,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
         API.getList(_id)
             .success(function (list) {
                 $scope.list = list;
-                $scope.list.date = $scope.list.date.substr(0, 10);
+                $scope.list.date = $filter('date')($scope.list.date, "yyyy/MM/dd HH:mm");
                 $scope.list.completed = "未完成";
             })
             .error(function () {
@@ -373,7 +373,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     };
 })
 
-.controller('CompletedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup) {
+.controller('CompletedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup, $filter) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadCompletedDetail();
@@ -387,7 +387,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
         API.getList(_id)
             .success(function (list) {
                 $scope.list = list;
-                $scope.list.date = $scope.list.date.substr(0, 10);
+                $scope.list.date = $filter('date')($scope.list.date, "yyyy/MM/dd HH:mm");
                 $scope.list.completed = "已完成";
                 $scope.list.checked = "未审核";
             })
@@ -424,7 +424,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
     };
 })
 
-.controller('CheckedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams) {
+.controller('CheckedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $filter) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadCheckedDetail();
@@ -436,7 +436,7 @@ angular.module('ticflow.controllers', ['ticflow.services'])
         API.getList(_id)
             .success(function (list) {
                 $scope.list = list;
-                $scope.list.date = $scope.list.date.substr(0, 10);
+                $scope.list.date = $filter('date')($scope.list.date, "yyyy/MM/dd HH:mm");
                 $scope.list.completed = "已完成";
                 $scope.list.checked = "已审核";
             })

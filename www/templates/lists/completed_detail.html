@@ -1,4 +1,4 @@
-<ion-view view-title="工单详情">
+<ion-view view-title="详情">
 
   <ion-nav-bar class="bar-positive">
     <ion-nav-back-button class="button-icon ion-ios-arrow-back">
@@ -11,6 +11,10 @@
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
     <label class="item item-input">
+      <span class="input-label">客户单位</span>
+      <input type="text" disabled ng-model="list.client.unit" >
+    </label>
+    <label class="item item-input">
       <span class="input-label">客户姓名</span>
       <input type="text" disabled ng-model="list.client.name" >
     </label>
@@ -21,10 +25,6 @@
     <label class="item item-input">
       <span class="input-label">客户电话</span>
       <input type="tel" disabled ng-model="list.client.phone_no" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">客户单位</span>
-      <input type="text" disabled ng-model="list.client.unit" >
     </label>
 
     <label class="item item-input">
@@ -62,7 +62,7 @@
     </label>
     <label class="item item-input">
       <span class="input-label">分值</span>
-      <input type="text" disabled ng-model="list.value" >
+      <input type="number" disabled ng-model="list.value" >
     </label>
     <label class="item item-input">
       <span class="input-label">工程师</span>
@@ -70,7 +70,7 @@
     </label>
 
     <label class="item item-input">
-      <span class="input-label">创建日期</span>
+      <span class="input-label">创建时间</span>
       <input type="text" disabled ng-model="list.date" >
     </label>
     <label class="item item-input">

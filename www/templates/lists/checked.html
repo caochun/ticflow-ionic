@@ -1,4 +1,4 @@
-<ion-view view-title="已审核工单" >
+<ion-view view-title="已审核报修单" >
 
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -10,7 +10,7 @@
     <div class="card" ng-show="noData">
       <div class="item item-text-wrap">
         <span>
-          目前没有任何已审核工单
+          目前没有任何已审核报修单
         </span>
       </div>
     </div>
@@ -21,7 +21,7 @@
         <h2><i>客户姓名:&emsp;</i> {{listChecked.client.name}}</h2>
         <h2><i>销售员:&emsp;</i> {{listChecked.saler}}</h2>
         <h2><i>工程师:&emsp;</i> {{listChecked.engineer}}</h2>
-        <h2><i>创建日期:&emsp;</i> {{listChecked.date}}</h2>
+        <h2><i>创建时间:&emsp;</i> {{listChecked.date}}</h2>
       </div>
     </ion-item>
   </ion-content>

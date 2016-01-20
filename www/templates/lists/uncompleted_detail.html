@@ -1,4 +1,4 @@
-<ion-view view-title="工单详情">
+<ion-view view-title="详情">
 
   <ion-nav-bar class="bar-positive">
     <ion-nav-back-button class="button-icon ion-ios-arrow-back">
@@ -10,6 +10,11 @@
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
+    <label class="item item-input">
+      <span class="input-label">客户单位</span>
+      <input type="text" ng-if="isManager" ng-model="list.client.unit" >
+      <input type="text" ng-if="!isManager" disabled ng-model="list.client.unit" >
+    </label>
     <label class="item item-input">
       <span class="input-label">客户姓名</span>
       <input type="text" ng-if="isManager" ng-model="list.client.name" >
@@ -24,12 +29,7 @@
       <span class="input-label">客户电话</span>
       <input type="tel" ng-if="isManager" ng-model="list.client.phone_no" >
       <input type="tel" ng-if="!isManager" disabled ng-model="list.client.phone_no" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">客户单位</span>
-      <input type="text" ng-if="isManager" ng-model="list.client.unit" >
-      <input type="text" ng-if="!isManager" disabled ng-model="list.client.unit" >
-    </label>
+    </label>  
 
     <label class="item item-input">
       <span class="input-label">送货服务</span>
@@ -80,8 +80,8 @@
 
     <label class="item item-input">
       <span class="input-label">分值</span>
-      <input type="text" ng-if="isManager" ng-model="list.value" >
-      <input type="text" ng-if="!isManager" disabled ng-model="list.value" >
+      <input type="number" ng-if="isManager" ng-model="list.value" >
+      <input type="number" ng-if="!isManager" disabled ng-model="list.value" >
     </label>
     
     <label class="item item-input item-select" ng-if="isManager">
@@ -96,7 +96,7 @@
     </label>
 
     <label class="item item-input">
-      <span class="input-label">创建日期</span>
+      <span class="input-label">创建时间</span>
       <input type="text" disabled ng-model="list.date" >
     </label>
     <label class="item item-input">

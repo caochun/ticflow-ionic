@@ -43,7 +43,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       controller: 'MenuCtrl'
     })
 
-    .state('menu.newlist', { //新建工单
+    .state('menu.newlist', { //新建报修单
       url: '/newlist',
       views: {
         'menuContent': {
@@ -53,7 +53,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       }
     })
 
-    .state('menu.uncompleted', { //未完成工单
+    .state('menu.uncompleted', { //未完成报修单
       url: '/uncompleted',
       views: {
         'menuContent': {
@@ -63,7 +63,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       }
     })
 
-    .state('menu.completed', { //已完成工单
+    .state('menu.completed', { //已完成报修单
       url: '/completed',
       views: {
         'menuContent': {
@@ -73,7 +73,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       }
     })
 
-    .state('menu.checked', { //已审核工单
+    .state('menu.checked', { //已审核报修单
       url: '/checked',
       views: {
         'menuContent': {
@@ -83,7 +83,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       }
     })
 
-    .state('menu.uncompleted_detail', { //未完成工单详情
+    .state('menu.uncompleted_detail', { //未完成报修单详情
       url: '/uncompleted/:_id',
       views: {
         'menuContent': {
@@ -93,7 +93,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       }
     })
 
-    .state('menu.completed_detail', { //已完成工单详情
+    .state('menu.completed_detail', { //已完成报修单详情
       url: '/completed/:_id',
       views: {
         'menuContent': {
@@ -103,7 +103,7 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       }
     })
 
-    .state('menu.checked_detail', { //已审核工单详情
+    .state('menu.checked_detail', { //已审核报修单详情
       url: '/checked/:_id',
       views: {
         'menuContent': {
