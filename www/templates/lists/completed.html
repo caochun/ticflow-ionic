@@ -7,6 +7,19 @@
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
+    <label class="item item-input item-select" ng-show="isManager">
+      <span class="input-label">销售人员</span>
+      <select ng-model="select.saler" ng-options="saler.id as saler.id for saler in salers" ng-change="loadCompleted()">
+        <option value="">全部</option>
+      </select>
+    </label>
+    <label class="item item-input item-select" ng-show="isManager">
+      <span class="input-label">工程师</span>
+      <select ng-model="select.engineer" ng-options="engineer.id as engineer.id for engineer in engineers" ng-change="loadCompleted()">
+        <option value="">全部</option>
+      </select>
+    </label>
+
     <div class="card" ng-show="noData">
       <div class="item item-text-wrap">
         <span>
@@ -14,6 +27,14 @@
         </span>
       </div>
     </div>
+
+    <ion-item class="item" ng-show="!noData&&isEngineer">
+      <div class="item">
+        <h2>
+          <i>目前已完成但未审核报修单分值总计</i>{{totalValue}}<i>分</i>
+        </h2>
+      </div>
+    </ion-item>
 
     <ion-item class="item"  ng-repeat="listCompleted in listsCompleted" 
       ui-sref='menu.completed_detail({_id: listCompleted._id})'>
@@ -24,6 +45,7 @@
         <h2><i>创建时间:&emsp;</i> {{listCompleted.date}}</h2>
       </div>
     </ion-item>
+
   </ion-content>
 </ion-view>
 

@@ -16,28 +16,31 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/menu/newlist" class="item-icon-left" ng-show="isManager()">
-          <a class="icon ion-ios-plus-outline"></a>新建报修单</ion-item>
-        </ion-item>
-        <ion-item menu-close href="#/menu/uncompleted" class="item-icon-left" ng-show="showUncompleted()">
-          <a class="icon ion-ios-close-outline"></a>未完成报修单</ion-item>
-        </ion-item>
-	      <ion-item menu-close href="#/menu/completed" class="item-icon-left" ng-show="showCompleted()">
-          <a class="icon ion-ios-checkmark-outline"></a>已完成报修单</ion-item>
-        </ion-item>
-	      <ion-item menu-close href="#/menu/checked" class="item-icon-left" ng-show="showChecked()">
-          <a class="icon ion-ios-minus-outline"></a>已审核报修单</ion-item>
-        </ion-item>
-
         <ion-item menu-close href="#/menu/users" class="item-icon-left" ng-show="isAdmin()">
-          <i class="icon ion-ios-person-outline"></i>用户管理</ion-item>
+          <i class="icon ion-person"></i>用户管理</ion-item>
         </ion-item>
         <ion-item menu-close href="#/menu/newuser" class="item-icon-left" ng-show="isAdmin()">
-          <i class="icon ion-ios-personadd-outline"></i>新建用户</ion-item>
+          <i class="icon ion-person-add"></i>新建用户</ion-item>
+        </ion-item>
+
+        <ion-item menu-close href="#/menu/newlist" class="item-icon-left" ng-show="isManager()">
+          <a class="icon ion-compose"></a>新建报修单</ion-item>
+        </ion-item>
+        <!-- <ion-item menu-close href="#/menu/uncompleted" class="item-icon-left" ng-show="showUncompleted()"> -->
+        <ion-item menu-close href="#/menu/uncompleted" class="item-icon-left">
+          <a class="icon ion-wrench"></a>未完成报修单</ion-item>
+        </ion-item>
+	      <!-- <ion-item menu-close href="#/menu/completed" class="item-icon-left" ng-show="showCompleted()"> -->
+        <ion-item menu-close href="#/menu/completed" class="item-icon-left">
+          <a class="icon ion-clipboard"></a>已完成报修单</ion-item>
+        </ion-item>
+	      <!-- <ion-item menu-close href="#/menu/checked" class="item-icon-left" ng-show="showChecked()"> -->
+        <ion-item menu-close href="#/menu/checked" class="item-icon-left">
+          <a class="icon ion-folder"></a>已审核报修单</ion-item>
         </ion-item>
 
         <ion-item menu-close href="#/menu/modifypassword" class="item-icon-left">
-          <i class="icon ion-ios-locked-outline"></i>修改密码</ion-item>
+          <i class="icon ion-locked"></i>修改密码</ion-item>
         </ion-item>
       </ion-list>
     </ion-content>

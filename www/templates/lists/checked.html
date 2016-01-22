@@ -6,6 +6,19 @@
 
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+    <label class="item item-input item-select" ng-show="isManager">
+      <span class="input-label">销售人员</span>
+      <select ng-model="select.saler" ng-options="saler.id as saler.id for saler in salers" ng-change="loadChecked()">
+        <option value="">全部</option>
+      </select>
+    </label>
+    <label class="item item-input item-select" ng-show="isManager">
+      <span class="input-label">工程师</span>
+      <select ng-model="select.engineer" ng-options="engineer.id as engineer.id for engineer in engineers" ng-change="loadChecked()">
+        <option value="">全部</option>
+      </select>
+    </label>
     
     <div class="card" ng-show="noData">
       <div class="item item-text-wrap">
@@ -14,6 +27,14 @@
         </span>
       </div>
     </div>
+
+    <ion-item class="item" ng-show="!noData&&isEngineer">
+      <div class="item">
+        <h2>
+          <i>目前已审核报修单分值总计</i>{{totalValue}}<i>分</i>
+        </h2>
+      </div>
+    </ion-item>
 
     <ion-item class="item"  ng-repeat="listChecked in listsChecked" 
       ui-sref='menu.checked_detail({_id: listChecked._id})'>
@@ -24,6 +45,7 @@
         <h2><i>创建时间:&emsp;</i> {{listChecked.date}}</h2>
       </div>
     </ion-item>
+
   </ion-content>
 </ion-view>
 

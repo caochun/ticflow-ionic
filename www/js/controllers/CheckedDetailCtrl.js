@@ -13,6 +13,7 @@ angular.module('ticflow.controllers')
             .success(function (list) {
                 $scope.list = list;
                 $scope.list.date = $filter('date')($scope.list.date, "yyyy/MM/dd HH:mm");
+                $scope.list.completeTime = $filter('date')($scope.list.completeTime, "yyyy/MM/dd HH:mm");
                 $scope.list.completed = "已完成";
                 $scope.list.checked = "已审核";
             })

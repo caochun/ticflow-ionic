@@ -26,7 +26,7 @@ angular.module('ticflow.controllers')
             $scope.salers = salers;
         })
         .error(function () {
-            $rootScope.notify("获取销售列表失败！请检查您的网络！");
+            $rootScope.notify("获取销售人员列表失败！请检查您的网络！");
         });
     API.getUsers({role: 'engineer'})
         .success(function (engineers) {

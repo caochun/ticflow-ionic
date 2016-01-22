@@ -69,7 +69,7 @@ angular.module('ticflow.controllers')
                         if (!$scope.list.feedback) {
                             e.preventDefault();
                         } else {
-                            API.modifyList($scope.list._id, {feedback: $scope.list.feedback, completed: true})
+                            API.modifyList($scope.list._id, {completeTime: (new Date), feedback: $scope.list.feedback, completed: true})
                                 .success(function (list) {
                                     $rootScope.notify("提交成功!");
                                     $window.location.href = ('#/menu/uncompleted');
