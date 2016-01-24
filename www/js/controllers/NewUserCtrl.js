@@ -31,11 +31,19 @@ angular.module('ticflow.controllers')
         
         API.createUser($scope.user.id, $scope.user.password, $scope.user.role)
             .success(function (user) {
+                $scope.user = {
+                    id: "",
+                    password: "",
+                    confirmPassword: "",
+                    role: "",
+                };
                 $rootScope.notify("新建成功！");
                 $window.location.href = ('#/menu/users');
             })
             .error(function () {
                 $rootScope.notify("该用户名已存在！");
             });
+
+
     };
 });

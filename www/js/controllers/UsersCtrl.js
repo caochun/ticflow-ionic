@@ -48,7 +48,12 @@ angular.module('ticflow.controllers')
         $scope.loadUsers();
     };
 
-    $scope.removeUser = function (_id) {
+    $scope.removeUser = function (user) {
+        if (user.id == API.getId()) {
+            $rootScope.notify("不能删除自己！");
+            return false;
+        }
+        
         var confirmPopup = $ionicPopup.confirm({
             title: '确定删除该用户？',
             cancelText: '<b>取消</b>',
@@ -57,7 +62,7 @@ angular.module('ticflow.controllers')
 
         confirmPopup.then(function(res) {
             if(res) {
-                API.removeUser(_id)
+                API.removeUser(user._id)
                     .success(function (user) {
                         $rootScope.notify("删除成功！");
                         $scope.loadUsers();
