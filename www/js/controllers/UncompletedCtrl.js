@@ -6,11 +6,13 @@ angular.module('ticflow.controllers')
         saler: "",
         engineer: "",
     };
+    $scope.currentPage = 0;
+    $scope.limit = 5;
+    $scope.hasNextPage = false;
 
     $scope.$on('$ionicView.beforeEnter', function () {
 
         $scope.isManager = (API.getRole() == 'manager');
-        $scope.hasNextPage = false;
 
         API.getUsers({role: 'saler'})
             .success(function (salers) {
@@ -44,17 +46,27 @@ angular.module('ticflow.controllers')
                 query.engineer = $scope.select.engineer;
         }
 
+        $scope.currentPage = 0;
+        query.page = $scope.currentPage;
+        query.limit = $scope.limit;
+
         //console.log(JSON.stringify(query));
 
         API.getLists(query)
             .success(function (listsUncompleted) {
+                $scope.hasNextPage = listsUncompleted.length >= $scope.limit;
+                if ($scope.hasNextPage)
+                    $scope.currentPage ++;
+
                 $scope.noData = false;
                 if (listsUncompleted.length === 0)
                     $scope.noData = true;
-                $scope.listsUncompleted = listsUncompleted;
-                $scope.listsUncompleted.forEach(function (entry) {
+
+                listsUncompleted.forEach(function (entry) {
                     entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
                 });
+
+                $scope.listsUncompleted = listsUncompleted;
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -64,7 +76,40 @@ angular.module('ticflow.controllers')
     };
 
     $scope.loadMore = function () {
-        $rootScope.notify("loading!");
+        var query = {completed: false};
+        if (API.getRole() == 'saler')
+            query.saler = API.getId();
+        else if (API.getRole() == 'engineer')
+            query.engineer = API.getId();
+        else if ($scope.isManager) {
+            if ($scope.select.saler !== "")
+                query.saler = $scope.select.saler;
+            if ($scope.select.engineer !== "")
+                query.engineer = $scope.select.engineer;
+        }
+
+        query.page = $scope.currentPage;
+        query.limit = $scope.limit;
+
+        //console.log(JSON.stringify(query));
+
+        API.getLists(query)
+            .success(function (listsUncompleted) {
+                $scope.hasNextPage = listsUncompleted.length >= $scope.limit;
+                if ($scope.hasNextPage)
+                    $scope.currentPage ++;
+
+                listsUncompleted.forEach(function (entry) {
+                    entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
+                });
+
+                $scope.listsUncompleted = $scope.listsUncompleted.concat(listsUncompleted);
+            })
+            .error(function () {
+                $rootScope.notify("网络连接失败！请检查您的网络！");
+            }).finally(function () {
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            });
     };
 
     $scope.doRefresh = function () {

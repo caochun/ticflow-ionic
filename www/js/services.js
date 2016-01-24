@@ -105,7 +105,11 @@ angular.module('ticflow.services')
             getList: function (_id) {
                 return $http.get(base + '/lists/' + _id);
             },
-
+            getTotalValue: function (query) {
+                return $http.get(base + '/lists/totalvalue', {
+                    params: query
+                });
+            },
             
         };
  });
