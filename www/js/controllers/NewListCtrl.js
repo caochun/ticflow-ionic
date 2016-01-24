@@ -36,6 +36,27 @@ angular.module('ticflow.controllers')
             $rootScope.notify("获取工程师列表失败！请检查您的网络！");
         });
 
+    $scope.units = [];
+    $scope.names = [];
+    $scope.addresses = [];
+    $scope.phone_nos = [];
+    API.getClientInfo()
+        .success(function (lists) {
+            lists.forEach(function (entry) {
+                if ($scope.units.indexOf(entry.client.unit) == -1)
+                    $scope.units.push(entry.client.unit);
+                if ($scope.names.indexOf(entry.client.name) == -1)
+                    $scope.names.push(entry.client.name);
+                if ($scope.addresses.indexOf(entry.client.address) == -1)
+                    $scope.addresses.push(entry.client.address);
+                if ($scope.phone_nos.indexOf(entry.client.phone_no) == -1)
+                    $scope.phone_nos.push(entry.client.phone_no);
+            });
+        })
+        .error(function () {
+            $rootScope.notify("获取客户信息列表失败！请检查您的网络！");
+        });
+
     $scope.newList = function() {
         if (!$scope.list.client.name) {
             $rootScope.notify("客户姓名不能为空！");

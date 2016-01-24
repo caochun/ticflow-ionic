@@ -110,6 +110,9 @@ angular.module('ticflow.services')
                     params: query
                 });
             },
+            getClientInfo: function () {
+                return $http.get(base + '/lists/clientinfo');
+            },
             
         };
  });
