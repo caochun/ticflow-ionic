@@ -13,22 +13,25 @@ angular.module('ticflow.controllers')
     $scope.$on('$ionicView.beforeEnter', function () {
 
         $scope.isManager = (API.getRole() == 'manager');
+        $scope.isAdmin = (API.getRole() == 'admin');
 
-        API.getUsers({role: 'saler'})
-            .success(function (salers) {
-                $scope.salers = salers;
-            })
-            .error(function () {
-                $rootScope.notify("获取销售人员列表失败！请检查您的网络！");
-            });
+        if ($scope.isManager || $scope.isAdmin) {
+            API.getUsers({role: 'saler'})
+                .success(function (salers) {
+                    $scope.salers = salers;
+                })
+                .error(function () {
+                    $rootScope.notify("获取销售人员列表失败！请检查您的网络！");
+                });
 
-        API.getUsers({role: 'engineer'})
-            .success(function (engineers) {
-                $scope.engineers = engineers;
-            })
-            .error(function () {
-                $rootScope.notify("获取工程师列表失败！请检查您的网络！");
-            });
+            API.getUsers({role: 'engineer'})
+                .success(function (engineers) {
+                    $scope.engineers = engineers;
+                })
+                .error(function () {
+                    $rootScope.notify("获取工程师列表失败！请检查您的网络！");
+                });
+        }
 
         $scope.loadUncompleted();
     });
@@ -39,7 +42,7 @@ angular.module('ticflow.controllers')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
             query.engineer = API.getId();
-        else if ($scope.isManager) {
+        else if ($scope.isManager || $scope.isSaler) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
             if ($scope.select.engineer !== "")
@@ -81,7 +84,7 @@ angular.module('ticflow.controllers')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
             query.engineer = API.getId();
-        else if ($scope.isManager) {
+        else if ($scope.isManager || $scope.isSaler) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
             if ($scope.select.engineer !== "")

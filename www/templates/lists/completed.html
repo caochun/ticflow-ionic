@@ -7,13 +7,13 @@
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
-    <label class="item item-input item-select" ng-show="isManager">
+    <label class="item item-input item-select" ng-show="isManager || isAdmin">
       <span class="input-label">销售人员</span>
       <select ng-model="select.saler" ng-options="saler.id as saler.id for saler in salers" ng-change="loadCompleted()">
         <option value="">全部</option>
       </select>
     </label>
-    <label class="item item-input item-select" ng-show="isManager">
+    <label class="item item-input item-select" ng-show="isManager || isAdmin">
       <span class="input-label">工程师</span>
       <select ng-model="select.engineer" ng-options="engineer.id as engineer.id for engineer in engineers" ng-change="loadCompleted()">
         <option value="">全部</option>

@@ -13,9 +13,10 @@ angular.module('ticflow.controllers')
     $scope.$on('$ionicView.beforeEnter', function () {
 
         $scope.isManager = (API.getRole() == 'manager');
+        $scope.isAdmin = (API.getRole() == 'admin');
         $scope.isEngineer = (API.getRole() == 'engineer');
 
-        if ($scope.isManager) {
+        if ($scope.isManager || $scope.isAdmin) {
             API.getUsers({role: 'saler'})
                 .success(function (salers) {
                     $scope.salers = salers;
@@ -54,7 +55,7 @@ angular.module('ticflow.controllers')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
             query.engineer = API.getId();
-        else if ($scope.isManager) {
+        else if ($scope.isManager || $scope.isAdmin) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
             if ($scope.select.engineer !== "")
@@ -96,7 +97,7 @@ angular.module('ticflow.controllers')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
             query.engineer = API.getId();
-        else if ($scope.isManager) {
+        else if ($scope.isManager || $scope.isAdmin) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
             if ($scope.select.engineer !== "")
