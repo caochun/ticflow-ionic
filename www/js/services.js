@@ -5,9 +5,9 @@ angular.module('ticflow.services')
         var authenticatedKey = 'authenticated';
         var user = $localStorage.get(userKey);
 
-        //var base = "http://moon.nju.edu.cn:3000";
+        var base = "http://moon.nju.edu.cn:3000";
         //var base = "http://114.212.83.15:3000"; //lzl wired network @ room 812
-        var base = "http://localhost:3000";
+        //var base = "http://localhost:3000";
 
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
@@ -59,6 +59,7 @@ angular.module('ticflow.services')
                 $localStorage.set(userKey, {id: id, role: role});
                 $localStorage.set(authenticatedKey, true);
                 user = $localStorage.get(userKey);
+                $rootScope.$broadcast("login");
             },
             logout: function() {
                 $localStorage.remove(userKey);
@@ -104,6 +105,11 @@ angular.module('ticflow.services')
             },
             getList: function (_id) {
                 return $http.get(base + '/lists/' + _id);
+            },
+            getNumber: function (query) {
+                return $http.get(base + '/lists/number', {
+                    params: query
+                });
             },
             getTotalValue: function (query) {
                 return $http.get(base + '/lists/totalvalue', {
