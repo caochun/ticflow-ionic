@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('UncompletedCtrl', function ($rootScope, $scope, API, $window, $filter) {
+.controller('UnacceptedCtrl', function ($rootScope, $scope, API, $window, $filter) {
 
     $scope.select = {
         saler: "",
@@ -33,11 +33,11 @@ angular.module('ticflow.controllers')
                 });
         }
 
-        $scope.loadUncompleted();
+        $scope.loadUnaccepted();
     });
 
-    $scope.loadUncompleted = function () {
-        var query = {completed: false};
+    $scope.loadUnaccepted = function () {
+        var query = {accepted: false};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
@@ -56,20 +56,20 @@ angular.module('ticflow.controllers')
         //console.log(JSON.stringify(query));
 
         API.getLists(query)
-            .success(function (listsUncompleted) {
-                $scope.hasNextPage = listsUncompleted.length >= $scope.limit;
+            .success(function (listsUnaccepted) {
+                $scope.hasNextPage = listsUnaccepted.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
 
                 $scope.noData = false;
-                if (listsUncompleted.length === 0)
+                if (listsUnaccepted.length === 0)
                     $scope.noData = true;
 
-                listsUncompleted.forEach(function (entry) {
+                listsUnaccepted.forEach(function (entry) {
                     entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
                 });
 
-                $scope.listsUncompleted = listsUncompleted;
+                $scope.listsUnaccepted = listsUnaccepted;
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -79,7 +79,7 @@ angular.module('ticflow.controllers')
     };
 
     $scope.loadMore = function () {
-        var query = {completed: false};
+        var query = {accepted: false};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
@@ -97,16 +97,16 @@ angular.module('ticflow.controllers')
         //console.log(JSON.stringify(query));
 
         API.getLists(query)
-            .success(function (listsUncompleted) {
-                $scope.hasNextPage = listsUncompleted.length >= $scope.limit;
+            .success(function (listsUnaccepted) {
+                $scope.hasNextPage = listsUnaccepted.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
 
-                listsUncompleted.forEach(function (entry) {
+                listsUnaccepted.forEach(function (entry) {
                     entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
                 });
 
-                $scope.listsUncompleted = $scope.listsUncompleted.concat(listsUncompleted);
+                $scope.listsUnaccepted = $scope.listsUnaccepted.concat(listsUnaccepted);
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -116,6 +116,6 @@ angular.module('ticflow.controllers')
     };
 
     $scope.doRefresh = function () {
-        $scope.loadUncompleted();
+        $scope.loadUnaccepted();
     };
 });

@@ -5,8 +5,6 @@
     </ion-nav-back-button>
   </ion-nav-bar>
 
-
-
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
@@ -96,18 +94,25 @@
     </label>
 
     <label class="item item-input">
+      <span class="input-label">附件</span>
+      <input type="text" ng-if="isManager" ng-model="list.attached" >
+      <input type="text" ng-if="!isManager" disabled ng-model="list.attached" >
+    </label>
+
+    <label class="item item-input">
       <span class="input-label">创建时间</span>
       <input type="text" disabled ng-model="list.date" >
     </label>
-    <label class="item item-input">
-      <span class="input-label">是否完成</span>
-      <input type="text" disabled ng-model="list.completed" >
+
+    <label class="item item-input" ng-if="isEngineer">
+      <span class="input-label">上门时间</span>
+      <input type="datetime-local" ng-model="list.serveTime" >
     </label>
 
 
     <div class="padding">
       <button class="button button-block button-positive" ng-if="isManager" ng-click="modify()">修改</button>
-      <button class="button button-block button-positive" ng-if="isEngineer" ng-click="submit()">提交</button>
+      <button class="button button-block button-positive" ng-if="isEngineer" ng-click="accept()">接单</button>
     </div>
 
   </ion-content>

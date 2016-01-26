@@ -5,8 +5,6 @@
     </ion-nav-back-button>
   </ion-nav-bar>
 
-
-
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
@@ -16,7 +14,7 @@
     </label>
     <label class="item item-input">
       <span class="input-label">客户姓名</span>
-      <input type="text" disabled ng-model="list.client.name">
+      <input type="text" disabled ng-model="list.client.name" >
     </label>
     <label class="item item-input">
       <span class="input-label">客户地址</span>
@@ -25,7 +23,7 @@
     <label class="item item-input">
       <span class="input-label">客户电话</span>
       <input type="tel" disabled ng-model="list.client.phone_no" >
-    </label>
+    </label>  
 
     <label class="item item-input">
       <span class="input-label">送货服务</span>
@@ -53,7 +51,8 @@
     </label>
     <label class="item item-input">
       <span class="input-label">序列号</span>
-      <input type="text" disabled ng-model="list.serial_no" >
+      <input type="text" ng-if="isEngineer" ng-model="list.serial_no" >
+      <input type="text" ng-if="!isEngineer" disabled ng-model="list.serial_no" >
     </label>
 
     <label class="item item-input">
@@ -66,7 +65,7 @@
       <input type="number" ng-if="isManager" ng-model="list.value" >
       <input type="number" ng-if="!isManager" disabled ng-model="list.value" >
     </label>
-
+    
     <label class="item item-input">
       <span class="input-label">工程师</span>
       <input type="text" disabled ng-model="list.engineer" >
@@ -83,16 +82,17 @@
     </label>
 
     <label class="item item-input">
-      <span class="input-label">完成时间</span>
-      <input type="text" disabled ng-model="list.completeTime" >
+      <span class="input-label">上门时间</span>
+      <!-- <input type="text" ng-if="isEngineer" ng-model="list.serveTime" >
+      <input type="text" ng-if="!isEngineer" disabled ng-model="list.serveTime" > -->
+      <input type="text" disabled ng-model="list.serveTime" >
     </label>
-    <label class="item item-input">
-      <span class="input-label">反馈信息</span>
-      <input type="text" disabled ng-model="list.feedback" >
-    </label>
+
 
     <div class="padding">
       <button class="button button-block button-positive" ng-if="isManager" ng-click="modify()">修改分值</button>
+      <!-- <button class="button button-block button-positive" ng-if="isEngineer" ng-click="modify()">修改上门时间</button> -->
+      <button class="button button-block button-positive" ng-if="isEngineer" ng-click="submit()">提交完成</button>
     </div>
 
   </ion-content>

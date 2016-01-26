@@ -30,17 +30,16 @@ angular.module('ticflow.controllers')
                     $window.location.href = ('#/menu/newlist');
                 }
                 else if (user.role == 'saler' || user.role == 'engineer') {
-                    $window.location.href = ('#/menu/uncompleted');
-                    $rootScope.$broadcast('refreshListsUncompleted');
+                    $window.location.href = ('#/menu/accepted');
                 }
                 else {
                     $window.location.href = ('#/menu/users');
-                    $rootScope.$broadcast('refreshUsers');
                 }
             }).error(function () {
                 $rootScope.hide();
                 $rootScope.notify("登录失败！请检查您的网络！");
             });
+        $scope.user.password = "";
     };
  
 });

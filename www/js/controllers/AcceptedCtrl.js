@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('CompletedCtrl', function ($rootScope, $scope, API, $window, $filter) {
+.controller('AcceptedCtrl', function ($rootScope, $scope, API, $window, $filter) {
 
     $scope.select = {
         saler: "",
@@ -33,17 +33,16 @@ angular.module('ticflow.controllers')
                 });
         }
 
-        $scope.loadCompleted();
+        $scope.loadAccepted();
     });
-    
-    $scope.loadCompleted = function () {
-        
-        var query = {accepted: true, completed: true, checked: false};
+
+    $scope.loadAccepted = function () {
+        var query = {accepted: true, completed: false};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
             query.engineer = API.getId();
-        else if ($scope.isManager || $scope.isAdmin) {
+        else if ($scope.isManager || $scope.isSaler) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
             if ($scope.select.engineer !== "")
@@ -57,19 +56,20 @@ angular.module('ticflow.controllers')
         //console.log(JSON.stringify(query));
 
         API.getLists(query)
-            .success(function (listsCompleted) {
-                $scope.hasNextPage = listsCompleted.length >= $scope.limit;
+            .success(function (listsAccepted) {
+                $scope.hasNextPage = listsAccepted.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
 
                 $scope.noData = false;
-                if (listsCompleted.length === 0)
+                if (listsAccepted.length === 0)
                     $scope.noData = true;
 
-                listsCompleted.forEach(function (entry) {
-                    entry.completeTime = $filter('date')(entry.completeTime, "yyyy/MM/dd HH:mm");
+                listsAccepted.forEach(function (entry) {
+                    entry.acceptTime = $filter('date')(entry.acceptTime, "yyyy/MM/dd HH:mm");
                 });
-                $scope.listsCompleted = listsCompleted;
+
+                $scope.listsAccepted = listsAccepted;
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -79,13 +79,12 @@ angular.module('ticflow.controllers')
     };
 
     $scope.loadMore = function () {
-
-        var query = {accepted: true, completed: true, checked: false};
+        var query = {accepted: true, completed: false};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
             query.engineer = API.getId();
-        else if ($scope.isManager || $scope.isAdmin) {
+        else if ($scope.isManager || $scope.isSaler) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
             if ($scope.select.engineer !== "")
@@ -98,15 +97,16 @@ angular.module('ticflow.controllers')
         //console.log(JSON.stringify(query));
 
         API.getLists(query)
-            .success(function (listsCompleted) {
-                $scope.hasNextPage = listsCompleted.length >= $scope.limit;
+            .success(function (listsAccepted) {
+                $scope.hasNextPage = listsAccepted.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
 
-                listsCompleted.forEach(function (entry) {
-                    entry.completeTime = $filter('date')(entry.completeTime, "yyyy/MM/dd HH:mm");
+                listsAccepted.forEach(function (entry) {
+                    entry.acceptTime = $filter('date')(entry.acceptTime, "yyyy/MM/dd HH:mm");
                 });
-                $scope.listsCompleted = $scope.listsCompleted.concat(listsCompleted);
+
+                $scope.listsAccepted = $scope.listsAccepted.concat(listsAccepted);
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -116,6 +116,6 @@ angular.module('ticflow.controllers')
     };
 
     $scope.doRefresh = function () {
-        $scope.loadCompleted();
+        $scope.loadAccepted();
     };
 });

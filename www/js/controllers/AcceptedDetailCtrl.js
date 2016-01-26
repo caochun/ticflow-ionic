@@ -1,29 +1,14 @@
 angular.module('ticflow.controllers')
 
-.controller('UncompletedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup, $filter) {
+.controller('AcceptedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup, $filter) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.loadUncompletedDetail();
+        $scope.loadAcceptedDetail();
     });
 
-    $scope.loadUncompletedDetail = function () {
+    $scope.loadAcceptedDetail = function () {
         $scope.isManager = (API.getRole() == 'manager');
         $scope.isEngineer = (API.getRole() == 'engineer');
-
-        API.getUsers({role: 'saler'})
-            .success(function (salers) {
-                $scope.salers = salers;
-            })
-            .error(function () {
-                $rootScope.notify("获取销售列表失败！请检查您的网络！");
-            });
-        API.getUsers({role: 'engineer'})
-            .success(function (engineers) {
-                $scope.engineers = engineers;
-            })
-            .error(function () {
-                $rootScope.notify("获取工程师列表失败！请检查您的网络！");
-            });
 
         var _id = $stateParams._id;
 
@@ -31,7 +16,7 @@ angular.module('ticflow.controllers')
             .success(function (list) {
                 $scope.list = list;
                 $scope.list.date = $filter('date')($scope.list.date, "yyyy/MM/dd HH:mm");
-                $scope.list.completed = "未完成";
+                $scope.list.serveTime = $filter('date')($scope.list.serveTime, "yyyy/MM/dd HH:mm");
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -41,11 +26,10 @@ angular.module('ticflow.controllers')
     };
 
     $scope.doRefresh = function () {
-        $scope.loadUncompletedDetail();
+        $scope.loadAcceptedDetail();
     };
 
     $scope.modify = function () {
-        $scope.list.completed = false;
         API.modifyList($scope.list._id, $scope.list)
             .success(function (list) {
                 $rootScope.notify("修改成功!");
@@ -56,6 +40,11 @@ angular.module('ticflow.controllers')
     };
 
     $scope.submit = function () {
+        if (!$scope.list.serial_no) {
+            $rootScope.notify("请输入序列号！");
+            return false;
+        }
+
         var myPopup = $ionicPopup.show({
             template: '<input type="text" ng-model="list.feedback">',
             title: '请输入提交反馈信息',
@@ -69,10 +58,10 @@ angular.module('ticflow.controllers')
                         if (!$scope.list.feedback) {
                             e.preventDefault();
                         } else {
-                            API.modifyList($scope.list._id, {completeTime: (new Date), feedback: $scope.list.feedback, completed: true})
+                            API.modifyList($scope.list._id, {serial_no: $scope.list.serial_no, completed: true, completeTime: new Date(), feedback: $scope.list.feedback})
                                 .success(function (list) {
                                     $rootScope.notify("提交成功!");
-                                    $window.location.href = ('#/menu/uncompleted');
+                                    $window.location.href = ('#/menu/accepted');
                                 })
                                 .error(function () {
                                     $rootScope.notify("提交失败！请检查您的网络！");
@@ -82,7 +71,5 @@ angular.module('ticflow.controllers')
                 }
             ]
         });
-
-        
     };
 });

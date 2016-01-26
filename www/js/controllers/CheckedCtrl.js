@@ -35,13 +35,13 @@ angular.module('ticflow.controllers')
         }
 
         if ($scope.isEngineer) {
-            var query = {checked: true, engineer: API.getId()};
+            var query = {accepted: true, completed: true, checked: true, engineer: API.getId(), checkMonth: $filter('date')(new Date(), "yyyy/MM")};
             API.getTotalValue(query)
                 .success(function (totalValue) {
                     $scope.totalValue = totalValue;
                 })
                 .error(function () {
-                    $rootScope.notify("获取已审核报修单总分失败！请检查您的网络！");
+                    $rootScope.notify("获取本月已审核报修单总分失败！请检查您的网络！");
                 });
         }
 
@@ -50,7 +50,7 @@ angular.module('ticflow.controllers')
 
     $scope.loadChecked = function () {
 
-        var query = {checked: true};
+        var query = {accepted: true, completed: true, checked: true};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
@@ -79,7 +79,7 @@ angular.module('ticflow.controllers')
                     $scope.noData = true;
 
                 listsChecked.forEach(function (entry) {
-                    entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
+                    entry.checkTime = $filter('date')(entry.checkTime, "yyyy/MM/dd HH:mm");
                 });
                 $scope.listsChecked = listsChecked;
             })
@@ -92,7 +92,7 @@ angular.module('ticflow.controllers')
 
     $scope.loadMore = function () {
 
-        var query = {checked: true};
+        var query = {accepted: true, completed: true, checked: true};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
@@ -116,7 +116,7 @@ angular.module('ticflow.controllers')
                     $scope.currentPage ++;
 
                 listsChecked.forEach(function (entry) {
-                    entry.date = $filter('date')(entry.date, "yyyy/MM/dd HH:mm");
+                    entry.checkTime = $filter('date')(entry.checkTime, "yyyy/MM/dd HH:mm");
                 });
                 $scope.listsChecked = $scope.listsChecked.concat(listsChecked);
             })

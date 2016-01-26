@@ -10,8 +10,8 @@
   </ion-side-menu-content>
 
   <ion-side-menu>
-    <ion-header-bar class="bar-positive">
-      <h1 class="title">功能</h1>
+    <ion-header-bar align-title="left" class="bar-positive">
+      <h1 class="title">{{username}}</h1>
       <button class="button button-clear" ng-click="logout()">注销</button>
     </ion-header-bar>
     <ion-content>
@@ -24,20 +24,21 @@
           <i class="icon ion-person-add"></i>
           新建用户
         </ion-item>
-
         <ion-item menu-close href="#/menu/newlist" class="item-icon-left" ng-show="isManager()">
           <a class="icon ion-compose"></a>
           新建报修单
         </ion-item>
-        <ion-item menu-close href="#/menu/uncompleted" class="item-icon-left">
+        <ion-item menu-close href="#/menu/unaccepted" class="item-icon-left" ng-show="!isSaler()">
           <a class="icon ion-wrench"></a>
-          未完成报修单
-          <span class="badge badge-assertive" ng-if="isEngineer()">{{uncompletedNumber}}</span>
+          未接报修单
+        </ion-item>
+        <ion-item menu-close href="#/menu/accepted" class="item-icon-left">
+          <a class="icon ion-wrench"></a>
+          已接报修单
         </ion-item>
         <ion-item menu-close href="#/menu/completed" class="item-icon-left">
           <a class="icon ion-clipboard"></a>
           已完成报修单
-          <span class="badge badge-assertive" ng-if="isSaler()">{{completedNumber}}</span>
         </ion-item>
         <ion-item menu-close href="#/menu/checked" class="item-icon-left">
           <a class="icon ion-folder"></a>

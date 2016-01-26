@@ -1,4 +1,4 @@
-<ion-view view-title="已完成报修单" >
+<ion-view view-title="未接报修单" >
 
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -9,13 +9,13 @@
 
     <label class="item item-input item-select" ng-show="isManager || isAdmin">
       <span class="input-label">销售人员</span>
-      <select ng-model="select.saler" ng-options="saler.id as saler.id for saler in salers" ng-change="loadCompleted()">
+      <select ng-model="select.saler" ng-options="saler.id as saler.id for saler in salers" ng-change="loadUnaccepted()">
         <option value="">全部</option>
       </select>
     </label>
     <label class="item item-input item-select" ng-show="isManager || isAdmin">
       <span class="input-label">工程师</span>
-      <select ng-model="select.engineer" ng-options="engineer.id as engineer.id for engineer in engineers" ng-change="loadCompleted()">
+      <select ng-model="select.engineer" ng-options="engineer.id as engineer.id for engineer in engineers" ng-change="loadUnaccepted()">
         <option value="">全部</option>
       </select>
     </label>
@@ -23,24 +23,23 @@
     <div class="card" ng-show="noData">
       <div class="item item-text-wrap">
         <span>
-          目前没有任何已完成但未审核报修单
+          目前没有任何未接报修单
         </span>
       </div>
     </div>
 
-    <ion-item class="item"  ng-repeat="listCompleted in listsCompleted" 
-      ui-sref='menu.completed_detail({_id: listCompleted._id})'>
+    <ion-item class="item" ng-repeat="listUnaccepted in listsUnaccepted" ui-sref='menu.unaccepted_detail({_id: listUnaccepted._id})'>
       <div class="item">
-        <h2><i>客户姓名:&emsp;</i> {{listCompleted.client.name}}</h2>
-        <h2><i>销售人员:&emsp;</i> {{listCompleted.saler}}</h2>
-        <h2><i>工程师:&emsp;</i> {{listCompleted.engineer}}</h2>
-        <h2><i>完成时间:&emsp;</i> {{listCompleted.completeTime}}</h2>
+        <h2><i>客户姓名:&emsp;</i> {{listUnaccepted.client.name}}</h2>
+        <h2><i>销售人员:&emsp;</i> {{listUnaccepted.saler}}</h2>
+        <h2><i>工程师:&emsp;</i> {{listUnaccepted.engineer}}</h2>
+        <h2><i>创建时间:&emsp;</i> {{listUnaccepted.date}}</h2>
       </div>
     </ion-item>
 
     <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-load-c" ng-if="hasNextPage">
     </ion-infinite-scroll>
 
-  </ion-content>
+  </ionic-content>
 </ion-view>
 

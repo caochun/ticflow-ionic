@@ -53,12 +53,22 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       }
     })
 
-    .state('menu.uncompleted', { //未完成报修单
-      url: '/uncompleted',
+    .state('menu.unaccepted', { //未接报修单
+      url: '/unaccepted',
       views: {
         'menuContent': {
-          templateUrl: 'templates/lists/uncompleted.html',
-          controller: 'UncompletedCtrl',
+          templateUrl: 'templates/lists/unaccepted.html',
+          controller: 'UnacceptedCtrl',
+        }
+      }
+    })
+
+    .state('menu.accepted', { //已接报修单
+      url: '/accepted',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/accepted.html',
+          controller: 'AcceptedCtrl',
         }
       }
     })
@@ -83,12 +93,22 @@ angular.module('ticflow', ['ionic', 'ticflow.controllers', 'ticflow.services'])
       }
     })
 
-    .state('menu.uncompleted_detail', { //未完成报修单详情
-      url: '/uncompleted/:_id',
+    .state('menu.unaccepted_detail', { //未接报修单详情
+      url: '/unaccepted/:_id',
       views: {
         'menuContent': {
-          templateUrl: 'templates/lists/uncompleted_detail.html',
-          controller: 'UncompletedDetailCtrl',
+          templateUrl: 'templates/lists/unaccepted_detail.html',
+          controller: 'UnacceptedDetailCtrl',
+        }
+      }
+    })
+
+    .state('menu.accepted_detail', { //已接报修单详情
+      url: '/accepted/:_id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/accepted_detail.html',
+          controller: 'AcceptedDetailCtrl',
         }
       }
     })
