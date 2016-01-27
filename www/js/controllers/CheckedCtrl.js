@@ -5,6 +5,7 @@ angular.module('ticflow.controllers')
     $scope.select = {
         saler: "",
         engineer: "",
+        month: "",
     };
     $scope.currentPage = 0;
     $scope.limit = 5;
@@ -14,7 +15,10 @@ angular.module('ticflow.controllers')
 
         $scope.isManager = (API.getRole() == 'manager');
         $scope.isAdmin = (API.getRole() == 'admin');
+        $scope.isSaler = (API.getRole() == 'saler');
         $scope.isEngineer = (API.getRole() == 'engineer');
+
+        $scope.select.month = $filter('date')(new Date(), "yyyy-MM");
 
         if ($scope.isManager || $scope.isAdmin) {
             API.getUsers({role: 'saler'})
@@ -34,33 +38,50 @@ angular.module('ticflow.controllers')
                 });
         }
 
-        if ($scope.isEngineer) {
-            var query = {accepted: true, completed: true, checked: true, engineer: API.getId(), checkMonth: $filter('date')(new Date(), "yyyy/MM")};
-            API.getTotalValue(query)
-                .success(function (totalValue) {
-                    $scope.totalValue = totalValue;
-                })
-                .error(function () {
-                    $rootScope.notify("获取本月已审核报修单总分失败！请检查您的网络！");
-                });
-        }
+        API.getMonths()
+            .success(function (months) {
+                months.push($scope.select.month);
+                $scope.months = months.sort().reverse();
+            })
+            .error(function () {
+                $rootScope.notify("获取月份列表失败！请检查您的网络！");
+            });
 
         $scope.loadChecked();
     });
 
     $scope.loadChecked = function () {
 
-        var query = {accepted: true, completed: true, checked: true};
-        if (API.getRole() == 'saler')
+        var query = {checked: true}, queryV = {checked: true};
+        if ($scope.isSaler) {
             query.saler = API.getId();
-        else if (API.getRole() == 'engineer')
-            query.engineer = API.getId();
-        else if ($scope.isManager || $scope.isAdmin) {
-            if ($scope.select.saler !== "")
-                query.saler = $scope.select.saler;
-            if ($scope.select.engineer !== "")
-                query.engineer = $scope.select.engineer;
+            queryV.saler = API.getId();
         }
+        else if ($scope.isEngineer) {
+            query.engineer = API.getId();
+            queryV.engineer = API.getId();
+        }
+        else if ($scope.isManager || $scope.isAdmin) {
+            if ($scope.select.saler !== "") {
+                query.saler = $scope.select.saler;
+                queryV.saler = $scope.select.saler;
+            }
+            if ($scope.select.engineer !== "") {
+                query.engineer = $scope.select.engineer;
+                queryV.engineer = $scope.select.engineer;
+            }
+        }
+        if ($scope.select.month !== "") {
+            query.checkMonth = $scope.select.month;
+            queryV.checkMonth = $scope.select.month;
+        }
+        API.getTotalValue(queryV)
+            .success(function (totalValue) {
+                $scope.totalValue = totalValue;
+            })
+            .error(function () {
+                $rootScope.notify("获取已审核报修单总分失败！请检查您的网络！");
+            });
 
         $scope.currentPage = 0;
         query.page = $scope.currentPage;
@@ -74,12 +95,8 @@ angular.module('ticflow.controllers')
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
 
-                $scope.noData = false;
-                if (listsChecked.length === 0)
-                    $scope.noData = true;
-
                 listsChecked.forEach(function (entry) {
-                    entry.checkTime = $filter('date')(entry.checkTime, "yyyy/MM/dd HH:mm");
+                    entry.checkTime = $filter('date')(entry.checkTime, "yyyy-MM-dd HH:mm");
                 });
                 $scope.listsChecked = listsChecked;
             })
@@ -92,7 +109,7 @@ angular.module('ticflow.controllers')
 
     $scope.loadMore = function () {
 
-        var query = {accepted: true, completed: true, checked: true};
+        var query = {checked: true};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
@@ -103,6 +120,8 @@ angular.module('ticflow.controllers')
             if ($scope.select.engineer !== "")
                 query.engineer = $scope.select.engineer;
         }
+        if ($scope.select.month !== "")
+            query.checkMonth = $scope.select.month;
 
         query.page = $scope.currentPage;
         query.limit = $scope.limit;
@@ -116,7 +135,7 @@ angular.module('ticflow.controllers')
                     $scope.currentPage ++;
 
                 listsChecked.forEach(function (entry) {
-                    entry.checkTime = $filter('date')(entry.checkTime, "yyyy/MM/dd HH:mm");
+                    entry.checkTime = $filter('date')(entry.checkTime, "yyyy-MM-dd HH:mm");
                 });
                 $scope.listsChecked = $scope.listsChecked.concat(listsChecked);
             })

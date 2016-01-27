@@ -66,7 +66,7 @@ angular.module('ticflow.controllers')
                     $scope.noData = true;
 
                 listsAccepted.forEach(function (entry) {
-                    entry.acceptTime = $filter('date')(entry.acceptTime, "yyyy/MM/dd HH:mm");
+                    entry.acceptTime = $filter('date')(entry.acceptTime, "yyyy-MM-dd HH:mm");
                 });
 
                 $scope.listsAccepted = listsAccepted;
@@ -103,7 +103,7 @@ angular.module('ticflow.controllers')
                     $scope.currentPage ++;
 
                 listsAccepted.forEach(function (entry) {
-                    entry.acceptTime = $filter('date')(entry.acceptTime, "yyyy/MM/dd HH:mm");
+                    entry.acceptTime = $filter('date')(entry.acceptTime, "yyyy-MM-dd HH:mm");
                 });
 
                 $scope.listsAccepted = $scope.listsAccepted.concat(listsAccepted);

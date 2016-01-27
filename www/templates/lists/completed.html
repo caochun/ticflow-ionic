@@ -20,13 +20,13 @@
       </select>
     </label>
 
-    <div class="card" ng-show="noData">
-      <div class="item item-text-wrap">
-        <span>
-          目前没有任何已完成但未审核报修单
-        </span>
+    <ion-item class="item" ng-if="noData">
+      <div class="item">
+        <h2>
+          <i>目前没有任何已完成但未审核报修单</i>
+        </h2>
       </div>
-    </div>
+    </ion-item>
 
     <ion-item class="item"  ng-repeat="listCompleted in listsCompleted" 
       ui-sref='menu.completed_detail({_id: listCompleted._id})'>

@@ -16,8 +16,8 @@ angular.module('ticflow.controllers')
             .success(function (list) {
                 console.log(JSON.stringify(list));
                 $scope.list = list;
-                $scope.list.date = $filter('date')($scope.list.date, "yyyy/MM/dd HH:mm");
-                $scope.list.completeTime = $filter('date')($scope.list.completeTime, "yyyy/MM/dd HH:mm");
+                $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
+                $scope.list.completeTime = $filter('date')($scope.list.completeTime, "yyyy-MM-dd HH:mm");
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -49,7 +49,7 @@ angular.module('ticflow.controllers')
 
         confirmPopup.then(function(res) {
             if(res) {
-                API.modifyList($scope.list._id, {checked: true, checkTime: new Date(), checkMonth: $filter('date')(new Date(), "yyyy/MM")})
+                API.modifyList($scope.list._id, {checked: true, checkTime: new Date(), checkMonth: $filter('date')(new Date(), "yyyy-MM")})
                     .success(function (list) {
                         $rootScope.notify("审核成功!");
                         $window.location.href = ('#/menu/completed');

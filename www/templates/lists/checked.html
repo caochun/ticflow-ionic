@@ -19,19 +19,17 @@
         <option value="">全部</option>
       </select>
     </label>
-    
-    <div class="card" ng-show="noData">
-      <div class="item item-text-wrap">
-        <span>
-          目前没有任何已审核报修单
-        </span>
-      </div>
-    </div>
+    <label class="item item-input item-select">
+      <span class="input-label">月份</span>
+      <select ng-model="select.month" ng-options="month as month for month in months" ng-change="loadChecked()">
+        <option value="">全部</option>
+      </select>
+    </label>
 
-    <ion-item class="item" ng-show="!noData&&isEngineer">
+    <ion-item class="item">
       <div class="item">
         <h2>
-          <i>本月已审核报修单分值总计</i>{{totalValue}}<i>分</i>
+          <i>当月已审核报修单分值总计</i>{{totalValue}}<i>分</i>
         </h2>
       </div>
     </ion-item>

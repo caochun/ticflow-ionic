@@ -67,7 +67,7 @@ angular.module('ticflow.controllers')
                     $scope.noData = true;
 
                 listsCompleted.forEach(function (entry) {
-                    entry.completeTime = $filter('date')(entry.completeTime, "yyyy/MM/dd HH:mm");
+                    entry.completeTime = $filter('date')(entry.completeTime, "yyyy-MM-dd HH:mm");
                 });
                 $scope.listsCompleted = listsCompleted;
             })
@@ -104,7 +104,7 @@ angular.module('ticflow.controllers')
                     $scope.currentPage ++;
 
                 listsCompleted.forEach(function (entry) {
-                    entry.completeTime = $filter('date')(entry.completeTime, "yyyy/MM/dd HH:mm");
+                    entry.completeTime = $filter('date')(entry.completeTime, "yyyy-MM-dd HH:mm");
                 });
                 $scope.listsCompleted = $scope.listsCompleted.concat(listsCompleted);
             })

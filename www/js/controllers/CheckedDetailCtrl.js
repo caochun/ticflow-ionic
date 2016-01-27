@@ -15,8 +15,8 @@ angular.module('ticflow.controllers')
             .success(function (list) {
                 console.log(JSON.stringify(list));
                 $scope.list = list;
-                $scope.list.date = $filter('date')($scope.list.date, "yyyy/MM/dd HH:mm");
-                $scope.list.completeTime = $filter('date')($scope.list.completeTime, "yyyy/MM/dd HH:mm");
+                $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
+                $scope.list.completeTime = $filter('date')($scope.list.completeTime, "yyyy-MM-dd HH:mm");
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");

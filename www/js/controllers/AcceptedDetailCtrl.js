@@ -15,8 +15,8 @@ angular.module('ticflow.controllers')
         API.getList(_id)
             .success(function (list) {
                 $scope.list = list;
-                $scope.list.date = $filter('date')($scope.list.date, "yyyy/MM/dd HH:mm");
-                $scope.list.serveTime = $filter('date')($scope.list.serveTime, "yyyy/MM/dd HH:mm");
+                $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
+                $scope.list.serveTime = $filter('date')($scope.list.serveTime, "yyyy-MM-dd HH:mm");
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
