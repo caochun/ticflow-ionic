@@ -1,0 +1,31 @@
+<ion-view view-title="分值改动">
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+    <ion-item class="item" ng-if="noData">
+      <div class="item">
+        <h2>
+          <i>目前没有任何分值改动信息</i>
+        </h2>
+      </div>
+    </ion-item>
+
+    <ion-item class="item" ng-repeat="valuechange in valuechanges" ui-sref='menu.valuechange_detail({_id: valuechange._id})'>
+      <div class="item">
+        <h2><i>修改人员:&emsp;</i> {{valuechange.manager}}</h2>
+        <h2><i>旧分值:&emsp;</i> {{valuechange.oldValue}}<i>分</i></h2>
+        <h2><i>新分值:&emsp;</i> {{valuechange.newValue}}<i>分</i></h2>
+        <h2><i>修改时间:&emsp;</i> {{valuechange.date}}</h2>
+      </div>
+    </ion-item>
+
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-load-c" ng-if="hasNextPage">
+    </ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>

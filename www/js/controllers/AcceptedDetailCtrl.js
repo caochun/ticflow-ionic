@@ -2,6 +2,10 @@ angular.module('ticflow.controllers')
 
 .controller('AcceptedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup, $filter) {
 
+    $scope.record = {
+        oldValue: "",
+    };
+
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadAcceptedDetail();
     });
@@ -17,6 +21,7 @@ angular.module('ticflow.controllers')
                 $scope.list = list;
                 $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
                 $scope.list.serveTime = $filter('date')($scope.list.serveTime, "yyyy-MM-dd HH:mm");
+                $scope.record.oldValue = $scope.list.value;
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -30,13 +35,25 @@ angular.module('ticflow.controllers')
     };
 
     $scope.modify = function () {
-        API.modifyList($scope.list._id, $scope.list)
-            .success(function (list) {
-                $rootScope.notify("修改成功!");
-            })
-            .error(function () {
-                $rootScope.notify("修改失败！请检查您的网络！");
-            });
+        if ($scope.list.value !== $scope.record.oldValue) {
+            API.modifyList($scope.list._id, $scope.list)
+                .success(function (list) {
+                    $rootScope.notify("修改成功!");
+                })
+                .error(function () {
+                    $rootScope.notify("修改失败！请检查您的网络！");
+                });
+            API.newValueChange($scope.record.oldValue, $scope.list.value, API.getId(), $scope.list._id)
+                .success(function (valuechange) {
+                    $scope.record.oldValue = $scope.list.value;
+                    console.log(JSON.stringify(valuechange));
+                })
+                .error(function () {
+                    $rootScope.notify("新建分值改动信息失败！请检查您的网络！");
+                });
+        } else {
+            $rootScope.notify("分值未改动!");
+        }
     };
 
     $scope.submit = function () {

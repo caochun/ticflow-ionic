@@ -16,13 +16,9 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/menu/users" class="item-icon-left" ng-show="isAdmin()">
-          <i class="icon ion-person"></i>
-          用户管理
-        </ion-item>
-        <ion-item menu-close href="#/menu/newuser" class="item-icon-left" ng-show="isAdmin()">
-          <i class="icon ion-person-add"></i>
-          新建用户
+        <ion-item menu-close href="#/menu/valuechange" class="item-icon-left" ng-show="isAdmin()">
+          <a class="icon ion-compose"></a>
+          分值改动
         </ion-item>
         <ion-item menu-close href="#/menu/newlist" class="item-icon-left" ng-show="isManager()">
           <a class="icon ion-compose"></a>
@@ -43,6 +39,14 @@
         <ion-item menu-close href="#/menu/checked" class="item-icon-left">
           <a class="icon ion-folder"></a>
           已审核报修单
+        </ion-item>
+        <ion-item menu-close href="#/menu/users" class="item-icon-left" ng-show="isAdmin()">
+          <i class="icon ion-person"></i>
+          用户管理
+        </ion-item>
+        <ion-item menu-close href="#/menu/newuser" class="item-icon-left" ng-show="isAdmin()">
+          <i class="icon ion-person-add"></i>
+          新建用户
         </ion-item>
         <ion-item menu-close href="#/menu/modifypassword" class="item-icon-left">
           <i class="icon ion-locked"></i>

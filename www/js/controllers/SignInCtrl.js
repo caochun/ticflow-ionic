@@ -20,7 +20,7 @@ angular.module('ticflow.controllers')
                 $window.location.href = ('#/menu/accepted');
             }
             else {
-                $window.location.href = ('#/menu/users');
+                $window.location.href = ('#/menu/valuechange');
             }
         } else {
             $scope.user.id = $localStorage.get('username');
@@ -56,7 +56,7 @@ angular.module('ticflow.controllers')
                     $window.location.href = ('#/menu/accepted');
                 }
                 else {
-                    $window.location.href = ('#/menu/users');
+                    $window.location.href = ('#/menu/valuechange');
                 }
             }).error(function () {
                 $rootScope.hide();

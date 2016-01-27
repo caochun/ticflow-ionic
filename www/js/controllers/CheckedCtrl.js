@@ -18,7 +18,7 @@ angular.module('ticflow.controllers')
         $scope.isSaler = (API.getRole() == 'saler');
         $scope.isEngineer = (API.getRole() == 'engineer');
 
-        $scope.select.month = $filter('date')(new Date(), "yyyy-MM");
+        //$scope.select.month = $filter('date')(new Date(), "yyyy-MM");
 
         if ($scope.isManager || $scope.isAdmin) {
             API.getUsers({role: 'saler'})
@@ -40,7 +40,7 @@ angular.module('ticflow.controllers')
 
         API.getMonths()
             .success(function (months) {
-                months.push($scope.select.month);
+                //months.push($scope.select.month);
                 $scope.months = months.sort().reverse();
             })
             .error(function () {

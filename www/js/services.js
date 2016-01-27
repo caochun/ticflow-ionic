@@ -4,8 +4,8 @@ angular.module('ticflow.services')
         var user = $localStorage.get('user');
 
         //var base = "http://moon.nju.edu.cn:3000";
-        var base = "http://114.212.83.15:3000"; //lzl wired network @ room 812
-        //var base = "http://localhost:3000";
+        //var base = "http://114.212.83.15:3000"; //lzl wired network @ room 812
+        var base = "http://localhost:3000";
 
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
@@ -23,29 +23,9 @@ angular.module('ticflow.services')
               $rootScope.hide();
             }, 999);
         };
- 
-        /*$rootScope.doRefresh = function (tab) {
-            if(tab == 1)
-                $rootScope.$broadcast('fetchAll');
-            else
-                $rootScope.$broadcast('fetchCompleted');
-            
-            $rootScope.$broadcast('scroll.refreshComplete');
-        };*/
- 
-        /*$rootScope.setToken = function (token) {
-            return $window.localStorage.token = token;
-        }
- 
-        $rootScope.getToken = function () {
-            return $window.localStorage.token;
-        }
- 
-        $rootScope.isSessionActive = function () {
-            return $window.localStorage.token ? true : false;
-        }*/
 
-       return {
+        return {
+
             signin: function (id, password) {
                 return $http.post(base + '/users/signin', {
                     id: id,
@@ -70,6 +50,7 @@ angular.module('ticflow.services')
                 return user.role;
             },
 
+
             getUsers: function (query) {
                 return $http.get(base + '/users', {
                     params: query
@@ -89,13 +70,13 @@ angular.module('ticflow.services')
                 return $http.post(base + '/users/update/' + _id, form);
             },
 
+
             newList: function (list) {
                 return $http.post(base + '/lists', list);
             },
             modifyList: function (_id, form) {
                 return $http.post(base + '/lists/' + _id, form);
             },
-
             getLists: function (query) {
                 return $http.get(base + '/lists', {
                     params: query
@@ -114,6 +95,27 @@ angular.module('ticflow.services')
             },
             getMonths: function () {
                 return $http.get(base + '/lists/months');
+            },
+
+
+            newValueChange: function (oldValue, newValue, manager, list_id) {
+                return $http.post(base + '/valuechanges/', {
+                    oldValue: oldValue,
+                    newValue: newValue,
+                    manager: manager,
+                    list_id: list_id,
+                });
+            },
+            getValueChanges: function (query) {
+                return $http.get(base + '/valuechanges', {
+                    params: query
+                });
+            },
+            getValueChange: function (_id) {
+                return $http.get(base + '/valuechanges/' + _id);
+            },
+            removeValueChange: function (_id) {
+                return $http.post(base + '/valuechanges/remove/' + _id);
             },
         };
  });
