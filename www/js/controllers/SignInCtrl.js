@@ -1,11 +1,31 @@
 angular.module('ticflow.controllers')
 
-.controller('SignInCtrl', function ($rootScope, $scope, API, $window) {
+.controller('SignInCtrl', function ($rootScope, $scope, API, $window, $localStorage) {
 
     $scope.user = {
         id: "",
         password: ""
     };
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+
+        if ($localStorage.get('authenticated')) {
+            if (API.getRole() == 'manager') {
+                $window.location.href = ('#/menu/newlist');
+            }
+            else if (API.getRole() == 'engineer') {
+                $window.location.href = ('#/menu/unaccepted');
+            }
+            else if (API.getRole() == 'saler') {
+                $window.location.href = ('#/menu/accepted');
+            }
+            else {
+                $window.location.href = ('#/menu/users');
+            }
+        } else {
+            $scope.user.id = $localStorage.get('username');
+        }
+    });
 
     $scope.validateUser = function () {
 
@@ -29,7 +49,10 @@ angular.module('ticflow.controllers')
                 if (user.role == 'manager') {
                     $window.location.href = ('#/menu/newlist');
                 }
-                else if (user.role == 'saler' || user.role == 'engineer') {
+                else if (user.role == 'engineer') {
+                    $window.location.href = ('#/menu/unaccepted');
+                }
+                else if (user.role == 'saler') {
                     $window.location.href = ('#/menu/accepted');
                 }
                 else {

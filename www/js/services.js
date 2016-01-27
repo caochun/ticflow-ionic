@@ -1,13 +1,11 @@
 angular.module('ticflow.services')
  .factory('API', function ($rootScope, $http, $ionicLoading, $window, $localStorage) {
 
-        var userKey = 'user';
-        var authenticatedKey = 'authenticated';
-        var user = $localStorage.get(userKey);
+        var user = $localStorage.get('user');
 
         //var base = "http://moon.nju.edu.cn:3000";
-        //var base = "http://114.212.83.15:3000"; //lzl wired network @ room 812
-        var base = "http://localhost:3000";
+        var base = "http://114.212.83.15:3000"; //lzl wired network @ room 812
+        //var base = "http://localhost:3000";
 
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
@@ -56,14 +54,14 @@ angular.module('ticflow.services')
             },
 
             login: function (id, role) {
-                $localStorage.set(userKey, {id: id, role: role});
-                $localStorage.set(authenticatedKey, true);
-                user = $localStorage.get(userKey);
-                $rootScope.$broadcast("login");
+                $localStorage.set('user', {id: id, role: role});
+                $localStorage.set('username', id);
+                $localStorage.set('authenticated', true);
+                user = $localStorage.get('user');
             },
             logout: function() {
-                $localStorage.remove(userKey);
-                $localStorage.set(authenticatedKey, false);
+                $localStorage.remove('user');
+                $localStorage.set('authenticated', false);
             },
             getId: function() {
                 return user.id;
