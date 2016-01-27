@@ -49,16 +49,26 @@ angular.module('ticflow.controllers')
     };
 
     $scope.remove = function () {
+        
+        var confirmPopup = $ionicPopup.confirm({
+            title: '确定删除这条分值改动信息？',
+            cancelText: '<b>取消</b>',
+            okText: '<b>确定</b>'
+        });
 
-        var _id = $stateParams._id;
+        confirmPopup.then(function(res) {
+            if(res) {
+                var _id = $stateParams._id;
 
-        API.removeValueChange(_id)
-            .success(function (valuechange) {
-                $rootScope.notify("删除成功！");
-                $window.location.href = ('#/menu/valuechange');
-            })
-            .error(function () {
-                $rootScope.notify("删除失败！请检查您的网络！");
-            });
+                API.removeValueChange(_id)
+                    .success(function (valuechange) {
+                        $rootScope.notify("删除成功！");
+                        $window.location.href = ('#/menu/valuechange');
+                    })
+                    .error(function () {
+                        $rootScope.notify("删除失败！请检查您的网络！");
+                    });
+            }
+        });
     };
 });
