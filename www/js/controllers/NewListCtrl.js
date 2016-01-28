@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('NewListCtrl', function ($rootScope, $scope, API, $window) {
+.controller('NewListCtrl', function ($rootScope, $scope, API, $window, $ionicActionSheet, $cordovaCamera) {
 
     $scope.list = {
         client: {
@@ -19,6 +19,7 @@ angular.module('ticflow.controllers')
         saler: "",
         value: "",
         engineer: "",
+        attached: "",
     };
 
     $scope.units = [];
@@ -111,5 +112,40 @@ angular.module('ticflow.controllers')
             .error(function () {
                 $rootScope.notify("创建失败！请检查您的网络！");
             });
+    };
+
+    $scope.showActions = function () {
+        $ionicActionSheet.show({
+            buttons: [{
+                text: "拍照"
+            }, {
+                text: "从相册选择"
+            }],
+            cancelText: '取消',
+
+            buttonClicked: function (index) {
+                if (index === 0) {
+                    $scope.takePhoto();
+                    //$rootScope.notify("拍照");
+                } else {
+                    //$scope.pickImage();
+                    $rootScope.notify("从相册选择");
+                }
+                return true;
+            }
+        });
+    };
+
+    $scope.takePhoto = function () {
+        var options = {
+            quality: 20,
+            saveToPhotoAlbum: true,
+        };
+
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+            $scope.list.attached = imageURI;
+        }, function(err) {
+            // error
+        });
     };
 });

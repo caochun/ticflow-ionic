@@ -10,17 +10,22 @@ angular.module('ticflow.controllers')
     $scope.$on('$ionicView.beforeEnter', function () {
 
         if ($localStorage.get('authenticated')) {
+            $rootScope.show("重新登录中...");
             if (API.getRole() == 'manager') {
                 $window.location.href = ('#/menu/newlist');
+                $rootScope.hide();
             }
             else if (API.getRole() == 'engineer') {
                 $window.location.href = ('#/menu/unaccepted');
+                $rootScope.hide();
             }
             else if (API.getRole() == 'saler') {
                 $window.location.href = ('#/menu/accepted');
+                $rootScope.hide();
             }
             else {
                 $window.location.href = ('#/menu/valuechange');
+                $rootScope.hide();
             }
         } else {
             $scope.user.id = $localStorage.get('username');
