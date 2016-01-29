@@ -14,7 +14,6 @@ angular.module('ticflow.controllers')
 
         var _id = $stateParams._id;
 
-        $rootScope.show("加载中...");
         API.getValueChange(_id)
             .success(function (valuechange) {
                 $scope.loadListDetail(valuechange.list_id);
@@ -27,7 +26,6 @@ angular.module('ticflow.controllers')
     $scope.loadListDetail = function (list_id) {
         API.getList(list_id)
             .success(function (list) {
-                $rootScope.hide();
                 $scope.list = list;
                 $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
                 if ($scope.list.accepted === false)
@@ -40,7 +38,6 @@ angular.module('ticflow.controllers')
                     $scope.list_local.state = "已审核";
             })
             .error(function () {
-                $rootScope.hide();
                 $rootScope.notify("网络连接失败！请检查您的网络！");
             }).finally(function () {
                 $scope.$broadcast('scroll.refreshComplete');

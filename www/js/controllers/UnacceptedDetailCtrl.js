@@ -33,16 +33,13 @@ angular.module('ticflow.controllers')
 
         var _id = $stateParams._id;
 
-        $rootScope.show("加载中...");
         API.getList(_id)
             .success(function (list) {
-                $rootScope.hide();
                 $scope.list = list;
                 $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
                 $scope.record.oldValue = $scope.list.value;
             })
             .error(function () {
-                $rootScope.hide();
                 $rootScope.notify("网络连接失败！请检查您的网络！");
             }).finally(function () {
                 $scope.$broadcast('scroll.refreshComplete');
@@ -55,10 +52,8 @@ angular.module('ticflow.controllers')
 
     $scope.modify = function () {
         if ($scope.list.value !== $scope.record.oldValue) {
-            $rootScope.show("修改中...");
             API.modifyList($scope.list._id, $scope.list)
                 .success(function (list) {
-                    $rootScope.hide();
                     $rootScope.notify("修改成功!");
                     API.newValueChange($scope.record.oldValue, $scope.list.value, API.getId(), $scope.list._id)
                         .success(function (valuechange) {
@@ -72,7 +67,7 @@ angular.module('ticflow.controllers')
                     $rootScope.notify("修改失败！请检查您的网络！");
                 });
         } else {
-            $rootScope.show("修改中...");
+            $rootScope.modify("修改中...");
             API.modifyList($scope.list._id, $scope.list)
                 .success(function (list) {
                     $rootScope.notify("修改成功!（分值未改动）");

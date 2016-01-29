@@ -10,15 +10,12 @@ angular.module('ticflow.controllers')
     $scope.$on('$ionicView.beforeEnter', function () {
 
         if ($localStorage.get('authenticated')) {
-            $rootScope.show("重新登录中...");
             API.signin(API.getId(), API.getPassword())
                 .success(function (user) {
                     if (user === null) {
-                        $rootScope.hide();
                         $rootScope.notify("用户名或密码已失效！");
                         return false;
                     }
-                    $rootScope.hide();
                     if (user.role == 'manager') {
                         $window.location.href = ('#/menu/newlist');
                     }
@@ -37,7 +34,6 @@ angular.module('ticflow.controllers')
                         $scope.user.password = "";
                     }
                 }).error(function () {
-                    $rootScope.hide();
                     $rootScope.notify("重新登录失败！请检查您的网络！");
                 });
         } else {
@@ -54,16 +50,13 @@ angular.module('ticflow.controllers')
             return false;
         }
         
-        $rootScope.show('登录中...');
         API.signin(id, password)
             .success(function (user) {
                 if (user === null) {
-                    $rootScope.hide();
                     $rootScope.notify("用户名或密码错误！");
                     return false;
                 }
                 API.login(user.id, user.password, user.role);
-                $rootScope.hide();
                 if (user.role == 'manager') {
                     $window.location.href = ('#/menu/newlist');
                 }
@@ -77,7 +70,6 @@ angular.module('ticflow.controllers')
                     $window.location.href = ('#/menu/valuechange');
                 }
             }).error(function () {
-                $rootScope.hide();
                 $rootScope.notify("登录失败！请检查您的网络！");
             });
         $scope.user.password = "";
