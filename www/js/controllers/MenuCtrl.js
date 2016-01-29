@@ -39,6 +39,6 @@ angular.module('ticflow.controllers')
     
     $scope.logout = function() {
         API.logout();
-        $window.location.href = ('#/auth/signin');
+        $window.location.href = ('#/signin');
     };
 });

@@ -31,6 +31,7 @@ angular.module('ticflow.controllers')
               API.updateUser(user._id, {password: $scope.user.password})
                   .success(function (user) {
                       $rootScope.notify("修改成功！请重新登录系统！");
+                      API.logout();
                       $window.location.href = ('#/signin');
                   })
                   .error(function () {

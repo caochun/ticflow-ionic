@@ -53,10 +53,11 @@ angular.module('ticflow.controllers')
         query.page = $scope.currentPage;
         query.limit = $scope.limit;
 
-        //console.log(JSON.stringify(query));
-
+        $rootScope.show("获取中...");
         API.getLists(query)
             .success(function (listsUnaccepted) {
+                $rootScope.hide();
+
                 $scope.hasNextPage = listsUnaccepted.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
@@ -72,6 +73,7 @@ angular.module('ticflow.controllers')
                 $scope.listsUnaccepted = listsUnaccepted;
             })
             .error(function () {
+                $rootScope.hide();
                 $rootScope.notify("网络连接失败！请检查您的网络！");
             }).finally(function () {
                 $scope.$broadcast('scroll.refreshComplete');
@@ -94,10 +96,11 @@ angular.module('ticflow.controllers')
         query.page = $scope.currentPage;
         query.limit = $scope.limit;
 
-        //console.log(JSON.stringify(query));
-
+        $rootScope.show("获取中...");
         API.getLists(query)
             .success(function (listsUnaccepted) {
+                $rootScope.hide();
+
                 $scope.hasNextPage = listsUnaccepted.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
@@ -109,6 +112,7 @@ angular.module('ticflow.controllers')
                 $scope.listsUnaccepted = $scope.listsUnaccepted.concat(listsUnaccepted);
             })
             .error(function () {
+                $rootScope.hide();
                 $rootScope.notify("网络连接失败！请检查您的网络！");
             }).finally(function () {
                 $scope.$broadcast('scroll.infiniteScrollComplete');

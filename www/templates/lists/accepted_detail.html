@@ -71,10 +71,18 @@
       <input type="text" disabled ng-model="list.engineer" >
     </label>
 
-    <label class="item item-input">
-      <span class="input-label">附件</span>
-      <input type="text" disabled ng-model="list.attached" >
-    </label>
+    <div class="item item-input item-icon-right">
+      <span class="input-label">附件1</span>
+      <button class="button button-clear button-positive" ng-click="showImage1()" ng-if="list.attached1">查看</button>
+    </div>
+    <div class="item item-input item-icon-right">
+      <span class="input-label">附件2</span>
+      <button class="button button-clear button-positive" ng-click="showImage2()" ng-if="list.attached2">查看</button>
+    </div>
+    <div class="item item-input item-icon-right">
+      <span class="input-label">附件3</span>
+      <button class="button button-clear button-positive" ng-click="showImage3()" ng-if="list.attached3">查看</button>
+    </div>
 
     <label class="item item-input">
       <span class="input-label">创建时间</span>

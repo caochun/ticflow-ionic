@@ -18,8 +18,11 @@ angular.module('ticflow.controllers')
         query.page = $scope.currentPage;
         query.limit = $scope.limit;
 
+        $rootScope.show("获取中...");
         API.getValueChanges(query)
             .success(function (valuechanges) {
+                $rootScope.hide();
+
                 $scope.hasNextPage = valuechanges.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
@@ -35,6 +38,7 @@ angular.module('ticflow.controllers')
                 $scope.valuechanges = valuechanges;
             })
             .error(function () {
+                $rootScope.hide();
                 $rootScope.notify("获取分值改动信息失败！请检查您的网络！");
             }).finally(function () {
                 $scope.$broadcast('scroll.refreshComplete');
@@ -48,9 +52,11 @@ angular.module('ticflow.controllers')
         query.page = $scope.currentPage;
         query.limit = $scope.limit;
 
-
+        $rootScope.show("获取中...");
         API.getValueChanges(query)
             .success(function (valuechanges) {
+                $rootScope.hide();
+
                 $scope.hasNextPage = valuechanges.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
@@ -61,6 +67,7 @@ angular.module('ticflow.controllers')
                 $scope.valuechanges = $scope.valuechanges.concat(valuechanges);
             })
             .error(function () {
+                $rootScope.hide();
                 $rootScope.notify("网络连接失败！请检查您的网络！");
             }).finally(function () {
                 $scope.$broadcast('scroll.infiniteScrollComplete');

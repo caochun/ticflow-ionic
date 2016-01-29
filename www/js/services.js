@@ -1,5 +1,5 @@
 angular.module('ticflow.services')
- .factory('API', function ($rootScope, $http, $ionicLoading, $window, $localStorage) {
+ .factory('API', function ($rootScope, $http, $ionicLoading, $window, $localStorage, $cordovaFileTransfer) {
 
         var user = $localStorage.get('user');
 
@@ -25,6 +25,9 @@ angular.module('ticflow.services')
         };
 
         return {
+            getBase: function () {
+                return base;
+            },
 
             signin: function (id, password) {
                 return $http.post(base + '/users/signin', {
@@ -33,9 +36,8 @@ angular.module('ticflow.services')
                 });
             },
 
-            login: function (id, role) {
-                $localStorage.set('user', {id: id, role: role});
-                $localStorage.set('username', id);
+            login: function (id, password, role) {
+                $localStorage.set('user', {id: id, password: password, role: role});
                 $localStorage.set('authenticated', true);
                 user = $localStorage.get('user');
             },
@@ -45,6 +47,9 @@ angular.module('ticflow.services')
             },
             getId: function() {
                 return user.id;
+            },
+            getPassword: function () {
+                return user.password;
             },
             getRole: function() {
                 return user.role;
@@ -116,6 +121,17 @@ angular.module('ticflow.services')
             },
             removeValueChange: function (_id) {
                 return $http.post(base + '/valuechanges/remove/' + _id);
+            },
+
+            upload: function (uri) {
+                var url = base + '/upload';
+                var targetpath = uri;
+                var options = {
+                    fileKey: "photo",
+                    chunkedMode: false,
+                    mimeType: "image/jpg",
+                };
+                return $cordovaFileTransfer.upload(url, targetpath, options);
             },
         };
  });
