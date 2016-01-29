@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('NewListCtrl', function ($rootScope, $scope, API, $window, $ionicActionSheet, $cordovaCamera) {
+.controller('NewListCtrl', function ($rootScope, $scope, API, $window, $ionicActionSheet, $ionicModal, $cordovaCamera, $cordovaImagePicker) {
 
     $scope.list = {
         client: {
@@ -19,7 +19,7 @@ angular.module('ticflow.controllers')
         saler: "",
         value: "",
         engineer: "",
-        attached: "",
+        attached1: "",
     };
 
     $scope.units = [];
@@ -126,14 +126,17 @@ angular.module('ticflow.controllers')
             buttonClicked: function (index) {
                 if (index === 0) {
                     $scope.takePhoto();
-                    //$rootScope.notify("拍照");
                 } else {
-                    //$scope.pickImage();
-                    $rootScope.notify("从相册选择");
+                    $scope.pickImage();
                 }
                 return true;
             }
         });
+    };
+
+    $scope.image = {
+        selected: false,
+        uri: "",
     };
 
     $scope.takePhoto = function () {
@@ -143,9 +146,47 @@ angular.module('ticflow.controllers')
         };
 
         $cordovaCamera.getPicture(options).then(function(imageURI) {
-            $scope.list.attached = imageURI;
+            $scope.image.selected = true;
+            $scope.image.uri = imageURI;
         }, function(err) {
             // error
         });
     };
+
+    $scope.pickImage = function () {
+
+        var options = {
+            maximumImagesCount: 1,
+            quality: 20,
+        };
+
+        $cordovaImagePicker.getPictures(options).then(function (results) {
+            $scope.image.selected = true;
+            $scope.image.uri = results[0];
+        }, function(error) {
+          // error getting photos
+        });
+    };
+
+    $ionicModal.fromTemplateUrl('templates/imageModal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.imageModal = modal;
+    });
+
+    $scope.showImage = function (uri) {
+        $scope.imageUri = uri;
+        $scope.imageModal.show();
+    };
+
+    $scope.hideImage = function () {
+        $scope.imageModal.hide();
+    };
+
+    $scope.removeImage = function () {
+        $scope.image.selected = false;
+        $scope.image.uri = "";
+    };
+
 });

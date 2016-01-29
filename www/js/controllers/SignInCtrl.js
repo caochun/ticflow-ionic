@@ -14,17 +14,18 @@ angular.module('ticflow.controllers')
             if (API.getRole() == 'manager') {
                 $window.location.href = ('#/menu/newlist');
                 $rootScope.hide();
-            }
-            else if (API.getRole() == 'engineer') {
+            } else if (API.getRole() == 'engineer') {
                 $window.location.href = ('#/menu/unaccepted');
                 $rootScope.hide();
-            }
-            else if (API.getRole() == 'saler') {
+            } else if (API.getRole() == 'saler') {
                 $window.location.href = ('#/menu/accepted');
                 $rootScope.hide();
-            }
-            else {
+            } else if (API.getRole() == 'admin') {
                 $window.location.href = ('#/menu/valuechange');
+                $rootScope.hide();
+            } else {
+                $window.location.href = ('#/signin');
+                $scope.user.id = "";
                 $rootScope.hide();
             }
         } else {
