@@ -116,18 +116,13 @@ angular.module('ticflow.controllers')
         $scope.imageModal = modal;
     });
 
-    $scope.showImage1 = function () {
-        $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached1;
-        $scope.imageModal.show();
-    };
-
-    $scope.showImage2 = function () {
-        $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached2;
-        $scope.imageModal.show();
-    };
-
-    $scope.showImage3 = function () {
-        $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached3;
+    $scope.showImage = function (i) {
+        if (i == 1)
+            $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached1;
+        else if (i == 2)
+            $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached2;
+        else if (i == 3)
+            $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached3;
         $scope.imageModal.show();
     };
 

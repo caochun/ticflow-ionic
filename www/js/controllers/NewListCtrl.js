@@ -208,9 +208,9 @@ angular.module('ticflow.controllers')
             saveToPhotoAlbum: true,
         };
 
-        $cordovaCamera.getPicture(options).then(function(image1URI) {
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
             $scope.images[i].selected = true;
-            $scope.images[i].uri = image1URI;
+            $scope.images[i].uri = imageURI;
         }, function(err) {
             // error
         });
@@ -252,9 +252,9 @@ angular.module('ticflow.controllers')
         $scope.images[i].uri = "";
         if (i === 0)
             $scope.list.attached1 = "";
-        if (i === 1)
+        else if (i === 1)
             $scope.list.attached2 = "";
-        if (i === 2)
+        else if (i === 2)
             $scope.list.attached3 = "";
     };
 
