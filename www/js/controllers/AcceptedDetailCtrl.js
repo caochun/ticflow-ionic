@@ -1,10 +1,16 @@
 angular.module('ticflow.controllers')
 
-.controller('AcceptedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup, $filter, $ionicModal) {
+.controller('AcceptedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup, $filter, $q, $ionicActionSheet, $ionicModal, $cordovaCamera, $cordovaImagePicker, $ionicLoading) {
 
     $scope.record = {
         oldValue: "",
     };
+
+    $scope.images = [
+        {selected: false, uri: "", remoteUri: ""},
+        {selected: false, uri: "", remoteUri: ""},
+        {selected: false, uri: "", remoteUri: ""},
+    ];
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadAcceptedDetail();
@@ -74,18 +80,130 @@ angular.module('ticflow.controllers')
                         if (!$scope.list.feedback) {
                             e.preventDefault();
                         } else {
-                            API.modifyList($scope.list._id, {serial_no: $scope.list.serial_no, completed: true, completeTime: new Date(), feedback: $scope.list.feedback})
-                                .success(function (list) {
-                                    $rootScope.notify("提交成功!");
-                                    $window.location.href = ('#/menu/accepted');
-                                })
-                                .error(function () {
-                                    $rootScope.notify("提交失败！请检查您的网络！");
-                                });
+                            var d0 = $q.defer(), d1 = $q.defer(), d2 = $q.defer();
+                            $rootScope.show("图片上传中...");
+                            if ($scope.images[0].selected) {
+                                API.upload($scope.images[0].uri)
+                                    .then(function (res) {
+                                        // Success!
+                                        $scope.images[0].remoteUri = JSON.parse(res.response).filename;
+                                        d0.resolve();
+                                    }, function (err) {
+                                        // Error
+                                        $rootScope.hide();
+                                        $rootScope.notify("图片上传失败！请检查您的网络！");
+                                        return false;
+                                    }, function (progress) {
+                                        // constant progress updates
+                                    });
+                            } else {
+                                d0.resolve();
+                            }
+                            if ($scope.images[1].selected) {
+                                API.upload($scope.images[1].uri)
+                                    .then(function (res) {
+                                        // Success!
+                                        $scope.images[1].remoteUri = JSON.parse(res.response).filename;
+                                        d1.resolve();
+                                    }, function (err) {
+                                        // Error
+                                        $rootScope.hide();
+                                        $rootScope.notify("图片上传失败！请检查您的网络！");
+                                        return false;
+                                    }, function (progress) {
+                                        // constant progress updates
+                                    });
+                            } else {
+                                d1.resolve();
+                            }
+                            if ($scope.images[2].selected) {
+                                API.upload($scope.images[2].uri)
+                                    .then(function (res) {
+                                        // Success!
+                                        $scope.images[2].remoteUri = JSON.parse(res.response).filename;
+                                        d2.resolve();
+                                    }, function (err) {
+                                        // Error
+                                        $rootScope.hide();
+                                        $rootScope.notify("图片上传失败！请检查您的网络！");
+                                        return false;
+                                    }, function (progress) {
+                                        // constant progress updates
+                                    });
+                            } else {
+                                d2.resolve();
+                            }
+
+                            $q.all([d0.promise, d1.promise, d2.promise]).then(function(){
+                                $rootScope.hide();
+                                API.modifyList($scope.list._id, {serial_no: $scope.list.serial_no, completed: true, completeTime: new Date(), feedback: $scope.list.feedback,
+                                    attached1: $scope.images[0].remoteUri, attached2: $scope.images[1].remoteUri, attached3: $scope.images[2].remoteUri})
+                                    .success(function (list) {
+                                        $rootScope.notify("提交成功!");
+                                        $window.location.href = ('#/menu/accepted');
+                                    })
+                                    .error(function () {
+                                        $rootScope.notify("提交失败！请检查您的网络！");
+                                    });
+                            });
+
+                            
                         }
                     }
                 }
             ]
+        });
+    };
+
+    $scope.showActions = function (i) {
+        $ionicActionSheet.show({
+            buttons: [{
+                text: "拍照"
+            }, {
+                text: "从相册选择"
+            }],
+            cancelText: '取消',
+
+            buttonClicked: function (index) {
+                if (index === 0) {
+                    $scope.takePhoto(i);
+                } else {
+                    $scope.pickImage(i);
+                }
+                return true;
+            }
+        });
+    };
+
+    $scope.takePhoto = function (i) {
+        var options = {
+            quality: 20,
+            saveToPhotoAlbum: true,
+        };
+
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+            if (imageURI !== null) {
+                $scope.images[i].selected = true;
+                $scope.images[i].uri = imageURI;
+            }
+        }, function(err) {
+            // error
+        });
+    };
+
+    $scope.pickImage = function (i) {
+        var options = {
+            maximumImagesCount: 1,
+            quality: 20,
+        };
+
+        $cordovaImagePicker.getPictures(options).then(function (results) {
+            if (results.length !== 0) {
+                $scope.images[i].selected = true;
+                $scope.images[i].uri = results[0];
+            }
+        }, function(error) {
+          // error getting photos
         });
     };
 
@@ -96,22 +214,18 @@ angular.module('ticflow.controllers')
         $scope.imageModal = modal;
     });
 
-    $scope.showImage1 = function () {
-        $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached1;
-        $scope.imageModal.show();
-    };
-
-    $scope.showImage2 = function () {
-        $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached2;
-        $scope.imageModal.show();
-    };
-
-    $scope.showImage3 = function () {
-        $scope.imageUri = API.getBase() + '/uploads/' + $scope.list.attached3;
+    $scope.showImage = function (i) {
+        $scope.imageUri = $scope.images[i].uri;
         $scope.imageModal.show();
     };
 
     $scope.hideImage = function () {
         $scope.imageModal.hide();
     };
+
+    $scope.removeImage = function (i) {
+        $scope.images[i].selected = false;
+        $scope.images[i].uri = "";
+    };
+
 });
