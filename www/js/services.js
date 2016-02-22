@@ -90,14 +90,17 @@ angular.module('ticflow.services')
             getList: function (_id) {
                 return $http.get(base + '/lists/' + _id);
             },
+            removeList: function (_id) {
+                return $http.post(base + '/lists/remove/' + _id);
+            },
             getTotalValue: function (query) {
                 return $http.get(base + '/lists/totalvalue', {
                     params: query
                 });
             },
-            getClientInfo: function () {
-                return $http.get(base + '/lists/clientinfo');
-            },
+            // getClientInfo: function () {
+            //     return $http.get(base + '/lists/clientinfo');
+            // },
             getMonths: function () {
                 return $http.get(base + '/lists/months');
             },

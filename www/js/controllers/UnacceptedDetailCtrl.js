@@ -13,6 +13,7 @@ angular.module('ticflow.controllers')
     $scope.loadUnacceptedDetail = function () {
         $scope.isManager = (API.getRole() == 'manager');
         $scope.isEngineer = (API.getRole() == 'engineer');
+        $scope.isAdmin = (API.getRole() == 'admin');
 
         if ($scope.isManager) {
             API.getUsers({role: 'saler'})
@@ -67,7 +68,7 @@ angular.module('ticflow.controllers')
                     $rootScope.notify("修改失败！请检查您的网络！");
                 });
         } else {
-            $rootScope.modify("修改中...");
+            $rootScope.notify("修改中...");
             API.modifyList($scope.list._id, $scope.list)
                 .success(function (list) {
                     $rootScope.notify("修改成功!（分值未改动）");
@@ -123,5 +124,26 @@ angular.module('ticflow.controllers')
 
     $scope.hideImage = function () {
         $scope.imageModal.hide();
+    };
+
+    $scope.remove = function () {
+        var confirmPopup = $ionicPopup.confirm({
+            title: '确定删除该报修单？',
+            cancelText: '<b>取消</b>',
+            okText: '<b>确定</b>'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+                API.removeList($scope.list._id)
+                    .success(function (list) {
+                        $rootScope.notify("删除成功!");
+                        $window.location.href = ('#/menu/unaccepted');
+                    })
+                    .error(function () {
+                        $rootScope.notify("删除失败！请检查您的网络！");
+                    });
+            }
+        });
     };
 });

@@ -4,6 +4,7 @@ angular.module('ticflow.controllers')
 
     $scope.list_local = {
         state: "",
+        completed: false,
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -24,18 +25,48 @@ angular.module('ticflow.controllers')
     };
 
     $scope.loadListDetail = function (list_id) {
+        $scope.removed = false;
+
         API.getList(list_id)
             .success(function (list) {
+                if (list === null) {
+                    $scope.removed = true;
+                    var confirmPopup = $ionicPopup.confirm({
+                        title: '点击确定删除这条分值改动信息',
+                        cancelText: '<b>取消</b>',
+                        okText: '<b>确定</b>'
+                    });
+
+                    confirmPopup.then(function(res) {
+                        if(res) {
+                            var _id = $stateParams._id;
+
+                            API.removeValueChange(_id)
+                                .success(function (valuechange) {
+                                    $rootScope.notify("删除成功！");
+                                    $window.location.href = ('#/menu/valuechange');
+                                })
+                                .error(function () {
+                                    $rootScope.notify("删除失败！请检查您的网络！");
+                                });
+                        }
+                    });
+                    return false;
+                }
                 $scope.list = list;
                 $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
                 if ($scope.list.accepted === false)
                     $scope.list_local.state = "未接";
                 else if ($scope.list.completed === false)
                     $scope.list_local.state = "已接";
-                else if ($scope.list.checked === false)
+                else if ($scope.list.checked === false) {
                     $scope.list_local.state = "已完成";
-                else
+                    $scope.list_local.completed = true;
+                }
+                else {
                     $scope.list_local.state = "已审核";
+                    $scope.list_local.completed = true;
+                }
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");

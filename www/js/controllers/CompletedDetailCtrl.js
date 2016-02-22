@@ -13,6 +13,7 @@ angular.module('ticflow.controllers')
     $scope.loadCompletedDetail = function () {
         $scope.isManager = (API.getRole() == 'manager');
         $scope.isSaler = (API.getRole() == 'saler');
+        $scope.isAdmin = (API.getRole() == 'admin');
 
         var _id = $stateParams._id;
 
@@ -100,5 +101,26 @@ angular.module('ticflow.controllers')
 
     $scope.hideImage = function () {
         $scope.imageModal.hide();
+    };
+
+    $scope.remove = function () {
+        var confirmPopup = $ionicPopup.confirm({
+            title: '确定删除该报修单？',
+            cancelText: '<b>取消</b>',
+            okText: '<b>确定</b>'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+                API.removeList($scope.list._id)
+                    .success(function (list) {
+                        $rootScope.notify("删除成功!");
+                        $window.location.href = ('#/menu/completed');
+                    })
+                    .error(function () {
+                        $rootScope.notify("删除失败！请检查您的网络！");
+                    });
+            }
+        });
     };
 });

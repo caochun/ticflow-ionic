@@ -59,11 +59,6 @@
       <input type="text" ng-if="isManager" ng-model="list.outgoing" >
       <input type="text" ng-if="!isManager" disabled ng-model="list.outgoing" >
     </label>
-    <label class="item item-input">
-      <span class="input-label">序列号</span>
-      <input type="text" ng-if="isManager" ng-model="list.serial_no" >
-      <input type="text" ng-if="!isManager" disabled ng-model="list.serial_no" >
-    </label>
 
     <label class="item item-input item-select" ng-if="isManager">
       <span class="input-label">销售人员</span>
@@ -107,6 +102,7 @@
     <div class="padding">
       <button class="button button-block button-positive" ng-if="isManager" ng-click="modify()">修改</button>
       <button class="button button-block button-positive" ng-if="isEngineer" ng-click="accept()">接单</button>
+      <button class="button button-block button-positive" ng-if="isManager||isAdmin" ng-click="remove()">删除</button>
     </div>
 
   </ion-content>

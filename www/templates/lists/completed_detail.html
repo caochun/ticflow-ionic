@@ -102,6 +102,7 @@
     <div class="padding">
       <button class="button button-block button-positive" ng-if="isManager" ng-click="modify()">修改分值</button>
       <button class="button button-block button-positive" ng-if="isSaler" ng-click="check()">审核</button>
+      <button class="button button-block button-positive" ng-if="isManager||isAdmin" ng-click="remove()">删除</button>
     </div>
 
   </ion-content>

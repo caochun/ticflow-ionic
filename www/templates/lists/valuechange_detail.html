@@ -8,92 +8,102 @@
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
-    <label class="item item-input">
-      <span class="input-label">客户单位</span>
-      <input type="text" disabled ng-model="list.client.unit" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">客户姓名</span>
-      <input type="text" disabled ng-model="list.client.name" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">客户地址</span>
-      <input type="text" disabled ng-model="list.client.address" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">客户电话</span>
-      <input type="tel" disabled ng-model="list.client.phone_no" >
-    </label>  
+    <ion-item class="item" ng-if="removed">
+      <div class="item">
+        <h2>
+          <i>该订单已被删除！</i>
+        </h2>
+      </div>
+    </ion-item>
 
-    <label class="item item-input">
-      <span class="input-label">送货服务</span>
-      <input type="text" disabled ng-model="list.deliver" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">安装调试</span>
-      <input type="text" disabled ng-model="list.debug" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">上门服务</span>
-      <input type="text" disabled ng-model="list.visit" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">安装单</span>
-      <input type="text" disabled ng-model="list.install" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">库房安装</span>
-      <input type="text" disabled ng-model="list.warehouse" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">出库单号</span>
-      <input type="text" disabled ng-model="list.outgoing" >
-    </label>
-    <label class="item item-input">
-      <span class="input-label">序列号</span>
-      <input type="text" disabled ng-model="list.serial_no" >
-    </label>
+    <div ng-if="!removed">
+      <label class="item item-input">
+        <span class="input-label">客户单位</span>
+        <input type="text" disabled ng-model="list.client.unit" >
+      </label>
+      <label class="item item-input">
+        <span class="input-label">客户姓名</span>
+        <input type="text" disabled ng-model="list.client.name" >
+      </label>
+      <label class="item item-input">
+        <span class="input-label">客户地址</span>
+        <input type="text" disabled ng-model="list.client.address" >
+      </label>
+      <label class="item item-input">
+        <span class="input-label">客户电话</span>
+        <input type="tel" disabled ng-model="list.client.phone_no" >
+      </label>  
 
-    <label class="item item-input">
-      <span class="input-label">销售人员</span>
-      <input type="text" disabled ng-model="list.saler" >
-    </label>
+      <label class="item item-input">
+        <span class="input-label">送货服务</span>
+        <input type="text" disabled ng-model="list.deliver" >
+      </label>
+      <label class="item item-input">
+        <span class="input-label">安装调试</span>
+        <input type="text" disabled ng-model="list.debug" >
+      </label>
+      <label class="item item-input">
+        <span class="input-label">上门服务</span>
+        <input type="text" disabled ng-model="list.visit" >
+      </label>
+      <label class="item item-input">
+        <span class="input-label">安装单</span>
+        <input type="text" disabled ng-model="list.install" >
+      </label>
+      <label class="item item-input">
+        <span class="input-label">库房安装</span>
+        <input type="text" disabled ng-model="list.warehouse" >
+      </label>
+      <label class="item item-input">
+        <span class="input-label">出库单号</span>
+        <input type="text" disabled ng-model="list.outgoing" >
+      </label>
+      <label class="item item-input" ng-if="list_local.completed">
+        <span class="input-label">序列号</span>
+        <input type="text" disabled ng-model="list.serial_no" >
+      </label>
 
-    <label class="item item-input">
-      <span class="input-label">新分值</span>
-      <input type="number" disabled ng-model="list.value" >
-    </label>
-    
-    <label class="item item-input">
-      <span class="input-label">工程师</span>
-      <input type="text" disabled ng-model="list.engineer" >
-    </label>
+      <label class="item item-input">
+        <span class="input-label">销售人员</span>
+        <input type="text" disabled ng-model="list.saler" >
+      </label>
 
-    <div class="item item-input">
-      <span class="input-label">附件1</span>
-      <button class="button button-clear button-positive" ng-click="showImage1()" ng-if="list.attached1">查看</button>
-    </div>
-    <div class="item item-input">
-      <span class="input-label">附件2</span>
-      <button class="button button-clear button-positive" ng-click="showImage2()" ng-if="list.attached2">查看</button>
-    </div>
-    <div class="item item-input">
-      <span class="input-label">附件3</span>
-      <button class="button button-clear button-positive" ng-click="showImage3()" ng-if="list.attached3">查看</button>
-    </div>
+      <label class="item item-input">
+        <span class="input-label">新分值</span>
+        <input type="number" disabled ng-model="list.value" >
+      </label>
+      
+      <label class="item item-input">
+        <span class="input-label">工程师</span>
+        <input type="text" disabled ng-model="list.engineer" >
+      </label>
 
-    <label class="item item-input">
-      <span class="input-label">创建时间</span>
-      <input type="text" disabled ng-model="list.date" >
-    </label>
+      <div class="item item-input" ng-if="list_local.completed">
+        <span class="input-label">附件图片1</span>
+        <button class="button button-clear button-positive" ng-click="showImage1()" ng-if="list.attached1">查看</button>
+      </div>
+      <div class="item item-input" ng-if="list_local.completed">
+        <span class="input-label">附件图片2</span>
+        <button class="button button-clear button-positive" ng-click="showImage2()" ng-if="list.attached2">查看</button>
+      </div>
+      <div class="item item-input" ng-if="list_local.completed">
+        <span class="input-label">附件图片3</span>
+        <button class="button button-clear button-positive" ng-click="showImage3()" ng-if="list.attached3">查看</button>
+      </div>
 
-    <label class="item item-input">
-      <span class="input-label">订单状态</span>
-      <input type="text" disabled ng-model="list_local.state" >
-    </label>
+      <label class="item item-input">
+        <span class="input-label">创建时间</span>
+        <input type="text" disabled ng-model="list.date" >
+      </label>
 
-    <div class="padding">
-      <button class="button button-block button-positive" ng-click="remove()">删除</button>
+      <label class="item item-input">
+        <span class="input-label">订单状态</span>
+        <input type="text" disabled ng-model="list_local.state" >
+      </label>
+
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="remove()">删除</button>
+      </div>
     </div>
 
   </ion-content>

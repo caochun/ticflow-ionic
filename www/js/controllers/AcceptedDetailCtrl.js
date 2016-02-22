@@ -19,6 +19,7 @@ angular.module('ticflow.controllers')
     $scope.loadAcceptedDetail = function () {
         $scope.isManager = (API.getRole() == 'manager');
         $scope.isEngineer = (API.getRole() == 'engineer');
+        $scope.isAdmin = (API.getRole() == 'admin');
 
         var _id = $stateParams._id;
 
@@ -226,6 +227,48 @@ angular.module('ticflow.controllers')
     $scope.removeImage = function (i) {
         $scope.images[i].selected = false;
         $scope.images[i].uri = "";
+    };
+
+    $scope.remove = function () {
+        var confirmPopup = $ionicPopup.confirm({
+            title: '确定删除该报修单？',
+            cancelText: '<b>取消</b>',
+            okText: '<b>确定</b>'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+                API.removeList($scope.list._id)
+                    .success(function (list) {
+                        $rootScope.notify("删除成功!");
+                        $window.location.href = ('#/menu/accepted');
+                    })
+                    .error(function () {
+                        $rootScope.notify("删除失败！请检查您的网络！");
+                    });
+            }
+        });
+    };
+
+    $scope.reaccept = function () {
+        var confirmPopup = $ionicPopup.confirm({
+            title: '确定取消接单？',
+            cancelText: '<b>取消</b>',
+            okText: '<b>确定</b>'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+                API.modifyList($scope.list._id, {accepted: false, acceptTime: "", serveTime: ""})
+                    .success(function (list) {
+                        $rootScope.notify("取消接单成功!");
+                        $window.location.href = ('#/menu/accepted');
+                    })
+                    .error(function () {
+                        $rootScope.notify("取消接单失败！请检查您的网络！");
+                    });
+            }
+        });
     };
 
 });

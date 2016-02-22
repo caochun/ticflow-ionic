@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('CheckedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $filter, $ionicModal) {
+.controller('CheckedDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $filter, $ionicModal, $ionicPopup) {
 
     $scope.record = {
         oldValue: "",
@@ -12,6 +12,7 @@ angular.module('ticflow.controllers')
 
     $scope.loadCheckedDetail = function () {
         $scope.isManager = (API.getRole() == 'manager');
+        $scope.isAdmin = (API.getRole() == 'admin');
 
         var _id = $stateParams._id;
 
@@ -78,5 +79,26 @@ angular.module('ticflow.controllers')
 
     $scope.hideImage = function () {
         $scope.imageModal.hide();
+    };
+
+    $scope.remove = function () {
+        var confirmPopup = $ionicPopup.confirm({
+            title: '确定删除该报修单？',
+            cancelText: '<b>取消</b>',
+            okText: '<b>确定</b>'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+                API.removeList($scope.list._id)
+                    .success(function (list) {
+                        $rootScope.notify("删除成功!");
+                        $window.location.href = ('#/menu/checked');
+                    })
+                    .error(function () {
+                        $rootScope.notify("删除失败！请检查您的网络！");
+                    });
+            }
+        });
     };
 });
