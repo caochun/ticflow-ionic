@@ -3,8 +3,8 @@ angular.module('ticflow.services')
 
         var user = $localStorage.get('user');
 
-        //var base = "http://moon.nju.edu.cn:3000";
-        var base = "http://114.212.85.45:3000"; //lzl wired network @ room 812
+        var base = "http://moon.nju.edu.cn:3000";
+        //var base = "http://114.212.85.45:3000"; //lzl wired network @ room 812
         //var base = "http://localhost:3000";
 
         $rootScope.show = function (text) {
