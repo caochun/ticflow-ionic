@@ -17,7 +17,8 @@ angular.module('ticflow.controllers')
                 $scope.username = API.getId() + "(管理员)";
                 break;
             default:
-                $scope.username = API.getId() + "(未知)";
+                API.logout();
+                $window.location.href = ('#/signin');
         }
     });
 
