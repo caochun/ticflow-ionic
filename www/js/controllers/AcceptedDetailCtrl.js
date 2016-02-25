@@ -67,92 +67,86 @@ angular.module('ticflow.controllers')
             $rootScope.notify("请输入序列号！");
             return false;
         }
+        if (!$scope.list.feedback) {
+            $rootScope.notify("请输入反馈信息！");
+            return false;
+        }
 
-        var myPopup = $ionicPopup.show({
-            template: '<input type="text" ng-model="list.feedback">',
-            title: '请输入提交反馈信息',
-            scope: $scope,
-            buttons: [
-                { text: '<b>取消</b>' },
-                {
-                    text: '<b>确定</b>',
-                    type: 'button-positive',
-                    onTap: function(e) {
-                        if (!$scope.list.feedback) {
-                            e.preventDefault();
-                        } else {
-                            var d0 = $q.defer(), d1 = $q.defer(), d2 = $q.defer();
-                            $rootScope.show("图片上传中...");
-                            if ($scope.images[0].selected) {
-                                API.upload($scope.images[0].uri)
-                                    .then(function (res) {
-                                        // Success!
-                                        $scope.images[0].remoteUri = JSON.parse(res.response).filename;
-                                        d0.resolve();
-                                    }, function (err) {
-                                        // Error
-                                        $rootScope.hide();
-                                        $rootScope.notify("图片上传失败！请检查您的网络！");
-                                        return false;
-                                    }, function (progress) {
-                                        // constant progress updates
-                                    });
-                            } else {
-                                d0.resolve();
-                            }
-                            if ($scope.images[1].selected) {
-                                API.upload($scope.images[1].uri)
-                                    .then(function (res) {
-                                        // Success!
-                                        $scope.images[1].remoteUri = JSON.parse(res.response).filename;
-                                        d1.resolve();
-                                    }, function (err) {
-                                        // Error
-                                        $rootScope.hide();
-                                        $rootScope.notify("图片上传失败！请检查您的网络！");
-                                        return false;
-                                    }, function (progress) {
-                                        // constant progress updates
-                                    });
-                            } else {
-                                d1.resolve();
-                            }
-                            if ($scope.images[2].selected) {
-                                API.upload($scope.images[2].uri)
-                                    .then(function (res) {
-                                        // Success!
-                                        $scope.images[2].remoteUri = JSON.parse(res.response).filename;
-                                        d2.resolve();
-                                    }, function (err) {
-                                        // Error
-                                        $rootScope.hide();
-                                        $rootScope.notify("图片上传失败！请检查您的网络！");
-                                        return false;
-                                    }, function (progress) {
-                                        // constant progress updates
-                                    });
-                            } else {
-                                d2.resolve();
-                            }
+        var confirmPopup = $ionicPopup.confirm({
+            title: '确定提交完成这个订单？',
+            cancelText: '<b>取消</b>',
+            okText: '<b>确定</b>'
+        });
 
-                            $q.all([d0.promise, d1.promise, d2.promise]).then(function(){
-                                $rootScope.hide();
-                                API.modifyList($scope.list._id, {serial_no: $scope.list.serial_no, completed: true, completeTime: new Date(), feedback: $scope.list.feedback,
-                                    attached1: $scope.images[0].remoteUri, attached2: $scope.images[1].remoteUri, attached3: $scope.images[2].remoteUri})
-                                    .success(function (list) {
-                                        $rootScope.notify("提交成功!");
-                                        $window.location.href = ('#/menu/accepted');
-                                    })
-                                    .error(function () {
-                                        $rootScope.notify("提交失败！请检查您的网络！");
-                                    });
-                            });
-
-                            
-                        }
-                    }
+        confirmPopup.then(function(res) {
+            if(res) {
+                var d0 = $q.defer(), d1 = $q.defer(), d2 = $q.defer();
+                $rootScope.show("图片上传中...");
+                if ($scope.images[0].selected) {
+                    API.upload($scope.images[0].uri)
+                        .then(function (res) {
+                            // Success!
+                            $scope.images[0].remoteUri = JSON.parse(res.response).filename;
+                            d0.resolve();
+                        }, function (err) {
+                            // Error
+                            $rootScope.hide();
+                            $rootScope.notify("图片上传失败！请检查您的网络！");
+                            return false;
+                        }, function (progress) {
+                            // constant progress updates
+                        });
+                } else {
+                    d0.resolve();
                 }
-            ]
+                if ($scope.images[1].selected) {
+                    API.upload($scope.images[1].uri)
+                        .then(function (res) {
+                            // Success!
+                            $scope.images[1].remoteUri = JSON.parse(res.response).filename;
+                            d1.resolve();
+                        }, function (err) {
+                            // Error
+                            $rootScope.hide();
+                            $rootScope.notify("图片上传失败！请检查您的网络！");
+                            return false;
+                        }, function (progress) {
+                            // constant progress updates
+                        });
+                } else {
+                    d1.resolve();
+                }
+                if ($scope.images[2].selected) {
+                    API.upload($scope.images[2].uri)
+                        .then(function (res) {
+                            // Success!
+                            $scope.images[2].remoteUri = JSON.parse(res.response).filename;
+                            d2.resolve();
+                        }, function (err) {
+                            // Error
+                            $rootScope.hide();
+                            $rootScope.notify("图片上传失败！请检查您的网络！");
+                            return false;
+                        }, function (progress) {
+                            // constant progress updates
+                        });
+                } else {
+                    d2.resolve();
+                }
+
+                $q.all([d0.promise, d1.promise, d2.promise]).then(function(){
+                    $rootScope.hide();
+                    API.modifyList($scope.list._id, {serial_no: $scope.list.serial_no, completed: true, completeTime: new Date(), feedback: $scope.list.feedback,
+                        attached1: $scope.images[0].remoteUri, attached2: $scope.images[1].remoteUri, attached3: $scope.images[2].remoteUri})
+                        .success(function (list) {
+                            $rootScope.notify("提交成功!");
+                            $window.location.href = ('#/menu/accepted');
+                        })
+                        .error(function () {
+                            $rootScope.notify("提交失败！请检查您的网络！");
+                        });
+                });
+            }
         });
     };
 
