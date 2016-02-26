@@ -101,4 +101,8 @@ angular.module('ticflow.controllers')
             }
         });
     };
+
+    $scope.callPhone = function () {
+        $window.location.href = "tel:" + $scope.list.client.phone_no;
+    };
 });

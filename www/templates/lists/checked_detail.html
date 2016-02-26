@@ -18,10 +18,11 @@
       <span class="input-label">客户姓名</span>
       <input type="text" disabled ng-model="list.client.name">
     </label>
-    <label class="item item-input">
+    <div class="item item-input item-button-right">
       <span class="input-label">客户电话</span>
       <input type="tel" disabled ng-model="list.client.phone_no" >
-    </label>
+      <button class="button button-clear button-positive ion-ios-telephone" ng-click="callPhone()"></button>
+    </div>
     <label class="item item-input item-stacked-label">
       <span class="input-label">客户地址</span>
       <textarea wrap="virtual" rows="2" type="text" disabled ng-model="list.client.address" ></textarea>
