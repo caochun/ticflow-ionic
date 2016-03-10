@@ -69,6 +69,9 @@ angular.module('ticflow.controllers')
                 else if (API.getRole() == 'admin') {
                     $window.location.href = ('#/menu/valuechange');
                 }
+                else {
+                    $rootScope.notify("财务员不能登录！");
+                }
             }).error(function () {
                 $rootScope.notify("登录失败！请检查您的网络！");
             });
