@@ -22,15 +22,23 @@ angular.module('ticflow.controllers')
                     switch (entry.role) {
                         case "manager":
                             entry.role = "派单员";
+                            entry.del = true;
                             break;
                         case "saler":
                             entry.role = "销售人员";
+                            entry.del = true;
                             break;
                         case "engineer":
                             entry.role = "工程师";
+                            entry.del = true;
                             break;
                         case "admin":
                             entry.role = "管理员";
+                            entry.del = false;
+                            break;
+                        case "treasurer":
+                            entry.role = "财务员";
+                            entry.del = false;
                             break;
                         default:
                             entry.role = "未知";

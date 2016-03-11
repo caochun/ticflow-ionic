@@ -22,7 +22,8 @@
       <div class="row">
         <div class="col">用户名:&nbsp;{{user.id}}</div>
         <div class="col">角色:&nbsp;{{user.role}}</div>
-        <button class="button button-small button-assertive" ng-click="removeUser(user)">删除</button>
+        <button class="button button-small" ng-if="!user.del" disabled>删除</button>
+        <button class="button button-small button-assertive" ng-if="user.del" ng-click="removeUser(user)">删除</button>
       </div>
     </ion-item>
   </ion-content>
