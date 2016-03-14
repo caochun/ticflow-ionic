@@ -3,7 +3,7 @@ angular.module('ticflow.controllers')
 .controller('SignInCtrl', function ($rootScope, $scope, API, $window, $localStorage) {
 
     $scope.user = {
-        id: "",
+        id: API.getId(),
         password: ""
     };
 
@@ -16,6 +16,7 @@ angular.module('ticflow.controllers')
                         $rootScope.notify("用户名或密码已失效！");
                         return false;
                     }
+                    API.login(user.id, user.password, user.role);
                     if (user.role == 'manager') {
                         $window.location.href = ('#/menu/newlist');
                     }
@@ -25,13 +26,8 @@ angular.module('ticflow.controllers')
                     else if (user.role == 'saler') {
                         $window.location.href = ('#/menu/accepted');
                     }
-                    else if (API.getRole() == 'admin') {
+                    else if (user.role == 'admin') {
                         $window.location.href = ('#/menu/valuechange');
-                    }
-                    else {
-                        $window.location.href = ('#/signin');
-                        $scope.user.id = "";
-                        $scope.user.password = "";
                     }
                 }).error(function () {
                     $rootScope.notify("重新登录失败！请检查您的网络！");
@@ -55,6 +51,9 @@ angular.module('ticflow.controllers')
                 if (user === null) {
                     $rootScope.notify("用户名或密码错误！");
                     return false;
+                } else if (user.role == 'treasurer') {
+                    $rootScope.notify("财务员不能登录！");
+                    return false;
                 }
                 API.login(user.id, user.password, user.role);
                 if (user.role == 'manager') {
@@ -66,11 +65,8 @@ angular.module('ticflow.controllers')
                 else if (user.role == 'saler') {
                     $window.location.href = ('#/menu/accepted');
                 }
-                else if (API.getRole() == 'admin') {
+                else if (user.role == 'admin') {
                     $window.location.href = ('#/menu/valuechange');
-                }
-                else {
-                    $rootScope.notify("财务员不能登录！");
                 }
             }).error(function () {
                 $rootScope.notify("登录失败！请检查您的网络！");
