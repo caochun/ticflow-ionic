@@ -51,9 +51,6 @@ angular.module('ticflow.controllers')
                 if (user === null) {
                     $rootScope.notify("用户名或密码错误！");
                     return false;
-                } else if (user.role == 'treasurer') {
-                    $rootScope.notify("财务员不能登录！");
-                    return false;
                 }
                 API.login(user.id, user.password, user.role);
                 if (user.role == 'manager') {
@@ -67,6 +64,9 @@ angular.module('ticflow.controllers')
                 }
                 else if (user.role == 'admin') {
                     $window.location.href = ('#/menu/valuechange');
+                }
+                else if (user.role == 'treasurer') {
+                    $window.location.href = ('#/menu/modifypassword');
                 }
             }).error(function () {
                 $rootScope.notify("登录失败！请检查您的网络！");

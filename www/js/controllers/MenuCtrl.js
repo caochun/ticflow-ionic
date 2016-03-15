@@ -16,6 +16,9 @@ angular.module('ticflow.controllers')
             case 'admin':
                 $scope.username = API.getId() + "(管理员)";
                 break;
+            case 'treasurer':
+                $scope.username = API.getId() + "(财务员)";
+                break;
             default:
                 API.logout();
                 $window.location.href = ('#/signin');
@@ -37,6 +40,10 @@ angular.module('ticflow.controllers')
     $scope.isAdmin = function () {
         return API.getRole() == 'admin';
     };
+
+    $scope.isTreasurer = function () {
+        return API.getRole() == 'treasurer';
+    }
     
     $scope.logout = function() {
         API.logout();

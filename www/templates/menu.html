@@ -24,19 +24,19 @@
           <a class="icon ion-compose"></a>
           新建报修单
         </ion-item>
-        <ion-item menu-close href="#/menu/unaccepted" class="item-icon-left" ng-show="!isSaler()">
+        <ion-item menu-close href="#/menu/unaccepted" class="item-icon-left" ng-show="!isSaler()&&!isTreasurer()">
           <a class="icon ion-wrench"></a>
           未接报修单
         </ion-item>
-        <ion-item menu-close href="#/menu/accepted" class="item-icon-left">
+        <ion-item menu-close href="#/menu/accepted" class="item-icon-left" ng-show="!isTreasurer()">
           <a class="icon ion-settings"></a>
           已接报修单
         </ion-item>
-        <ion-item menu-close href="#/menu/completed" class="item-icon-left">
+        <ion-item menu-close href="#/menu/completed" class="item-icon-left" ng-show="!isTreasurer()">
           <a class="icon ion-clipboard"></a>
           已完成报修单
         </ion-item>
-        <ion-item menu-close href="#/menu/checked" class="item-icon-left">
+        <ion-item menu-close href="#/menu/checked" class="item-icon-left" ng-show="!isTreasurer()">
           <a class="icon ion-folder"></a>
           已审核报修单
         </ion-item>
