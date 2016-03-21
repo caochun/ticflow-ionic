@@ -108,6 +108,7 @@
 
     <div class="padding">
       <button class="button button-block button-positive" ng-if="isManager" ng-click="modify()">修改分值</button>
+      <button class="button button-block button-positive" ng-if="isEngineer" ng-click="save()">暂存</button>
       <button class="button button-block button-positive" ng-if="isEngineer" ng-click="submit()">提交完成</button>
       <button class="button button-block button-positive" ng-if="isEngineer" ng-click="reaccept()">取消接单</button>
       <button class="button button-block button-positive" ng-if="isManager||isAdmin" ng-click="remove()">删除</button>

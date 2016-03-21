@@ -7,9 +7,9 @@ angular.module('ticflow.controllers')
     };
 
     $scope.images = [
-        {selected: false, uri: "", remoteUri: ""},
-        {selected: false, uri: "", remoteUri: ""},
-        {selected: false, uri: "", remoteUri: ""},
+        {selected: false, uri: "", onRemote: false},
+        {selected: false, uri: "", onRemote: false},
+        {selected: false, uri: "", onRemote: false},
     ];
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -29,6 +29,21 @@ angular.module('ticflow.controllers')
                 $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
                 $scope.list.serveTime = $filter('date')($scope.list.serveTime, "yyyy-MM-dd HH:mm");
                 $scope.record.oldValue = $scope.list.value;
+                if (list.attached1) {
+                    $scope.images[0].selected = true;
+                    $scope.images[0].uri = API.getBase() + '/uploads/' + list.attached1;
+                    $scope.images[0].onRemote = true;
+                }
+                if (list.attached2) {
+                    $scope.images[1].selected = true;
+                    $scope.images[1].uri = API.getBase() + '/uploads/' + list.attached2;
+                    $scope.images[1].onRemote = true;
+                }
+                if (list.attached3) {
+                    $scope.images[2].selected = true;
+                    $scope.images[2].uri = API.getBase() + '/uploads/' + list.attached3;
+                    $scope.images[2].onRemote = true;
+                }
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -62,6 +77,89 @@ angular.module('ticflow.controllers')
         }
     };
 
+    $scope.save = function () {
+        var d0 = $q.defer(), d1 = $q.defer(), d2 = $q.defer();
+        $rootScope.show("图片上传中...");
+        var form = {serial_no: $scope.list.serial_no, feedback: $scope.list.feedback};
+
+        if (!$scope.images[0].selected) {
+            form.attached1 = "";
+            d0.resolve();
+        } else if ($scope.images[0].selected && !($scope.images[0].onRemote)) {
+            API.upload($scope.images[0].uri)
+                .then(function (res) {
+                    // Success!
+                    form.attached1 = JSON.parse(res.response).filename;
+                    $scope.images[0].onRemote = true;
+                    d0.resolve();
+                }, function (err) {
+                    // Error
+                    $rootScope.hide();
+                    $rootScope.notify("图片上传失败！请检查您的网络！");
+                    return false;
+                }, function (progress) {
+                    // constant progress updates
+                });
+        } else {
+            d0.resolve();
+        }
+
+        if (!$scope.images[1].selected) {
+            form.attached2 = "";
+            d1.resolve();
+        } else if ($scope.images[1].selected && !($scope.images[1].onRemote)) {
+            API.upload($scope.images[1].uri)
+                .then(function (res) {
+                    // Success!
+                    form.attached2 = JSON.parse(res.response).filename;
+                    $scope.images[1].onRemote = true;
+                    d1.resolve();
+                }, function (err) {
+                    // Error
+                    $rootScope.hide();
+                    $rootScope.notify("图片上传失败！请检查您的网络！");
+                    return false;
+                }, function (progress) {
+                    // constant progress updates
+                });
+        } else {
+            d1.resolve();
+        }
+
+        if (!$scope.images[2].selected) {
+            form.attached3 = "";
+            d2.resolve();
+        } else if ($scope.images[2].selected && !($scope.images[2].onRemote)) {
+            API.upload($scope.images[2].uri)
+                .then(function (res) {
+                    // Success!
+                    form.attached3 = JSON.parse(res.response).filename;
+                    $scope.images[2].onRemote = true;
+                    d2.resolve();
+                }, function (err) {
+                    // Error
+                    $rootScope.hide();
+                    $rootScope.notify("图片上传失败！请检查您的网络！");
+                    return false;
+                }, function (progress) {
+                    // constant progress updates
+                });
+        } else {
+            d2.resolve();
+        }
+
+        $q.all([d0.promise, d1.promise, d2.promise]).then(function(){
+            $rootScope.hide();
+            API.modifyList($scope.list._id, form)
+                .success(function (list) {
+                    $rootScope.notify("暂存成功!");
+                })
+                .error(function () {
+                    $rootScope.notify("暂存失败！请检查您的网络！");
+                });
+        });
+    };
+
     $scope.submit = function () {
         if (!$scope.list.serial_no) {
             $rootScope.notify("请输入序列号！");
@@ -82,11 +180,17 @@ angular.module('ticflow.controllers')
             if(res) {
                 var d0 = $q.defer(), d1 = $q.defer(), d2 = $q.defer();
                 $rootScope.show("图片上传中...");
-                if ($scope.images[0].selected) {
+                var form = {serial_no: $scope.list.serial_no, completed: true, completeTime: new Date(), feedback: $scope.list.feedback};
+                
+                if (!$scope.images[0].selected) {
+                    form.attached1 = "";
+                    d0.resolve();
+                } else if ($scope.images[0].selected && !($scope.images[0].onRemote)) {
                     API.upload($scope.images[0].uri)
                         .then(function (res) {
                             // Success!
-                            $scope.images[0].remoteUri = JSON.parse(res.response).filename;
+                            form.attached1 = JSON.parse(res.response).filename;
+                            $scope.images[0].onRemote = true;
                             d0.resolve();
                         }, function (err) {
                             // Error
@@ -99,11 +203,16 @@ angular.module('ticflow.controllers')
                 } else {
                     d0.resolve();
                 }
-                if ($scope.images[1].selected) {
+
+                if (!$scope.images[1].selected) {
+                    form.attached2 = "";
+                    d1.resolve();
+                } else if ($scope.images[1].selected && !($scope.images[1].onRemote)) {
                     API.upload($scope.images[1].uri)
                         .then(function (res) {
                             // Success!
-                            $scope.images[1].remoteUri = JSON.parse(res.response).filename;
+                            form.attached2 = JSON.parse(res.response).filename;
+                            $scope.images[1].onRemote = true;
                             d1.resolve();
                         }, function (err) {
                             // Error
@@ -116,11 +225,16 @@ angular.module('ticflow.controllers')
                 } else {
                     d1.resolve();
                 }
-                if ($scope.images[2].selected) {
+
+                if (!$scope.images[2].selected) {
+                    form.attached3 = "";
+                    d2.resolve();
+                } else if ($scope.images[2].selected && !($scope.images[2].onRemote)) {
                     API.upload($scope.images[2].uri)
                         .then(function (res) {
                             // Success!
-                            $scope.images[2].remoteUri = JSON.parse(res.response).filename;
+                            form.attached3 = JSON.parse(res.response).filename;
+                            $scope.images[2].onRemote = true;
                             d2.resolve();
                         }, function (err) {
                             // Error
@@ -136,8 +250,7 @@ angular.module('ticflow.controllers')
 
                 $q.all([d0.promise, d1.promise, d2.promise]).then(function(){
                     $rootScope.hide();
-                    API.modifyList($scope.list._id, {serial_no: $scope.list.serial_no, completed: true, completeTime: new Date(), feedback: $scope.list.feedback,
-                        attached1: $scope.images[0].remoteUri, attached2: $scope.images[1].remoteUri, attached3: $scope.images[2].remoteUri})
+                    API.modifyList($scope.list._id, form)
                         .success(function (list) {
                             $rootScope.notify("提交成功!");
                             $window.location.href = ('#/menu/accepted');
@@ -180,6 +293,7 @@ angular.module('ticflow.controllers')
             if (imageURI !== null) {
                 $scope.images[i].selected = true;
                 $scope.images[i].uri = imageURI;
+                $scope.images[i].onRemote = false;
             }
         }, function(err) {
             // error
@@ -196,6 +310,7 @@ angular.module('ticflow.controllers')
             if (results.length !== 0) {
                 $scope.images[i].selected = true;
                 $scope.images[i].uri = results[0];
+                $scope.images[i].onRemote = false;
             }
         }, function(error) {
           // error getting photos
@@ -221,6 +336,7 @@ angular.module('ticflow.controllers')
     $scope.removeImage = function (i) {
         $scope.images[i].selected = false;
         $scope.images[i].uri = "";
+        $scope.images[i].onRemote = false;
     };
 
     $scope.remove = function () {
