@@ -25,18 +25,6 @@ angular.module('ticflow.controllers')
                 });
         }
 
-        $scope.clients = [];
-        API.getClientInfo()
-            .success(function (lists) {
-                lists.forEach(function (list) {
-                    if ($scope.clients.indexOf(list.client.name) == -1 )
-                        $scope.clients.push(list.client.name);
-                });
-            })
-            .error(function () {
-                $rootScope.notify("获取客户列表失败！请检查您的网络！");
-            });
-
         $scope.loadResult();
     });
 

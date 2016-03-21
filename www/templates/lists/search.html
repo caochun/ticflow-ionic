@@ -13,12 +13,12 @@
         <option value="">全部</option>
       </select>
     </label>
-    <label class="item item-input item-select">
-      <span class="input-label">客户</span>
-      <select ng-model="select.client" ng-options="client as client for client in clients" ng-change="loadResult()">
-        <option value="">全部</option>
-      </select>
-    </label>
+
+    <div class="item item-input item-button-right">
+      <span class="input-label">客户姓名</span>
+      <input type="text" ng-model="select.client" >
+      <button class="button button-clear button-positive ion-search" ng-click="loadResult()"></button>
+    </div> 
 
     <ion-item class="item" ng-if="noData">
       <div class="item">
