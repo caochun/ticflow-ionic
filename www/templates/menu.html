@@ -40,6 +40,10 @@
           <a class="icon ion-folder"></a>
           已审核报修单
         </ion-item>
+        <ion-item menu-close href="#/menu/search" class="item-icon-left" ng-show="!isEngineer()&&!isTreasurer()">
+          <a class="icon ion-search"></a>
+          报修单搜索
+        </ion-item>
         <ion-item menu-close href="#/menu/users" class="item-icon-left" ng-show="isAdmin()">
           <i class="icon ion-person"></i>
           用户管理

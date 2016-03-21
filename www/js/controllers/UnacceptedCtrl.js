@@ -42,7 +42,7 @@ angular.module('ticflow.controllers')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
             query.engineer = API.getId();
-        else if ($scope.isManager || $scope.isSaler) {
+        else if ($scope.isManager || $scope.isAdmin) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
             if ($scope.select.engineer !== "")
@@ -82,7 +82,7 @@ angular.module('ticflow.controllers')
             query.saler = API.getId();
         else if (API.getRole() == 'engineer')
             query.engineer = API.getId();
-        else if ($scope.isManager || $scope.isSaler) {
+        else if ($scope.isManager || $scope.isAdmin) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
             if ($scope.select.engineer !== "")

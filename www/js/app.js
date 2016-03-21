@@ -103,6 +103,16 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
+    .state('menu.search', { //报修单搜索
+      url: '/search',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/search.html',
+          controller: 'SearchCtrl',
+        }
+      }
+    })
+
     .state('menu.valuechange_detail', { //分值改动详情
       url: '/valuechange/:_id',
       views: {
@@ -149,6 +159,16 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
         'menuContent': {
           templateUrl: 'templates/lists/checked_detail.html',
           controller: 'CheckedDetailCtrl',
+        }
+      }
+    })
+
+    .state('menu.search_detail', { //报修单搜索详情
+      url: '/search/:_id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/lists/search_detail.html',
+          controller: 'SearchDetailCtrl',
         }
       }
     })

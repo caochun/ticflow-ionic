@@ -33,6 +33,10 @@ angular.module('ticflow.controllers')
         return API.getRole() == 'saler';
     };
 
+    $scope.isEngineer = function () {
+        return API.getRole() == 'engineer';
+    };
+
     $scope.isManager = function () {
         return API.getRole() == 'manager';
     };
@@ -43,7 +47,7 @@ angular.module('ticflow.controllers')
 
     $scope.isTreasurer = function () {
         return API.getRole() == 'treasurer';
-    }
+    };
     
     $scope.logout = function() {
         API.logout();

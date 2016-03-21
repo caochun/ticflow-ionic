@@ -1,10 +1,10 @@
 angular.module('ticflow.controllers')
 
-.controller('AcceptedCtrl', function ($rootScope, $scope, API, $window, $filter) {
+.controller('SearchCtrl', function ($rootScope, $scope, API, $window, $filter) {
 
     $scope.select = {
         saler: "",
-        engineer: "",
+        client: "",
     };
     $scope.currentPage = 0;
     $scope.limit = 5;
@@ -23,51 +23,54 @@ angular.module('ticflow.controllers')
                 .error(function () {
                     $rootScope.notify("获取销售人员列表失败！请检查您的网络！");
                 });
-
-            API.getUsers({role: 'engineer'})
-                .success(function (engineers) {
-                    $scope.engineers = engineers;
-                })
-                .error(function () {
-                    $rootScope.notify("获取工程师列表失败！请检查您的网络！");
-                });
         }
 
-        $scope.loadAccepted();
+        $scope.clients = [];
+        API.getClientInfo()
+            .success(function (lists) {
+                lists.forEach(function (list) {
+                    if ($scope.clients.indexOf(list.client.name) == -1 )
+                        $scope.clients.push(list.client.name);
+                });
+            })
+            .error(function () {
+                $rootScope.notify("获取客户列表失败！请检查您的网络！");
+            });
+
+        $scope.loadResult();
     });
 
-    $scope.loadAccepted = function () {
-        var query = {accepted: true, completed: false};
+    $scope.loadResult = function () {
+        var query = {};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
-        else if (API.getRole() == 'engineer')
-            query.engineer = API.getId();
         else if ($scope.isManager || $scope.isAdmin) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
-            if ($scope.select.engineer !== "")
-                query.engineer = $scope.select.engineer;
         }
+
+        if ($scope.select.client !== "")
+            query['client.name'] = $scope.select.client;
 
         $scope.currentPage = 0;
         query.page = $scope.currentPage;
         query.limit = $scope.limit;
 
         API.getLists(query)
-            .success(function (listsAccepted) {
-                $scope.hasNextPage = listsAccepted.length >= $scope.limit;
+            .success(function (lists) {
+                $scope.hasNextPage = lists.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
 
                 $scope.noData = false;
-                if (listsAccepted.length === 0)
+                if (lists.length === 0)
                     $scope.noData = true;
 
-                listsAccepted.forEach(function (entry) {
-                    entry.acceptTime = $filter('date')(entry.acceptTime, "yyyy-MM-dd HH:mm");
+                lists.forEach(function (entry) {
+                    entry.date = $filter('date')(entry.date, "yyyy-MM-dd HH:mm");
                 });
 
-                $scope.listsAccepted = listsAccepted;
+                $scope.lists = lists;
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -77,32 +80,31 @@ angular.module('ticflow.controllers')
     };
 
     $scope.loadMore = function () {
-        var query = {accepted: true, completed: false};
+        var query = {};
         if (API.getRole() == 'saler')
             query.saler = API.getId();
-        else if (API.getRole() == 'engineer')
-            query.engineer = API.getId();
         else if ($scope.isManager || $scope.isAdmin) {
             if ($scope.select.saler !== "")
                 query.saler = $scope.select.saler;
-            if ($scope.select.engineer !== "")
-                query.engineer = $scope.select.engineer;
         }
+
+        if ($scope.select.client !== "")
+            query['client.name'] = $scope.select.client;
 
         query.page = $scope.currentPage;
         query.limit = $scope.limit;
 
         API.getLists(query)
-            .success(function (listsAccepted) {
-                $scope.hasNextPage = listsAccepted.length >= $scope.limit;
+            .success(function (lists) {
+                $scope.hasNextPage = lists.length >= $scope.limit;
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
 
-                listsAccepted.forEach(function (entry) {
-                    entry.acceptTime = $filter('date')(entry.acceptTime, "yyyy-MM-dd HH:mm");
+                lists.forEach(function (entry) {
+                    entry.date = $filter('date')(entry.date, "yyyy-MM-dd HH:mm");
                 });
 
-                $scope.listsAccepted = $scope.listsAccepted.concat(listsAccepted);
+                $scope.lists = $scope.lists.concat(lists);
             })
             .error(function () {
                 $rootScope.notify("网络连接失败！请检查您的网络！");
@@ -112,6 +114,6 @@ angular.module('ticflow.controllers')
     };
 
     $scope.doRefresh = function () {
-        $scope.loadAccepted();
+        $scope.loadResult();
     };
 });

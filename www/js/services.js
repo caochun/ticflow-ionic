@@ -3,9 +3,9 @@ angular.module('ticflow.services')
 
         var user = $localStorage.get('user');
 
-        var base = "http://121.42.175.137:3001";
+        //var base = "http://121.42.175.137:3001";
         //var base = "http://114.212.85.45:3001"; //lzl wired network @ room 812
-        //var base = "http://localhost:3001";
+        var base = "http://localhost:3001";
 
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
@@ -98,9 +98,9 @@ angular.module('ticflow.services')
                     params: query
                 });
             },
-            // getClientInfo: function () {
-            //     return $http.get(base + '/lists/clientinfo');
-            // },
+            getClientInfo: function () {
+                return $http.get(base + '/lists/clientinfo');
+            },
             getMonths: function () {
                 return $http.get(base + '/lists/months');
             },

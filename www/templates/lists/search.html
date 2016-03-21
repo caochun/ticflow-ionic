@@ -1,0 +1,45 @@
+<ion-view view-title="报修单搜索" >
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+    <label class="item item-input item-select" ng-show="isManager || isAdmin">
+      <span class="input-label">销售人员</span>
+      <select ng-model="select.saler" ng-options="saler.id as saler.id for saler in salers" ng-change="loadResult()">
+        <option value="">全部</option>
+      </select>
+    </label>
+    <label class="item item-input item-select">
+      <span class="input-label">客户</span>
+      <select ng-model="select.client" ng-options="client as client for client in clients" ng-change="loadResult()">
+        <option value="">全部</option>
+      </select>
+    </label>
+
+    <ion-item class="item" ng-if="noData">
+      <div class="item">
+        <h2>
+          <i>没有任何符合条件的报修单</i>
+        </h2>
+      </div>
+    </ion-item>
+
+    <ion-item class="item" ng-repeat="list in lists" ui-sref='menu.search_detail({_id: list._id})'>
+      <div class="item">
+        <h2><i>客户姓名:&emsp;</i> {{list.client.name}}</h2>
+        <h2><i>销售人员:&emsp;</i> {{list.saler}}</h2>
+        <h2><i>工程师:&emsp;</i> {{list.engineer}}</h2>
+        <h2><i>创建时间:&emsp;</i> {{list.date}}</h2>
+      </div>
+    </ion-item>
+
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-load-c" ng-if="hasNextPage">
+    </ion-infinite-scroll>
+
+  </ionic-content>
+</ion-view>
+
