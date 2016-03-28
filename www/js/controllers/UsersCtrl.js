@@ -22,7 +22,7 @@ angular.module('ticflow.controllers')
                     switch (entry.role) {
                         case "manager":
                             entry.role = "派单员";
-                            entry.del = true;
+                            entry.del = false;
                             break;
                         case "saler":
                             entry.role = "销售人员";
@@ -37,7 +37,7 @@ angular.module('ticflow.controllers')
                             entry.del = false;
                             break;
                         case "treasurer":
-                            entry.role = "财务员";
+                            entry.role = "财务";
                             entry.del = false;
                             break;
                         default:

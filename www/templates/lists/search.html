@@ -16,7 +16,7 @@
 
     <div class="item item-input item-button-right">
       <span class="input-label">客户姓名</span>
-      <input type="text" ng-model="select.client" >
+      <input type="text" ng-model="select.client" ng-change="loadResult()">
       <button class="button button-clear button-positive ion-search" ng-click="loadResult()"></button>
     </div> 
 
