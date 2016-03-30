@@ -11,6 +11,10 @@
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
     <label class="item item-input">
+      <span class="input-label">报修单号</span>
+      <input type="text" disabled ng-model="list.serial_number" >
+    </label>
+    <label class="item item-input">
       <span class="input-label">客户单位</span>
       <input type="text" disabled ng-model="list.client.unit" >
     </label>
