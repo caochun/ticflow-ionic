@@ -30,10 +30,10 @@
 
     <ion-item class="item" ng-repeat="listAccepted in listsAccepted" ui-sref='menu.accepted_detail({_id: listAccepted._id})'>
       <div class="item">
+        <h2><i>报修单号:&emsp;</i> {{listAccepted.serial_number}}</h2>
         <h2><i>客户姓名:&emsp;</i> {{listAccepted.client.name}}</h2>
         <h2><i>销售人员:&emsp;</i> {{listAccepted.saler}}</h2>
         <h2><i>工程师:&emsp;</i> {{listAccepted.engineer}}</h2>
-        <h2><i>报修单号:&emsp;</i> {{listAccepted.serial_number}}</h2>
       </div>
     </ion-item>
 

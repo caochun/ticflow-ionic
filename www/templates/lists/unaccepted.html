@@ -30,10 +30,10 @@
 
     <ion-item class="item" ng-repeat="listUnaccepted in listsUnaccepted" ui-sref='menu.unaccepted_detail({_id: listUnaccepted._id})'>
       <div class="item">
+        <h2><i>报修单号:&emsp;</i> {{listUnaccepted.serial_number}}</h2>
         <h2><i>客户姓名:&emsp;</i> {{listUnaccepted.client.name}}</h2>
         <h2><i>销售人员:&emsp;</i> {{listUnaccepted.saler}}</h2>
         <h2><i>工程师:&emsp;</i> {{listUnaccepted.engineer}}</h2>
-        <h2><i>报修单号:&emsp;</i> {{listUnaccepted.serial_number}}</h2>
       </div>
     </ion-item>
 

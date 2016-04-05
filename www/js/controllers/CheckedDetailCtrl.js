@@ -21,6 +21,7 @@ angular.module('ticflow.controllers')
                 $scope.list = list;
                 $scope.list.date = $filter('date')($scope.list.date, "yyyy-MM-dd HH:mm");
                 $scope.list.completeTime = $filter('date')($scope.list.completeTime, "yyyy-MM-dd HH:mm");
+                $scope.list.checkTime = $filter('date')($scope.list.checkTime, "yyyy-MM-dd HH:mm");
                 $scope.record.oldValue = $scope.list.value;
             })
             .error(function () {

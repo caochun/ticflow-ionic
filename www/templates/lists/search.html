@@ -30,10 +30,10 @@
 
     <ion-item class="item" ng-repeat="list in lists" ui-sref='menu.search_detail({_id: list._id})'>
       <div class="item">
+        <h2><i>报修单号:&emsp;</i> {{list.serial_number}}</h2>
         <h2><i>客户姓名:&emsp;</i> {{list.client.name}}</h2>
         <h2><i>销售人员:&emsp;</i> {{list.saler}}</h2>
         <h2><i>工程师:&emsp;</i> {{list.engineer}}</h2>
-        <h2><i>报修单号:&emsp;</i> {{list.serial_number}}</h2>
       </div>
     </ion-item>
 
