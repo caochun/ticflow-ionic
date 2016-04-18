@@ -21,13 +21,13 @@
 
     <ion-item class="item" ng-repeat="user in users">
       <div class="row">
-        <div class="col">用户名:&nbsp;{{user.id}}</div>
-        <div class="col">角色:&nbsp;{{user.role}}</div>
-        <div class="col">
-          <button class="button button-small button-calm" ng-if="user.isAdmin" disabled>重置密码</button>
+        <div class="col col-20">{{user.id}}</div>
+        <div class="col col-30">{{user.role}}</div>
+        <div class="col col-50">
+          <button class="button button-small" ng-if="user.isAdmin" disabled>重置密码</button>
           <button class="button button-small button-calm" ng-if="!user.isAdmin" ng-click="resetPassword(user)">重置密码</button>
 
-          <button class="button button-small button-positive" ng-if="user.isAdmin" disabled>冻结</button>
+          <button class="button button-small" ng-if="user.isAdmin" disabled>冻结</button>
           <button class="button button-small button-positive" ng-if="!user.isAdmin&&!user.frozen" ng-click="freeze(user)">冻结</button>
           <button class="button button-small button-balanced" ng-if="!user.isAdmin&&user.frozen" ng-click="unfreeze(user)">解冻</button>
 
