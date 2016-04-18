@@ -15,6 +15,9 @@ angular.module('ticflow.controllers')
                     if (user === null) {
                         $rootScope.notify("用户名或密码已失效！");
                         return false;
+                    } else if (user.frozen) {
+                        $rootScope.notify("用户已被冻结！");
+                        return false;
                     }
                     API.login(user.id, user.password, user.role);
                     if (user.role == 'manager') {
@@ -50,6 +53,9 @@ angular.module('ticflow.controllers')
             .success(function (user) {
                 if (user === null) {
                     $rootScope.notify("用户名或密码错误！");
+                    return false;
+                } else if (user.frozen) {
+                    $rootScope.notify("用户已被冻结！");
                     return false;
                 }
                 API.login(user.id, user.password, user.role);
