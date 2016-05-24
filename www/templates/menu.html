@@ -16,44 +16,70 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/menu/valuechange" class="item-icon-left" ng-show="isAdmin()">
-          <a class="icon ion-compose"></a>
-          分值改动
+        <ion-item ng-click="toggleList()" ng-show="!isTreasurer()">售后服务</ion-item>
+        <ion-item ng-show="submenu.list">
+          <ion-list>
+            <ion-item nav-clear menu-close href="#/menu/valuechange" ng-show="isAdmin()">
+              分值改动
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/newlist" ng-show="isManager()">
+              新建报修单
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/unaccepted" ng-show="!isSaler()&&!isTreasurer()">
+              未接报修单
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/accepted" ng-show="!isTreasurer()">
+              已接报修单
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/completed" ng-show="!isTreasurer()">
+              已完成报修单
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/checked" ng-show="!isTreasurer()">
+              已审核报修单
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/search" ng-show="!isEngineer()&&!isTreasurer()">
+              报修单搜索
+            </ion-item>
+          </ion-list>
         </ion-item>
-        <ion-item menu-close href="#/menu/newlist" class="item-icon-left" ng-show="isManager()">
-          <a class="icon ion-compose"></a>
-          新建报修单
+        <ion-item ng-click="toggleSale()" ng-show="isSalerAssistant()">销售管理</ion-item>
+        <ion-item ng-show="submenu.sale">
+          <ion-list>
+            <ion-item nav-clear menu-close href="#/menu/newuser" ng-show="isSalerAssistant()">
+              客户拜访
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/newuser" ng-show="isSalerAssistant()">
+              项目跟踪
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/newuser" ng-show="isSalerAssistant()">
+              投标管理
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/newuser" ng-show="isSalerAssistant()">
+              销售报表
+            </ion-item>
+          </ion-list>
         </ion-item>
-        <ion-item menu-close href="#/menu/unaccepted" class="item-icon-left" ng-show="!isSaler()&&!isTreasurer()">
-          <a class="icon ion-wrench"></a>
-          未接报修单
+        <ion-item ng-click="toggleFinance()" ng-show="isSaler()">在线财务</ion-item>
+        <ion-item ng-show="submenu.finance">
+          <ion-list>
+            <ion-item nav-clear menu-close href="#/menu/newuser" ng-show="isSaler()">
+              费用统计
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/newuser" ng-show="isSaler()">
+              利润统计
+            </ion-item>
+            <ion-item nav-clear menu-close href="#/menu/newuser" ng-show="isSaler()">
+              预存记录
+            </ion-item>
+          </ion-list>
         </ion-item>
-        <ion-item menu-close href="#/menu/accepted" class="item-icon-left" ng-show="!isTreasurer()">
-          <a class="icon ion-settings"></a>
-          已接报修单
-        </ion-item>
-        <ion-item menu-close href="#/menu/completed" class="item-icon-left" ng-show="!isTreasurer()">
-          <a class="icon ion-clipboard"></a>
-          已完成报修单
-        </ion-item>
-        <ion-item menu-close href="#/menu/checked" class="item-icon-left" ng-show="!isTreasurer()">
-          <a class="icon ion-folder"></a>
-          已审核报修单
-        </ion-item>
-        <ion-item menu-close href="#/menu/search" class="item-icon-left" ng-show="!isEngineer()&&!isTreasurer()">
-          <a class="icon ion-search"></a>
-          报修单搜索
-        </ion-item>
-        <ion-item menu-close href="#/menu/users" class="item-icon-left" ng-show="isAdmin()">
-          <i class="icon ion-person"></i>
+        <ion-item nav-clear menu-close href="#/menu/users" ng-show="isAdmin()">
           用户管理
         </ion-item>
-        <ion-item menu-close href="#/menu/newuser" class="item-icon-left" ng-show="isAdmin()">
-          <i class="icon ion-person-add"></i>
+        <ion-item nav-clear menu-close href="#/menu/newuser" ng-show="isAdmin()">
           新建用户
         </ion-item>
-        <ion-item menu-close href="#/menu/modifypassword" class="item-icon-left">
-          <i class="icon ion-locked"></i>
+        <ion-item nav-clear menu-close href="#/menu/modifypassword">
           修改密码
         </ion-item>
       </ion-list>

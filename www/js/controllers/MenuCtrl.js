@@ -2,6 +2,12 @@ angular.module('ticflow.controllers')
 
 .controller('MenuCtrl', function ($rootScope, $scope, API, $window) {
 
+    $scope.submenu = {
+        list: false,
+        sale: false,
+        finance: false
+    };
+
     $scope.$on('$ionicView.beforeEnter', function () {
         switch (API.getRole()) {
             case 'manager':
@@ -48,9 +54,27 @@ angular.module('ticflow.controllers')
     $scope.isTreasurer = function () {
         return API.getRole() == 'treasurer';
     };
+
+    $scope.isSalerAssistant = function () {
+        var id = API.getId();
+        console.log(API.getId());
+        return id == "周强" || id == "陆珺" || id == "周坚" || id == "王敏";
+    };
     
     $scope.logout = function() {
         API.logout();
         $window.location.href = ('#/signin');
+    };
+
+    $scope.toggleList = function() {
+        $scope.submenu.list = !$scope.submenu.list;
+    };
+
+    $scope.toggleSale = function() {
+        $scope.submenu.sale = !$scope.submenu.sale;
+    };
+
+    $scope.toggleFinance = function() {
+        $scope.submenu.finance = !$scope.submenu.finance;
     };
 });
