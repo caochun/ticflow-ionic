@@ -173,6 +173,76 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
+    .state('menu.visiting', { //客户拜访
+      url: '/visiting',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/visiting.html',
+          controller: 'VisitingCtrl',
+        }
+      }
+    })
+
+    .state('menu.tracing', { //项目跟踪
+      url: '/tracing',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/tracing.html',
+          controller: 'TracingCtrl',
+        }
+      }
+    })
+
+    .state('menu.bidding', { //投标管理
+      url: '/bidding',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/bidding.html',
+          controller: 'BiddingCtrl',
+        }
+      }
+    })
+
+    .state('menu.forms', { //销售报表
+      url: '/forms',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/forms.html',
+          controller: 'FormsCtrl',
+        }
+      }
+    })
+
+    .state('menu.expense', { //费用统计
+      url: '/expense',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/finance/expense.html',
+          controller: 'ExpenseCtrl',
+        }
+      }
+    })
+
+    .state('menu.profit', { //利润统计
+      url: '/profit',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/finance/profit.html',
+          controller: 'ProfitCtrl',
+        }
+      }
+    })
+
+    .state('menu.cash', { //预存记录
+      url: '/cash',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/finance/cash.html',
+          controller: 'CashCtrl',
+        }
+      }
+    })
+
     .state('menu.users', { //用户管理
       url: '/users',
       views: {
@@ -197,7 +267,7 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       url: '/modifypassword',
       views: {
         'menuContent': {
-          templateUrl: 'templates/modifypassword.html',
+          templateUrl: 'templates/users/modifypassword.html',
           controller: 'ModifyPasswordCtrl',
         }
       }

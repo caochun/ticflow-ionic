@@ -57,7 +57,6 @@ angular.module('ticflow.controllers')
 
     $scope.isSalerAssistant = function () {
         var id = API.getId();
-        console.log(API.getId());
         return id == "周强" || id == "陆珺" || id == "周坚" || id == "王敏";
     };
     
