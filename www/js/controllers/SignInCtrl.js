@@ -19,7 +19,7 @@ angular.module('ticflow.controllers')
                         $rootScope.notify("用户已被冻结！");
                         return false;
                     }
-                    API.login(user.id, user.password, user.role);
+                    API.login(user.id, user.password, user.role, user.token);
                     if (user.role == 'manager') {
                         $window.location.href = ('#/menu/newlist');
                     }
@@ -58,7 +58,7 @@ angular.module('ticflow.controllers')
                     $rootScope.notify("用户已被冻结！");
                     return false;
                 }
-                API.login(user.id, user.password, user.role);
+                API.login(user.id, user.password, user.role, user.token);
                 if (user.role == 'manager') {
                     $window.location.href = ('#/menu/newlist');
                 }

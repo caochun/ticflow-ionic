@@ -3,9 +3,9 @@ angular.module('ticflow.services')
 
         var user = $localStorage.get('user');
 
-        var base = "http://121.42.175.137:3001";
-        //var base = "http://114.212.85.45:3001"; //lzl wired network @ room 812
-        //var base = "http://localhost:3001";
+        //var base = "http://121.42.175.137:3001";
+        //var base = "http://169.254.35.112:3001"; //lzl wired network @ room 812
+        var base = "http://localhost:3001";
 
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({
@@ -30,14 +30,14 @@ angular.module('ticflow.services')
             },
 
             signin: function (id, password) {
-                return $http.post(base + '/users/signin', {
+                return $http.post(base + '/auth/signin', {
                     id: id,
                     password: password
                 });
             },
 
-            login: function (id, password, role) {
-                $localStorage.set('user', {id: id, password: password, role: role});
+            login: function (id, password, role, token) {
+                $localStorage.set('user', {id: id, password: password, role: role, token: token});
                 $localStorage.set('authenticated', true);
                 user = $localStorage.get('user');
             },

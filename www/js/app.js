@@ -22,11 +22,24 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
   $ionicConfigProvider.views.transition('ios');
   $ionicConfigProvider.tabs.style('standard').position('bottom');
   $ionicConfigProvider.navBar.alignTitle('center').positionPrimaryButtons('left');
+
+  $httpProvider.interceptors.push(function ($localStorage) {
+    return {
+      'request': function (config) {
+        config.headers = config.headers || {};
+        if ($localStorage.get('authenticated')) {
+          var user = $localStorage.get('user');
+          config.headers.token = user.token;
+        }
+        return config;
+      },
+    };
+  });
 
   $stateProvider
 
