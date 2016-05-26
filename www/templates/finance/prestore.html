@@ -1,0 +1,26 @@
+<ion-view view-title="预存记录">
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+    <ion-item class="item" ng-if="noData">
+      <div class="item">
+        <h2>
+          <i>目前没有任何预存记录</i>
+        </h2>
+      </div>
+    </ion-item>
+
+    <ion-item class="item"  ng-repeat="entry in prestore_total" ui-sref='menu.prestore_detail({client: entry.client, contacter: entry.contacter})'>
+      <div class="item">
+        <h2><i>客户:&nbsp;</i> {{entry.client}} &emsp; <i>联系人:&nbsp;</i> {{entry.contacter}}</h2>
+        <h2><i>余额:&nbsp;</i> {{entry.account}}</h2>
+      </div>
+    </ion-item>
+
+  </ion-content>
+</ion-view>

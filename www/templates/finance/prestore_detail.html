@@ -1,0 +1,30 @@
+<ion-view view-title="预存记录详情">
+
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-back-button class="button-icon ion-ios-arrow-back">
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+    <ion-item class="item">
+    <div class="item">
+      <h2><i>客户:&nbsp;</i> {{client}} &emsp; <i>联系人:&nbsp;</i> {{contacter}}</h2>
+    </div>
+    </ion-item>
+
+    <ion-item class="item"  ng-repeat="prestore in prestore">
+      <div class="item">
+        <h2><i>编号:&nbsp;</i> {{prestore.serial_number}}</h2>
+        <h2><i>项目:&nbsp;</i> {{prestore.detail}} &emsp; <i>金额:&nbsp;</i> {{prestore.money}}</h2>
+        <h2><i>发票号码/单号:&nbsp;</i> {{prestore.invoice_number}}</h2>        
+        <h2><i>备注:&nbsp;</i> {{prestore.comment}}</h2>
+      </div>
+    </ion-item>
+
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-load-c" ng-if="hasNextPage">
+    </ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>

@@ -157,6 +157,17 @@ angular.module('ticflow.services')
                     params: query
                 });
             },
+
+            getPrestoreTotal: function (query) {
+                return $http.get(base + '/app_prestore/total', {
+                    params: query
+                });
+            },
+            getPrestoreDetail: function (query) {
+                return $http.get(base + '/app_prestore/detail', {
+                    params: query
+                });
+            },
         };
  });
 

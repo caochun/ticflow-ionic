@@ -246,12 +246,22 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
-    .state('menu.cash', { //预存记录
-      url: '/cash',
+    .state('menu.prestore', { //预存记录
+      url: '/prestore',
       views: {
         'menuContent': {
-          templateUrl: 'templates/finance/cash.html',
-          controller: 'CashCtrl',
+          templateUrl: 'templates/finance/prestore.html',
+          controller: 'PrestoreCtrl',
+        }
+      }
+    })
+
+    .state('menu.prestore_detail', { //预存记录详情
+      url: '/prestore/:client/:contacter',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/finance/prestore_detail.html',
+          controller: 'PrestoreDetailCtrl',
         }
       }
     })
