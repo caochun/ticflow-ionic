@@ -9,6 +9,11 @@ angular.module('ticflow.controllers')
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {
+
+        $scope.submenu.list = false;
+        $scope.submenu.sale = false;
+        $scope.submenu.finance = false;
+
         switch (API.getRole()) {
             case 'manager':
                 $scope.username = API.getId() + "(派单员)";
@@ -25,15 +30,18 @@ angular.module('ticflow.controllers')
             case 'treasurer':
                 $scope.username = API.getId() + "(财务员)";
                 break;
+            case 'salerassistant':
+                $scope.username = API.getId() + "(销售助理)";
+                break;
             default:
                 API.logout();
                 $window.location.href = ('#/signin');
         }
     });
 
-    // $scope.isEngineer = function () {
-    //     return API.getRole() == 'engineer';
-    // };
+    $scope.isManager = function () {
+        return API.getRole() == 'manager';
+    };
 
     $scope.isSaler = function () {
         return API.getRole() == 'saler';
@@ -42,11 +50,7 @@ angular.module('ticflow.controllers')
     $scope.isEngineer = function () {
         return API.getRole() == 'engineer';
     };
-
-    $scope.isManager = function () {
-        return API.getRole() == 'manager';
-    };
-
+    
     $scope.isAdmin = function () {
         return API.getRole() == 'admin';
     };
@@ -57,7 +61,7 @@ angular.module('ticflow.controllers')
 
     $scope.isSalerAssistant = function () {
         var id = API.getId();
-        return id == "周强" || id == "陆珺" || id == "周坚" || id == "王敏";
+        return id == "周强" || id == "陆珺" || id == "周坚" || id == "汪敏";
     };
     
     $scope.logout = function() {
@@ -67,13 +71,25 @@ angular.module('ticflow.controllers')
 
     $scope.toggleList = function() {
         $scope.submenu.list = !$scope.submenu.list;
+        if ($scope.submenu.list) {
+            $scope.submenu.sale = false;
+            $scope.submenu.finance = false;
+        }
     };
 
     $scope.toggleSale = function() {
         $scope.submenu.sale = !$scope.submenu.sale;
+        if ($scope.submenu.sale) {
+            $scope.submenu.list = false;
+            $scope.submenu.finance = false;
+        }
     };
 
     $scope.toggleFinance = function() {
         $scope.submenu.finance = !$scope.submenu.finance;
+        if ($scope.submenu.finance) {
+            $scope.submenu.list = false;
+            $scope.submenu.sale = false;
+        }
     };
 });

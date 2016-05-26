@@ -32,6 +32,9 @@ angular.module('ticflow.controllers')
                     else if (user.role == 'admin') {
                         $window.location.href = ('#/menu/valuechange');
                     }
+                    else if (user.role == 'salerassistant') {
+                        $window.location.href = ('#/menu/visiting');
+                    }
                 }).error(function () {
                     $rootScope.notify("重新登录失败！请检查您的网络！");
                 });
@@ -73,6 +76,9 @@ angular.module('ticflow.controllers')
                 }
                 else if (user.role == 'treasurer') {
                     $window.location.href = ('#/menu/modifypassword');
+                }
+                else if (user.role == 'salerassistant') {
+                    $window.location.href = ('#/menu/visiting');
                 }
             }).error(function () {
                 $rootScope.notify("登录失败！请检查您的网络！");
