@@ -5,6 +5,33 @@
   </ion-nav-buttons>
 
   <ion-content>
+  	<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+  	<label class="item item-input item-select">
+      <span class="input-label">月份</span>
+      <select ng-model="select.month" ng-options="month as month for month in months" ng-change="loadExpense()">
+        <option value="">全部</option>
+      </select>
+    </label>
+
+    <ion-item class="item">
+      <div class="item">
+        <h2>
+          <i>费用总计</i> {{totalExpense}}
+        </h2>
+      </div>
+    </ion-item>
+
+    <ion-item class="item"  ng-repeat="expense in expense">
+      <div class="item">
+      	<h2><i>编号:&nbsp;</i> {{expense.serial_number}}</h2>
+        <h2><i>项目:&nbsp;</i> {{expense.detail}} &emsp; <i>金额:&nbsp;</i> {{expense.money}}</h2>
+        <h2><i>备注:&nbsp;</i> {{expense.comment}}</h2>
+      </div>
+    </ion-item>
+
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-load-c" ng-if="hasNextPage">
+    </ion-infinite-scroll>
     
   </ion-content>
 </ion-view>

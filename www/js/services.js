@@ -98,10 +98,7 @@ angular.module('ticflow.services')
                     params: query
                 });
             },
-            getClientInfo: function () {
-                return $http.get(base + '/lists/clientinfo');
-            },
-            getMonths: function () {
+            getMonths: function () { //months in checked lists
                 return $http.get(base + '/lists/months');
             },
 
@@ -135,6 +132,30 @@ angular.module('ticflow.services')
                     mimeType: "image/jpg",
                 };
                 return $cordovaFileTransfer.upload(url, targetpath, options);
+            },
+
+            getMonthsFinance: function () { //months in profits
+                return $http.get(base + '/app_profits/months');
+            },
+            getTotalExpense: function (query) {
+                return $http.get(base + '/app_profits/totalexpense', {
+                    params: query
+                });
+            },
+            getExpense: function (query) {
+                return $http.get(base + '/app_profits/expense', {
+                    params: query
+                });
+            },
+            getTotalProfit: function (query) {
+                return $http.get(base + '/app_profits/totalprofit', {
+                    params: query
+                });
+            },
+            getProfit: function (query) {
+                return $http.get(base + '/app_profits/profit', {
+                    params: query
+                });
             },
         };
  });
