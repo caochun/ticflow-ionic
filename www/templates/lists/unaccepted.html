@@ -3,6 +3,11 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <a class="button button-clear"  ng-if="isManager" ui-sref='menu.newlist'>
+      <i class="icon ion-ios-compose-outline"></i>
+    </a>
+  </ion-nav-buttons>
 
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
