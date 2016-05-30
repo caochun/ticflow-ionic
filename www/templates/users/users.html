@@ -31,7 +31,7 @@
           <button class="button button-small button-positive" ng-if="!user.isAdmin&&!user.frozen" ng-click="freeze(user)">冻结</button>
           <button class="button button-small button-balanced" ng-if="!user.isAdmin&&user.frozen" ng-click="unfreeze(user)">解冻</button>
 
-          <button class="button button-small" ng-if="user.isManager||user.isAdmin||user.isTreasurer" disabled>删除</button>
+          <button class="button button-small" ng-if="user.isManager||user.isAdmin||user.isTreasurer||user.isSalerAssistant" disabled>删除</button>
           <button class="button button-small button-assertive" ng-if="user.isSaler||user.isEngineer" ng-click="removeUser(user)">删除</button>
         </div>
       </div>

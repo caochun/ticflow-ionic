@@ -40,6 +40,10 @@ angular.module('ticflow.controllers')
                             entry.role = "财务";
                             entry.isTreasurer = true;
                             break;
+                        case "salerassistant":
+                            entry.role = "销售助理";
+                            entry.isSalerAssistant = true;
+                            break;
                         default:
                             entry.role = "未知";
                     }
