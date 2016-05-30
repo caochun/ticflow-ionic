@@ -17,7 +17,8 @@
 
     <ion-item class="item"  ng-repeat="entry in prestore_total" ui-sref='menu.prestore_detail({client: entry.client, contacter: entry.contacter})'>
       <div class="item">
-        <h2><i>客户:&nbsp;</i> {{entry.client}} &emsp; <i>联系人:&nbsp;</i> {{entry.contacter}}</h2>
+        <h2><i>客户:&nbsp;</i> {{entry.client}}</h2>
+        <h2><i>联系人:&nbsp;</i> {{entry.contacter}}</h2>
         <h2><i>余额:&nbsp;</i> {{entry.account}}</h2>
       </div>
     </ion-item>

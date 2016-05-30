@@ -4,7 +4,7 @@ angular.module('ticflow.services')
         var user = $localStorage.get('user');
 
         //var base = "http://121.42.175.137:3001";
-        //var base = "http://169.254.35.112:3001"; //lzl wired network @ room 812
+        //var base = "http://114.212.81.8:3001"; //lzl wired network @ room 812
         var base = "http://localhost:3001";
 
         $rootScope.show = function (text) {
