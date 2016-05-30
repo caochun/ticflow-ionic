@@ -21,7 +21,7 @@ angular.module('ticflow.controllers')
                     }
                     API.login(user.id, user.password, user.role, user.token);
                     if (user.role == 'manager') {
-                        $window.location.href = ('#/menu/newlist');
+                        $window.location.href = ('#/menu/unaccepted');
                     }
                     else if (user.role == 'engineer') {
                         $window.location.href = ('#/menu/unaccepted');
@@ -63,7 +63,7 @@ angular.module('ticflow.controllers')
                 }
                 API.login(user.id, user.password, user.role, user.token);
                 if (user.role == 'manager') {
-                    $window.location.href = ('#/menu/newlist');
+                    $window.location.href = ('#/menu/unaccepted');
                 }
                 else if (user.role == 'engineer') {
                     $window.location.href = ('#/menu/unaccepted');

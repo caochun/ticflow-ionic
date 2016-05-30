@@ -39,19 +39,19 @@
             </ion-item>
           </ion-list>
         </ion-item>
-        <ion-item ng-click="toggleSale()" ng-if="isSalerAssistant()">销售管理</ion-item>
+        <ion-item ng-click="toggleSale()" ng-if="isSaler()||isSalerAssistant()">销售管理</ion-item>
         <ion-item ng-if="submenu.sale">
           <ion-list>
-            <ion-item menu-close href="#/menu/visiting" ng-if="isSalerAssistant()">
+            <ion-item menu-close href="#/menu/visiting" ng-if="isSaler()||isSalerAssistant()">
               客户拜访
             </ion-item>
-            <ion-item menu-close href="#/menu/tracing" ng-if="isSalerAssistant()">
+            <ion-item menu-close href="#/menu/tracing" ng-if="isSaler()||isSalerAssistant()">
               项目跟踪
             </ion-item>
-            <ion-item menu-close href="#/menu/forms" ng-if="isSalerAssistant()">
+            <ion-item menu-close href="#/menu/forms" ng-if="isSaler()||isSalerAssistant()">
               销售报表
             </ion-item>
-            <ion-item menu-close href="#/menu/bidding" ng-if="isSalerAssistant()">
+            <ion-item menu-close href="#/menu/bidding" ng-if="isSaler()||isSalerAssistant()">
               投标管理
             </ion-item>
           </ion-list>

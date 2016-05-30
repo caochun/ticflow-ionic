@@ -5,6 +5,42 @@
   </ion-nav-buttons>
 
   <ion-content>
-    
+
+    <label class="item item-input item-select" ng-show="isSalerAssistant">
+      <span class="input-label">销售人员</span>
+      <select ng-model="select.saler" ng-options="saler.id as saler.id for saler in salers" ng-change="loadForms()">
+        <option value="">全部</option>
+      </select>
+    </label>
+
+    <label class="item item-input item-select">
+      <span class="input-label">月份</span>
+      <select ng-model="select.month" ng-options="month as month for month in months" ng-change="loadForms()">
+        <option value="">全部</option>
+      </select>
+    </label>
+
+    <ion-item class="item" ng-if="noData">
+      <div class="item">
+        <h2>
+          <i>目前没有任何销售报表</i>
+        </h2>
+      </div>
+    </ion-item>
+
+    <ion-item class="item"  ng-repeat="form in forms">
+      <div class="item">
+        <h2><i>月份:&emsp;</i> {{form.month}}</h2>
+        <h2 ng-show="isSalerAssitant"><i>销售姓名:&emsp;</i> {{form.saler}}</h2>
+        <h2><i>销售任务:&emsp;</i> {{form.task}}</h2>
+        <h2><i>实际完成:&emsp;</i> {{form.complete}}</h2>
+        <h2><i>完成率:&emsp;</i> {{form.percent}}</h2>
+        <h2><i>备注:&emsp;</i> {{form.comment}}</h2>
+      </div>
+    </ion-item>
+
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-load-c" ng-if="hasNextPage">
+    </ion-infinite-scroll>
+
   </ion-content>
 </ion-view>

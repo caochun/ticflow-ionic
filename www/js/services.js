@@ -168,6 +168,15 @@ angular.module('ticflow.services')
                     params: query
                 });
             },
+
+            getMonthsSalesReport: function (query) { //months in sales report
+                return $http.get(base + '/app_salesreport/months');
+            },
+            getSalesReport: function (query) {
+                return $http.get(base + '/app_salesreport', {
+                    params: query
+                });
+            },
         };
  });
 
