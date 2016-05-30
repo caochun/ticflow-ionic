@@ -177,6 +177,18 @@ angular.module('ticflow.services')
                     params: query
                 });
             },
+
+            getMonthsBidManagement: function (query) { //months in bid management
+                return $http.get(base + '/app_bidmanagement/months');
+            },
+            getBidManagement: function (query) {
+                return $http.get(base + '/app_bidmanagement', {
+                    params: query
+                });
+            },
+            getBidManagementDetail: function (_id) {
+                return $http.get(base + '/app_bidmanagement/' + _id);
+            },
         };
  });
 

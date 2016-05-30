@@ -61,6 +61,10 @@ angular.module('ticflow.controllers')
                 if ($scope.hasNextPage)
                     $scope.currentPage ++;
 
+                $scope.noData = false;
+                if (forms.length === 0)
+                    $scope.noData = true;
+
                 forms.forEach(function (entry) {
                     entry.percent = (entry.complete * 100 / entry.task).toFixed(1) + "\%";
                     if (entry.comment == "")
@@ -113,6 +117,6 @@ angular.module('ticflow.controllers')
     };
 
     $scope.doRefresh = function () {
-        $scope.loadChecked();
+        $scope.loadForms();
     };
 });

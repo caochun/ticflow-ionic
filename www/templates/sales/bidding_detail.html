@@ -1,0 +1,45 @@
+<ion-view view-title="投标项目详情">
+
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-back-button class="button-icon ion-ios-arrow-back">
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+    <label class="item item-input">
+      <span class="input-label">月份</span>
+      <input type="text" disabled ng-model="bidding.month" >
+    </label>
+    <label class="item item-input">
+      <span class="input-label">销售姓名</span>
+      <input type="text" disabled ng-model="bidding.saler" >
+    </label>
+    <label class="item item-input">
+      <span class="input-label">客户名称</span>
+      <input type="text" disabled ng-model="bidding.client" >
+    </label>
+    <label class="item item-input">
+      <span class="input-label">项目名称</span>
+      <input type="text" disabled ng-model="bidding.projectName" >
+    </label>
+    <label class="item item-input">
+      <span class="input-label">公告链接</span>
+      <input type="text" disabled ng-model="bidding.link" >
+    </label>
+    <label class="item item-input">
+      <span class="input-label">是否中标</span>
+      <input type="text" disabled ng-model="bidding.win_string" >
+    </label>
+    <label class="item item-input" ng-if="!bidding.win">
+      <span class="input-label">竞争对手</span>
+      <input type="text" disabled ng-model="bidding.competitor" >
+    </label>
+    <label class="item item-input">
+      <span class="input-label">中标金额</span>
+      <input type="text" disabled ng-model="bidding.money" >
+    </label>
+
+  </ion-content>
+</ion-view>

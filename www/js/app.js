@@ -216,6 +216,16 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
+    .state('menu.bidding_detail', { //投标管理详情
+      url: '/bidding/:_id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/bidding_detail.html',
+          controller: 'BiddingDetailCtrl',
+        }
+      }
+    })
+
     .state('menu.forms', { //销售报表
       url: '/forms',
       views: {

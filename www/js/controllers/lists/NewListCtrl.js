@@ -89,6 +89,7 @@ angular.module('ticflow.controllers')
         API.newList($scope.list)
             .success(function (list) {
                 $rootScope.notify("创建成功!");
+                $window.location.href = ('#/menu/unaccepted');
             })
             .error(function () {
                 $rootScope.notify("创建失败！请检查您的网络！");

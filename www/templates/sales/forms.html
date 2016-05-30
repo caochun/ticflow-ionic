@@ -5,6 +5,7 @@
   </ion-nav-buttons>
 
   <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
     <label class="item item-input item-select" ng-show="isSalerAssistant">
       <span class="input-label">销售人员</span>
@@ -31,7 +32,7 @@
     <ion-item class="item"  ng-repeat="form in forms">
       <div class="item">
         <h2><i>月份:&emsp;</i> {{form.month}}</h2>
-        <h2 ng-show="isSalerAssitant"><i>销售姓名:&emsp;</i> {{form.saler}}</h2>
+        <h2><i>销售姓名:&emsp;</i> {{form.saler}}</h2>
         <h2><i>销售任务:&emsp;</i> {{form.task}}</h2>
         <h2><i>实际完成:&emsp;</i> {{form.complete}}</h2>
         <h2><i>完成率:&emsp;</i> {{form.percent}}</h2>

@@ -5,6 +5,41 @@
   </ion-nav-buttons>
 
   <ion-content>
-    
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+  
+    <label class="item item-input item-select" ng-show="isSalerAssistant">
+      <span class="input-label">销售人员</span>
+      <select ng-model="select.saler" ng-options="saler.id as saler.id for saler in salers" ng-change="loadBidding()">
+        <option value="">全部</option>
+      </select>
+    </label>
+
+    <label class="item item-input item-select">
+      <span class="input-label">月份</span>
+      <select ng-model="select.month" ng-options="month as month for month in months" ng-change="loadBidding()">
+        <option value="">全部</option>
+      </select>
+    </label>
+
+    <ion-item class="item" ng-if="noData">
+      <div class="item">
+        <h2>
+          <i>目前没有任何投标项目</i>
+        </h2>
+      </div>
+    </ion-item>
+
+    <ion-item class="item"  ng-repeat="entry in bidding" ui-sref='menu.bidding_detail({_id: entry._id})'>
+      <div class="item">
+        <h2><i>月份:&emsp;</i> {{entry.month}}</h2>
+        <h2><i>销售姓名:&emsp;</i> {{entry.saler}}</h2>
+        <h2><i>客户名称:&emsp;</i> {{entry.client}}</h2>
+        <h2><i>项目名称:&emsp;</i> {{entry.projectName}}</h2>
+        <h2><i>是否中标:&emsp;</i> {{entry.win}}</h2>    
+      </div>
+    </ion-item>
+
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-load-c" ng-if="hasNextPage">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>
