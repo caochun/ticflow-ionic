@@ -1,0 +1,103 @@
+<ion-view view-title="新建拜访记录">
+
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-back-button class="button-icon ion-ios-arrow-back">
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  
+  <ion-content>
+
+    <div class="item item-input">
+      <span class="input-label">年份</span>
+      <input type="text" ng-model="visiting.year">
+    </div>
+    <div class="item item-input item-select">
+      <span class="input-label">季度</span>
+      <select ng-model="visiting.season">
+        <option value="">请选择</option>
+        <option value="Q1">Q1</option>
+        <option value="Q2">Q2</option>
+        <option value="Q3">Q3</option>
+        <option value="Q4">Q4</option>
+      </select>
+    </div>
+    <div class="item item-input item-select">
+      <span class="input-label">周</span>
+      <select ng-model="visiting.week">
+        <option value="">请选择</option>
+        <option value="W1">W1</option>
+        <option value="W2">W2</option>
+        <option value="W3">W3</option>
+        <option value="W4">W4</option>
+        <option value="W5">W5</option>
+        <option value="W6">W6</option>
+        <option value="W7">W7</option>
+        <option value="W8">W8</option>
+        <option value="W9">W9</option>
+        <option value="W10">W10</option>
+        <option value="W11">W11</option>
+        <option value="W12">W12</option>
+        <option value="W13">W13</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">学校</span>
+      <input type="text" ng-model="visiting.school">
+    </div>
+    <div class="item item-input item-select">
+      <span class="input-label">客户分类</span>
+      <select ng-model="visiting.client_sort">
+        <option value="">请选择</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+      </select>
+    </div>
+    <div class="item item-input item-select">
+      <span class="input-label">新/老客户</span>
+      <select ng-model="visiting.new">
+        <option value="">请选择</option>
+        <option value="new">新</option>
+        <option value="old">老</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">院系名称</span>
+      <input type="text" ng-model="visiting.department">
+    </div> 
+    <div class="item item-input">
+      <span class="input-label">客户姓名</span>
+      <input type="text" ng-model="visiting.name"></input>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">联系方式</span>
+      <input type="tel" ng-model="visiting.phone">
+    </div>
+    <div class="item item-input">
+      <span class="input-label">拜访结果</span>
+      <input type="text" ng-model="visiting.result">
+    </div>
+    <div class="item item-input item-select">
+      <span class="input-label">有/无商机</span>
+      <select ng-model="visiting.opportunity">
+        <option value="">请选择</option>
+        <option value="yes">有</option>
+        <option value="no">无</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">预算金额</span>
+      <input type="number" ng-model="visiting.money" >
+    </div>
+
+    <div class="item item-input">
+      <span class="input-label">备注信息</span>
+      <input type="number" ng-model="visiting.comment" >
+    </div>
+
+    <div class="padding">
+      <button class="button button-block button-positive" ng-click="newVisiting()">创建</button>
+    </div>
+
+  </ion-content>
+</ion-view>

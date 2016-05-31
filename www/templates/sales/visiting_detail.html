@@ -1,0 +1,134 @@
+<ion-view view-title="详情">
+
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-back-button class="button-icon ion-ios-arrow-back">
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+    <div class="item item-input">
+      <span class="input-label">年份</span>
+      <input ng-if="isCreater" type="text" ng-model="visiting.year">
+      <input ng-if="!isCreater" type="text" disabled ng-model="visiting.year">
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">季度</span>
+      <input type="text" disabled ng-model="visiting.season">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">季度</span>
+      <select ng-model="visiting.season">
+        <option value="">请选择</option>
+        <option value="Q1">Q1</option>
+        <option value="Q2">Q2</option>
+        <option value="Q3">Q3</option>
+        <option value="Q4">Q4</option>
+      </select>
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">周</span>
+      <input type="text" disabled ng-model="visiting.week">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">周</span>
+      <select ng-model="visiting.week">
+        <option value="">请选择</option>
+        <option value="W1">W1</option>
+        <option value="W2">W2</option>
+        <option value="W3">W3</option>
+        <option value="W4">W4</option>
+        <option value="W5">W5</option>
+        <option value="W6">W6</option>
+        <option value="W7">W7</option>
+        <option value="W8">W8</option>
+        <option value="W9">W9</option>
+        <option value="W10">W10</option>
+        <option value="W11">W11</option>
+        <option value="W12">W12</option>
+        <option value="W13">W13</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">学校</span>
+      <input ng-if="isCreater" type="text" ng-model="visiting.school">
+      <input ng-if="!isCreater" type="text" disabled ng-model="visiting.school">
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">客户分类</span>
+      <input type="text" disabled ng-model="visiting.client_sort">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">客户分类</span>
+      <select ng-model="visiting.client_sort">
+        <option value="">请选择</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+      </select>
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">新/老客户</span>
+      <input type="text" disabled ng-model="visiting.new">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">新/老客户</span>
+      <select ng-model="visiting.new">
+        <option value="">请选择</option>
+        <option value="new">新</option>
+        <option value="old">老</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">院系名称</span>
+      <input ng-if="isCreater" type="text" ng-model="visiting.department">
+      <input ng-if="!isCreater" type="text" disabled ng-model="visiting.department">
+    </div> 
+    <div class="item item-input">
+      <span class="input-label">客户姓名</span>
+      <input ng-if="isCreater" type="text" ng-model="visiting.name"></input>
+      <input ng-if="!isCreater" type="text" disabled ng-model="visiting.name"></input>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">联系方式</span>
+      <input ng-if="isCreater" type="tel" ng-model="visiting.phone">      
+      <input ng-if="!isCreater" type="tel" disabled ng-model="visiting.phone">
+      <button class="button button-clear button-positive ion-ios-telephone" ng-click="callPhone()"></button>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">拜访结果</span>
+      <input ng-if="isCreater" type="tel" ng-model="visiting.result">      
+      <input ng-if="!isCreater" type="text" disabled ng-model="visiting.result">
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">有/无商机</span>
+      <input type="text" disabled ng-model="visiting.opportunity">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">有/无商机</span>
+      <select ng-model="visiting.opportunity">
+        <option value="">请选择</option>
+        <option value="yes">有</option>
+        <option value="no">无</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">预算金额</span>
+      <input ng-if="isCreater" type="number" ng-model="visiting.money" >
+      <input ng-if="!isCreater" type="number" disabled ng-model="visiting.money" >
+    </div>
+
+    <div class="item item-input">
+      <span class="input-label">备注信息</span>
+      <input ng-if="isCreater" type="number" ng-model="visiting.comment" >
+      <input ng-if="!isCreater" type="number" disabled ng-model="visiting.comment" >
+    </div>
+
+    <div class="padding">
+      <button class="button button-block button-positive" ng-if="isCreater" ng-click="update()">修改</button>
+      <button class="button button-block button-positive" ng-if="isCreater" ng-click="remove()">删除</button>
+    </div>
+
+  </ion-content>
+</ion-view>

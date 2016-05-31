@@ -196,6 +196,26 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
+    .state('menu.newvisiting', { //新建客户拜访
+      url: '/newvisiting',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/newvisiting.html',
+          controller: 'NewVisitingCtrl'
+        }
+      }
+    })
+
+    .state('menu.visiting_detail', { //投标管理详情
+      url: '/visiting/:_id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/visiting_detail.html',
+          controller: 'VisitingDetailCtrl',
+        }
+      }
+    })
+
     .state('menu.tracing', { //项目跟踪
       url: '/tracing',
       views: {

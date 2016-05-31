@@ -71,16 +71,16 @@ angular.module('ticflow.services')
             removeUser: function (_id) {
                 return $http.post(base + '/users/remove/' + _id);
             },
-            updateUser: function (_id, form) {
-                return $http.post(base + '/users/update/' + _id, form);
+            updateUser: function (_id, user) {
+                return $http.post(base + '/users/update/' + _id, user);
             },
 
 
             newList: function (list) {
                 return $http.post(base + '/lists', list);
             },
-            modifyList: function (_id, form) {
-                return $http.post(base + '/lists/' + _id, form);
+            modifyList: function (_id, list) {
+                return $http.post(base + '/lists/' + _id, list);
             },
             getLists: function (query) {
                 return $http.get(base + '/lists', {
@@ -188,6 +188,24 @@ angular.module('ticflow.services')
             },
             getBidManagementDetail: function (_id) {
                 return $http.get(base + '/app_bidmanagement/' + _id);
+            },
+
+            getVisiting: function (query) {
+                return $http.get(base + '/visiting', {
+                    params: query
+                });
+            },
+            newVisiting: function (visiting) {
+                return $http.post(base + '/visiting', visiting);
+            },
+            getVisitingDetail: function (_id) {
+                return $http.get(base + '/visiting/' + _id);
+            },
+            updateVisiting: function (_id, visiting) {
+                return $http.post(base + '/visiting/' + _id, visiting);
+            },
+            removeVisiting: function (_id) {
+                return $http.post(base + '/visiting/remove/' + _id);
             },
         };
  });
