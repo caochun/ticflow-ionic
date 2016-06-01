@@ -1,0 +1,151 @@
+<ion-view view-title="详情">
+
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-back-button class="button-icon ion-ios-arrow-back">
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+    <div class="item item-input">
+      <span class="input-label">年份</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.year">
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.year">
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">季度</span>
+      <input type="text" disabled ng-model="tracing.season">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">季度</span>
+      <select ng-model="tracing.season">
+        <option value="">请选择</option>
+        <option value="Q1">Q1</option>
+        <option value="Q2">Q2</option>
+        <option value="Q3">Q3</option>
+        <option value="Q4">Q4</option>
+      </select>
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">周</span>
+      <input type="text" disabled ng-model="tracing.week">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">周</span>
+      <select ng-model="tracing.week">
+        <option value="">请选择</option>
+        <option value="W1">W1</option>
+        <option value="W2">W2</option>
+        <option value="W3">W3</option>
+        <option value="W4">W4</option>
+        <option value="W5">W5</option>
+        <option value="W6">W6</option>
+        <option value="W7">W7</option>
+        <option value="W8">W8</option>
+        <option value="W9">W9</option>
+        <option value="W10">W10</option>
+        <option value="W11">W11</option>
+        <option value="W12">W12</option>
+        <option value="W13">W13</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">学校</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.school">
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.school">
+    </div>
+    <div class="item item-input">
+      <span class="input-label">院系名称</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.department">
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.department">
+    </div> 
+    <div class="item item-input">
+      <span class="input-label">客户姓名</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.name"></input>
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.name"></input>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">联系方式</span>
+      <input ng-if="isCreater" type="tel" ng-model="tracing.phone">      
+      <input ng-if="!isCreater" type="tel" disabled ng-model="tracing.phone">
+      <button class="button button-clear button-positive ion-ios-telephone" ng-click="callPhone()"></button>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">项目名称</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.projectName">      
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.projectName">
+    </div>
+    <div class="item item-input">
+      <span class="input-label">项目预算</span>
+      <input ng-if="isCreater" type="number" ng-model="tracing.budget">      
+      <input ng-if="!isCreater" type="number" disabled ng-model="tracing.budget">
+    </div>
+    <div class="item item-input">
+      <span class="input-label">项目经费</span>
+      <input ng-if="isCreater" type="number" ng-model="tracing.fund">      
+      <input ng-if="!isCreater" type="number" disabled ng-model="tracing.fund">
+    </div>
+    <div class="item item-input">
+      <span class="input-label">项目进度</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.plan">      
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.plan">
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">中标率</span>
+      <input type="text" disabled ng-model="tracing.percent">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">中标率</span>
+      <select ng-model="tracing.percent">
+        <option value="">请选择</option>
+        <option value="30%">30%</option>
+        <option value="60%">60%</option>
+        <option value="80%">80%</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">投标产品</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.product">      
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.product">
+    </div>
+    <div class="item item-input">
+      <span class="input-label">竞争对手</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.competitor">      
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.competitor">
+    </div>
+    <div class="item item-input" ng-if="!isCreater">
+      <span class="input-label">招标结果</span>
+      <input type="text" disabled ng-model="tracing.result">
+    </div>
+    <div class="item item-input item-select" ng-if="isCreater">
+      <span class="input-label">招标结果</span>
+      <select ng-model="tracing.result">
+        <option value="">请选择</option>
+        <option value="yes">中标</option>
+        <option value="no">未中标</option>
+      </select>
+    </div>
+    <div class="item item-input">
+      <span class="input-label">各投标价及产品概述</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.overview" >
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.overview" >
+    </div>
+    <div class="item item-input">
+      <span class="input-label">项目总结</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.summary" >
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.summary" >
+    </div>
+    <div class="item item-input">
+      <span class="input-label">备注信息</span>
+      <input ng-if="isCreater" type="text" ng-model="tracing.comment" >
+      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.comment" >
+    </div>
+
+    <div class="padding">
+      <button class="button button-block button-positive" ng-if="isCreater" ng-click="update()">修改</button>
+      <button class="button button-block button-positive" ng-if="isCreater" ng-click="remove()">删除</button>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -207,6 +207,24 @@ angular.module('ticflow.services')
             removeVisiting: function (_id) {
                 return $http.post(base + '/visiting/remove/' + _id);
             },
+
+            getTracing: function (query) {
+                return $http.get(base + '/tracing', {
+                    params: query
+                });
+            },
+            newTracing: function (tracing) {
+                return $http.post(base + '/tracing', tracing);
+            },
+            getTracingDetail: function (_id) {
+                return $http.get(base + '/tracing/' + _id);
+            },
+            updateTracing: function (_id, tracing) {
+                return $http.post(base + '/tracing/' + _id, tracing);
+            },
+            removeTracing: function (_id) {
+                return $http.post(base + '/tracing/remove/' + _id);
+            },
         };
  });
 

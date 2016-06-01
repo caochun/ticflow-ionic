@@ -206,7 +206,7 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
-    .state('menu.visiting_detail', { //投标管理详情
+    .state('menu.visiting_detail', { //客户拜访详情
       url: '/visiting/:_id',
       views: {
         'menuContent': {
@@ -225,6 +225,26 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
         }
       }
     })
+
+    .state('menu.newtracing', { //新建项目跟踪
+      url: '/newtracing',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/newtracing.html',
+          controller: 'NewTracingCtrl'
+        }
+      }
+    })
+
+    .state('menu.tracing_detail', { //项目跟踪详情
+      url: '/tracing/:_id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sales/tracing_detail.html',
+          controller: 'TracingDetailCtrl',
+        }
+      }
+    })    
 
     .state('menu.bidding', { //投标管理
       url: '/bidding',

@@ -98,7 +98,7 @@
     </div>
     <div class="item item-input">
       <span class="input-label">拜访结果</span>
-      <input ng-if="isCreater" type="tel" ng-model="visiting.result">      
+      <input ng-if="isCreater" type="text" ng-model="visiting.result">      
       <input ng-if="!isCreater" type="text" disabled ng-model="visiting.result">
     </div>
     <div class="item item-input" ng-if="!isCreater">
@@ -121,8 +121,8 @@
 
     <div class="item item-input">
       <span class="input-label">备注信息</span>
-      <input ng-if="isCreater" type="number" ng-model="visiting.comment" >
-      <input ng-if="!isCreater" type="number" disabled ng-model="visiting.comment" >
+      <input ng-if="isCreater" type="text" ng-model="visiting.comment" >
+      <input ng-if="!isCreater" type="text" disabled ng-model="visiting.comment" >
     </div>
 
     <div class="padding">
