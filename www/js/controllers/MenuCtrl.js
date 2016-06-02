@@ -9,11 +9,6 @@ angular.module('ticflow.controllers')
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {
-
-        $scope.submenu.list = false;
-        $scope.submenu.sale = false;
-        $scope.submenu.finance = false;
-
         switch (API.getRole()) {
             case 'manager':
                 $scope.username = API.getId() + "(派单员)";
