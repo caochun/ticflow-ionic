@@ -90,6 +90,27 @@
       <input type="number" ng-model="visiting.money" >
     </div>
 
+    <div class="item item-input item-icon-right">
+      <span class="input-label">附件图片1</span>
+      <button class="button button-clear button-positive" ng-click="showImage(0)" ng-if="images[0].selected">查看</button>
+      <button class="button button-clear button-positive" ng-click="removeImage(0)" ng-if="images[0].selected">删除</button>
+      <i class="icon ion-ios-camera-outline" ng-click="showActions(0)"></i>
+    </div>
+
+    <div class="item item-input item-icon-right">
+      <span class="input-label">附件图片2</span>
+      <button class="button button-clear button-positive" ng-click="showImage(1)" ng-if="images[1].selected">查看</button>
+      <button class="button button-clear button-positive" ng-click="removeImage(1)" ng-if="images[1].selected">删除</button>
+      <i class="icon ion-ios-camera-outline" ng-click="showActions(1)"></i>
+    </div>
+
+    <div class="item item-input item-icon-right">
+      <span class="input-label">附件图片3</span>
+      <button class="button button-clear button-positive" ng-click="showImage(2)" ng-if="images[2].selected">查看</button>
+      <button class="button button-clear button-positive" ng-click="removeImage(2)" ng-if="images[2].selected">删除</button>
+      <i class="icon ion-ios-camera-outline" ng-click="showActions(2)"></i>
+    </div>
+
     <div class="item item-input">
       <span class="input-label">备注信息</span>
       <input type="text" ng-model="visiting.comment" >
