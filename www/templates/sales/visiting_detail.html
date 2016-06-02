@@ -96,10 +96,10 @@
       <input ng-if="!isCreater" type="tel" disabled ng-model="visiting.phone">
       <button class="button button-clear button-positive ion-ios-telephone" ng-click="callPhone()"></button>
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">拜访结果</span>
-      <input ng-if="isCreater" type="text" ng-model="visiting.result">      
-      <input ng-if="!isCreater" type="text" disabled ng-model="visiting.result">
+      <textarea ng-if="isCreater" wrap="virtual" rows="5" type="text" ng-model="visiting.result" ></textarea>
+      <textarea ng-if="!isCreater" wrap="virtual" rows="5" type="text" disabled ng-model="visiting.result" ></textarea>
     </div>
     <div class="item item-input" ng-if="!isCreater">
       <span class="input-label">有/无商机</span>
@@ -140,10 +140,10 @@
       <i class="icon ion-ios-camera-outline" ng-click="showActions(2)" ng-if="isCreater"></i>
     </div>
 
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">备注信息</span>
-      <input ng-if="isCreater" type="text" ng-model="visiting.comment" >
-      <input ng-if="!isCreater" type="text" disabled ng-model="visiting.comment" >
+      <textarea ng-if="isCreater" wrap="virtual" rows="5" type="text" ng-model="visiting.comment" ></textarea>
+      <textarea ng-if="!isCreater" wrap="virtual" rows="5" type="text" disabled ng-model="visiting.comment" ></textarea>
     </div>
 
     <div class="padding">

@@ -86,10 +86,10 @@
       <input ng-if="isCreater" type="number" ng-model="tracing.fund">      
       <input ng-if="!isCreater" type="number" disabled ng-model="tracing.fund">
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">项目进度</span>
-      <input ng-if="isCreater" type="text" ng-model="tracing.plan">      
-      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.plan">
+      <textarea ng-if="isCreater" wrap="virtual" rows="2" type="text" ng-model="tracing.plan" ></textarea>
+      <textarea ng-if="!isCreater" wrap="virtual" rows="2" type="text" disabled="" ng-model="tracing.plan" ></textarea>
     </div>
     <div class="item item-input" ng-if="!isCreater">
       <span class="input-label">中标率</span>
@@ -104,15 +104,15 @@
         <option value="80%">80%</option>
       </select>
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">投标产品</span>
-      <input ng-if="isCreater" type="text" ng-model="tracing.product">      
-      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.product">
+      <textarea ng-if="isCreater" wrap="virtual" rows="2" type="text" ng-model="tracing.product" ></textarea>
+      <textarea ng-if="!isCreater" wrap="virtual" rows="2" type="text" disabled ng-model="tracing.product" ></textarea>
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">竞争对手</span>
-      <input ng-if="isCreater" type="text" ng-model="tracing.competitor">      
-      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.competitor">
+      <textarea ng-if="isCreater" wrap="virtual" rows="2" type="text" ng-model="tracing.competitor" ></textarea>
+      <textarea ng-if="!isCreater" wrap="virtual" rows="2" type="text" disabled ng-model="tracing.competitor" ></textarea>
     </div>
     <div class="item item-input" ng-if="!isCreater">
       <span class="input-label">招标结果</span>
@@ -126,20 +126,21 @@
         <option value="no">未中标</option>
       </select>
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">各投标价及产品概述</span>
-      <input ng-if="isCreater" type="text" ng-model="tracing.overview" >
-      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.overview" >
+      <textarea ng-if="isCreater" wrap="virtual" rows="5" type="text" ng-model="tracing.overview" ></textarea>
+      <textarea ng-if="isCreater" wrap="virtual" rows="5" type="text" disabled ng-model="tracing.overview" ></textarea>      
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">项目总结</span>
-      <input ng-if="isCreater" type="text" ng-model="tracing.summary" >
-      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.summary" >
+      <textarea ng-if="isCreater" wrap="virtual" rows="5" type="text" ng-model="tracing.summary" ></textarea>
+      <textarea ng-if="!isCreater" wrap="virtual" rows="5" type="text" disabled ng-model="tracing.summary" ></textarea>
     </div>
-    <div class="item item-input">
+
+    <div class="item item-input item-stacked-label">
       <span class="input-label">备注信息</span>
-      <input ng-if="isCreater" type="text" ng-model="tracing.comment" >
-      <input ng-if="!isCreater" type="text" disabled ng-model="tracing.comment" >
+      <textarea ng-if="isCreater" wrap="virtual" rows="5" type="text" ng-model="tracing.comment" ></textarea>
+      <textarea ng-if="!isCreater" wrap="virtual" rows="5" type="text" diasbled ng-model="tracing.comment" ></textarea>
     </div>
 
     <div class="padding">

@@ -4,8 +4,8 @@ angular.module('ticflow.services')
         var user = $localStorage.get('user');
 
         //var base = "https://121.42.175.137:3002";
-        var base = "https://114.212.81.8:3002"; //lzl wired network @ room 812
-        //var base = "https://localhost:3002";
+        //var base = "https://114.212.81.8:3002"; //lzl wired network @ room 812
+        var base = "https://localhost:3002";
 
         $rootScope.show = function (text) {
             $rootScope.loading = $ionicLoading.show({

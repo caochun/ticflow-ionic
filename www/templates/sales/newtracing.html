@@ -68,9 +68,9 @@
       <span class="input-label">项目经费</span>
       <input type="number" ng-model="tracing.fund" >
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">项目进度</span>
-      <input type="text" ng-model="tracing.plan" >
+      <textarea wrap="virtual" rows="2" type="text" ng-model="tracing.plan" ></textarea>
     </div>
     <div class="item item-input item-select">
       <span class="input-label">中标率</span>
@@ -81,13 +81,13 @@
         <option value="80%">80%</option>
       </select>
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">投标产品</span>
-      <input type="text" ng-model="tracing.product" >
+      <textarea wrap="virtual" rows="2" type="text" ng-model="tracing.product" ></textarea>
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">竞争对手</span>
-      <input type="text" ng-model="tracing.competitor" >
+      <textarea wrap="virtual" rows="2" type="text" ng-model="tracing.competitor" ></textarea>
     </div>
     <div class="item item-input item-select">
       <span class="input-label">招标结果</span>
@@ -97,17 +97,18 @@
         <option value="no">未中标</option>
       </select>
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">各投标价及产品概述</span>
-      <input type="text" ng-model="tracing.overview" >
+      <textarea wrap="virtual" rows="5" type="text" ng-model="tracing.overview" ></textarea>
     </div>
-    <div class="item item-input">
+    <div class="item item-input item-stacked-label">
       <span class="input-label">项目总结</span>
-      <input type="text" ng-model="tracing.summary" >
+      <textarea wrap="virtual" rows="5" type="text" ng-model="tracing.summary" ></textarea>
     </div>
-    <div class="item item-input">
+
+    <div class="item item-input item-stacked-label">
       <span class="input-label">备注信息</span>
-      <input type="text" ng-model="tracing.comment" >
+      <textarea wrap="virtual" rows="5" type="text" ng-model="tracing.comment" ></textarea>
     </div>
 
     <div class="padding">

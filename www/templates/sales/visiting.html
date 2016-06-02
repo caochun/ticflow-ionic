@@ -29,10 +29,10 @@
 
     <ion-item class="item"  ng-repeat="entry in visiting" ui-sref='menu.visiting_detail({_id: entry._id})'>
       <div class="item">
-        <h2><i>年份:&nbsp;</i> {{entry.year}} &nbsp; <i>季度:&nbsp;</i> {{entry.season}} &nbsp; <i>周:&nbsp;</i> {{entry.week}} </h2>
-        <h2><i>创建日期:&nbsp;</i> {{entry.date}}</h2>
-        <h2><i>销售人员:&nbsp;</i> {{entry.saler}}</h2>        
-        <h2><i>学校:&nbsp;</i> {{entry.school}}</h2>    
+        <h2><i>年份:&nbsp;</i> {{entry.year}} &nbsp; <i>季度:&nbsp;</i> {{entry.season}} </h2>
+        <h2><i>销售人员:&nbsp;</i> {{entry.saler}}</h2>
+        <h2><i>客户姓名:&nbsp;</i> {{entry.name}}</h2>
+        <h2><i>创建日期:&nbsp;</i> {{entry.date}}</h2>  
       </div>
     </ion-item>
 
