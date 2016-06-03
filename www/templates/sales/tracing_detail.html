@@ -129,7 +129,7 @@
     <div class="item item-input item-stacked-label">
       <span class="input-label">各投标价及产品概述</span>
       <textarea ng-if="isCreater" wrap="virtual" rows="5" type="text" ng-model="tracing.overview" ></textarea>
-      <textarea ng-if="isCreater" wrap="virtual" rows="5" type="text" disabled ng-model="tracing.overview" ></textarea>      
+      <textarea ng-if="!isCreater" wrap="virtual" rows="5" type="text" disabled ng-model="tracing.overview" ></textarea>      
     </div>
     <div class="item item-input item-stacked-label">
       <span class="input-label">项目总结</span>

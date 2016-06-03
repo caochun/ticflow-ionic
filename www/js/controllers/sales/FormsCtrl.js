@@ -14,7 +14,7 @@ angular.module('ticflow.controllers')
     	$scope.isSaler = (API.getRole() == 'saler');
 
     	var id = API.getId();
-        $scope.isSalerAssistant = (id == "周强" || id == "陆珺" || id == "周坚" || id == "汪敏");
+        $scope.isSalerAssistant = (id == "周强" || id == "陆珺" || id == "周坚" || id == "汪敏" || API.getRole() == 'salerassistant');
 
         if ($scope.isSalerAssistant) {
             API.getUsers({role: 'saler'})
