@@ -17,7 +17,7 @@
     <ion-content>
       <ion-list>
         <ion-item ng-click="toggleList()" ng-if="isManager()||isSaler()||isEngineer()||isAdmin()">售后服务</ion-item>
-        <ion-item ng-if="submenu.list">
+        <ion-item ng-if="submenu.list&&(isManager()||isSaler()||isEngineer()||isAdmin())">
           <ion-list>
             <ion-item menu-close href="#/menu/valuechange" ng-if="isAdmin()">
               分值改动
@@ -40,7 +40,7 @@
           </ion-list>
         </ion-item>
         <ion-item ng-click="toggleSale()" ng-if="isSaler()||isSalerAssistant()">销售管理</ion-item>
-        <ion-item ng-if="submenu.sale">
+        <ion-item ng-if="submenu.sale&&(isSaler()||isSalerAssistant())">
           <ion-list>
             <ion-item menu-close href="#/menu/visiting" ng-if="isSaler()||isSalerAssistant()">
               客户拜访
@@ -57,7 +57,7 @@
           </ion-list>
         </ion-item>
         <ion-item ng-click="toggleFinance()" ng-if="isSaler()">在线财务</ion-item>
-        <ion-item ng-if="submenu.finance">
+        <ion-item ng-if="submenu.finance&&isSaler()">
           <ion-list>
             <ion-item menu-close href="#/menu/expense" ng-if="isSaler()">
               费用统计
