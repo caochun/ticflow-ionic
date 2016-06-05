@@ -71,12 +71,6 @@
     </label>
 
     <label class="item item-input">
-      <span class="input-label">分值</span>
-      <input type="number" ng-if="isManager" ng-model="list.value" >
-      <input type="number" ng-if="!isManager" disabled ng-model="list.value" >
-    </label>
-
-    <label class="item item-input">
       <span class="input-label">工程师</span>
       <input type="text" disabled ng-model="list.engineer" >
     </label>
@@ -110,7 +104,6 @@
     </div>
 
     <div class="padding">
-      <button class="button button-block button-positive" ng-if="isManager" ng-click="modify()">修改分值</button>
       <button class="button button-block button-positive" ng-if="isManager||isAdmin" ng-click="remove()">删除</button>
     </div>
 

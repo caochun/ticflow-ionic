@@ -66,16 +66,6 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
-    .state('menu.valuechange', { //分值改动
-      url: '/valuechange',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/lists/valuechange.html',
-          controller: 'ValueChangeCtrl'
-        }
-      }
-    })
-
     .state('menu.unaccepted', { //未接报修单
       url: '/unaccepted',
       views: {
@@ -122,16 +112,6 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
         'menuContent': {
           templateUrl: 'templates/lists/search.html',
           controller: 'SearchCtrl',
-        }
-      }
-    })
-
-    .state('menu.valuechange_detail', { //分值改动详情
-      url: '/valuechange/:_id',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/lists/valuechange_detail.html',
-          controller: 'ValueChangeDetailCtrl',
         }
       }
     })

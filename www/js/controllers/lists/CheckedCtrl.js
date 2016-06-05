@@ -18,8 +18,6 @@ angular.module('ticflow.controllers')
         $scope.isSaler = (API.getRole() == 'saler');
         $scope.isEngineer = (API.getRole() == 'engineer');
 
-        //$scope.select.month = $filter('date')(new Date(), "yyyy-MM");
-
         if ($scope.isManager || $scope.isAdmin) {
             API.getUsers({role: 'saler'})
                 .success(function (salers) {
@@ -40,7 +38,6 @@ angular.module('ticflow.controllers')
 
         API.getMonths()
             .success(function (months) {
-                //months.push($scope.select.month);
                 $scope.months = months.sort().reverse();
             })
             .error(function () {
@@ -75,9 +72,9 @@ angular.module('ticflow.controllers')
             query.checkMonth = $scope.select.month;
             queryV.checkMonth = $scope.select.month;
         }
-        API.getTotalValue(queryV)
-            .success(function (totalValue) {
-                $scope.totalValue = totalValue;
+        API.getTotalNumber(queryV)
+            .success(function (totalNumber) {
+                $scope.totalNumber = totalNumber;
             })
             .error(function () {
                 $rootScope.notify("获取已审核报修单总分失败！请检查您的网络！");

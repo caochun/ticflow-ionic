@@ -71,10 +71,10 @@ angular.module('ticflow.controllers')
             return false;
         }
 
-        if (!$scope.list.value) {
-            $rootScope.notify("分值不能为空！");
-            return false;
-        }
+        // if (!$scope.list.value) {
+        //     $rootScope.notify("分值不能为空！");
+        //     return false;
+        // }
 
         if (isNaN($scope.list.value)) {
             $rootScope.notify("分值必须为纯数字！");

@@ -93,34 +93,13 @@ angular.module('ticflow.services')
             removeList: function (_id) {
                 return $http.post(base + '/lists/remove/' + _id);
             },
-            getTotalValue: function (query) {
-                return $http.get(base + '/lists/totalvalue', {
+            getTotalNumber: function (query) {
+                return $http.get(base + '/lists/totalnumber', {
                     params: query
                 });
             },
             getMonths: function () { //months in checked lists
                 return $http.get(base + '/lists/months');
-            },
-
-
-            newValueChange: function (oldValue, newValue, manager, list_id) {
-                return $http.post(base + '/valuechanges/', {
-                    oldValue: oldValue,
-                    newValue: newValue,
-                    manager: manager,
-                    list_id: list_id,
-                });
-            },
-            getValueChanges: function (query) {
-                return $http.get(base + '/valuechanges', {
-                    params: query
-                });
-            },
-            getValueChange: function (_id) {
-                return $http.get(base + '/valuechanges/' + _id);
-            },
-            removeValueChange: function (_id) {
-                return $http.post(base + '/valuechanges/remove/' + _id);
             },
 
             upload: function (uri) {

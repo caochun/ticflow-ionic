@@ -30,7 +30,7 @@ angular.module('ticflow.controllers')
                         $window.location.href = ('#/menu/accepted');
                     }
                     else if (user.role == 'admin') {
-                        $window.location.href = ('#/menu/valuechange');
+                        $window.location.href = ('#/menu/unaccepted');
                     }
                     else if (user.role == 'salerassistant') {
                         $window.location.href = ('#/menu/visiting');
@@ -72,7 +72,7 @@ angular.module('ticflow.controllers')
                     $window.location.href = ('#/menu/accepted');
                 }
                 else if (user.role == 'admin') {
-                    $window.location.href = ('#/menu/valuechange');
+                    $window.location.href = ('#/menu/unaccepted');
                 }
                 else if (user.role == 'treasurer') {
                     $window.location.href = ('#/menu/modifypassword');
