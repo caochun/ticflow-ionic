@@ -153,12 +153,7 @@ angular.module('ticflow.services')
                     params: query
                 });
             },
-            getProfit: function (query) {
-                return $http.get(base + '/app_profits/profit', {
-                    params: query
-                });
-            },
-
+            
             getPrestoreTotal: function (query) {
                 return $http.get(base + '/app_prestore/total', {
                     params: query

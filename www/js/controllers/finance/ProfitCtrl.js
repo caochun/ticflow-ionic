@@ -22,69 +22,16 @@ angular.module('ticflow.controllers')
 
     $scope.loadProfit = function () {
 
-        var query = {saler: API.getId()}, queryV = {saler: API.getId()};
+        var query = {saler: API.getId()};
         if ($scope.select.month !== "") {
             query.month = $scope.select.month;
-            queryV.month = $scope.select.month;
         }
-        API.getTotalProfit(queryV)
+        API.getTotalProfit(query)
             .success(function (totalProfit) {
                 $scope.totalProfit = totalProfit;
             })
             .error(function () {
-                $rootScope.notify("获取费用总计失败！请检查您的网络！");
-            });
-
-        $scope.currentPage = 0;
-        query.page = $scope.currentPage;
-        query.limit = $scope.limit;
-
-        API.getProfit(query)
-            .success(function (profit) {
-                $scope.hasNextPage = profit.length >= $scope.limit;
-                if ($scope.hasNextPage)
-                    $scope.currentPage ++;
-
-                profit.forEach(function (entry) {
-                    entry.detail = "利润";
-                    if (entry.comment == "")
-                    	entry.comment = "无";
-                });
-                $scope.profit = profit;
-            })
-            .error(function () {
-                $rootScope.notify("网络连接失败！请检查您的网络！");
-            }).finally(function () {
-                $scope.$broadcast('scroll.refreshComplete');
-            });
-    };
-
-    $scope.loadMore = function () {
-
-        var query = {saler: API.getId()};
-        if ($scope.select.month !== "")
-            query.month = $scope.select.month;
-
-        query.page = $scope.currentPage;
-        query.limit = $scope.limit;
-
-        API.getProfit(query)
-            .success(function (profit) {
-                $scope.hasNextPage = profit.length >= $scope.limit;
-                if ($scope.hasNextPage)
-                    $scope.currentPage ++;
-
-                profit.forEach(function (entry) {
-                    entry.detail = "利润";
-                    if (entry.comment == "")
-                    	entry.comment = "无";
-                });
-                $scope.profit = $scope.profit.concat(profit);
-            })
-            .error(function () {
-                $rootScope.notify("网络连接失败！请检查您的网络！");
-            }).finally(function () {
-                $scope.$broadcast('scroll.infiniteScrollComplete');
+                $rootScope.notify("获取净利润总计失败！请检查您的网络！");
             });
     };
 

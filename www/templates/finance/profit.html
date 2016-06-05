@@ -17,20 +17,10 @@
     <ion-item class="item">
       <div class="item">
         <h2>
-          <i>利润总计</i> {{totalProfit}}
+          <i>净利润总计</i> {{totalProfit}}
         </h2>
       </div>
     </ion-item>
 
-    <ion-item class="item"  ng-repeat="profit in profit">
-      <div class="item">
-      	<h2><i>编号:&nbsp;</i> {{profit.serial_number}}</h2>
-        <h2><i>项目:&nbsp;</i> {{profit.detail}} &emsp; <i>金额:&nbsp;</i> {{profit.money}}</h2>
-        <h2><i>备注:&nbsp;</i> {{profit.comment}}</h2>
-      </div>
-    </ion-item>
-
-    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-load-c" ng-if="hasNextPage">
-    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

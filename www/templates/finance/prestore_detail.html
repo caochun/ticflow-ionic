@@ -14,12 +14,12 @@
     </div>
     </ion-item>
 
-    <ion-item class="item"  ng-repeat="prestore in prestore">
+    <ion-item class="item"  ng-repeat="entry in prestore">
       <div class="item">
-        <h2><i>编号:&nbsp;</i> {{prestore.serial_number}}</h2>
-        <h2><i>项目:&nbsp;</i> {{prestore.detail}} &emsp; <i>金额:&nbsp;</i> {{prestore.money}}</h2>
-        <h2><i>发票号码/单号:&nbsp;</i> {{prestore.invoice_number}}</h2>        
-        <h2><i>备注:&nbsp;</i> {{prestore.comment}}</h2>
+        <h2><i>编号:&nbsp;</i> {{entry.serial_number}}</h2>
+        <h2><i>项目:&nbsp;</i> {{entry.detail}} &emsp; <i>金额:&nbsp;</i> {{entry.money}}</h2>
+        <h2><i>发票号码/单号:&nbsp;</i> {{entry.invoice_number}}</h2>        
+        <h2><i>备注:&nbsp;</i> {{entry.comment}}</h2>
       </div>
     </ion-item>
 
