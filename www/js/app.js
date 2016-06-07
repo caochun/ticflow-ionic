@@ -196,7 +196,7 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
-    .state('menu.tracing', { //项目跟踪
+    .state('menu.tracing', { //商机管理
       url: '/tracing',
       views: {
         'menuContent': {
@@ -206,7 +206,7 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
-    .state('menu.newtracing', { //新建项目跟踪
+    .state('menu.newtracing', { //新建商机管理
       url: '/newtracing',
       views: {
         'menuContent': {
@@ -216,7 +216,7 @@ angular.module('ticflow', ['ionic', 'ngCordova', 'ticflow.controllers', 'ticflow
       }
     })
 
-    .state('menu.tracing_detail', { //项目跟踪详情
+    .state('menu.tracing_detail', { //商机管理详情
       url: '/tracing/:_id',
       views: {
         'menuContent': {

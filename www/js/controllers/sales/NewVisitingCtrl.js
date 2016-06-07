@@ -83,11 +83,6 @@ angular.module('ticflow.controllers')
             return false;
         }
 
-        if (!$scope.visiting.money) {
-            $rootScope.notify("预算金额不能为空！");
-            return false;
-        }
-
         if (isNaN($scope.visiting.money)) {
             $rootScope.notify("预算金额不合法！");
             return false;

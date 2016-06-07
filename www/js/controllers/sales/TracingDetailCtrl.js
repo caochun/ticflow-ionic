@@ -133,7 +133,7 @@ angular.module('ticflow.controllers')
 
     $scope.remove = function () {
         var confirmPopup = $ionicPopup.confirm({
-            title: '确定删除项目跟踪？',
+            title: '确定删除商机管理？',
             cancelText: '<b>取消</b>',
             okText: '<b>确定</b>'
         });
