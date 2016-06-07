@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('NewTracingCtrl', function ($rootScope, $scope, API, $window) {
+.controller('NewTracingCtrl', function ($rootScope, $scope, API, $window, $filter) {
 	$scope.tracing = {
 		year: "",
 		season: "",
@@ -104,11 +104,6 @@ angular.module('ticflow.controllers')
             return false;
         }
 
-        if (!$scope.tracing.result) {
-            $rootScope.notify("招标结果不能为空！");
-            return false;
-        }
-
         if (!$scope.tracing.overview) {
             $rootScope.notify("各投标价及产品概述不能为空！");
             return false;
@@ -120,6 +115,10 @@ angular.module('ticflow.controllers')
         }
 
         $scope.tracing.saler = API.getId();
+
+        $scope.tracing.date = new Date();
+
+        $scope.tracing.month = $filter('date')(new Date(), "yyyy-MM");
 
         API.newTracing($scope.tracing)
             .success(function (tracing) {

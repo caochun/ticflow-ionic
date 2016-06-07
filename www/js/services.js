@@ -144,7 +144,7 @@ angular.module('ticflow.services')
                 });
             },
 
-            getMonthsSalesReport: function (query) { //months in sales report
+            getMonthsSalesReport: function () { //months in sales report
                 return $http.get(base + '/app_salesreport/months');
             },
             getSalesReport: function (query) {
@@ -153,7 +153,7 @@ angular.module('ticflow.services')
                 });
             },
 
-            getMonthsBidManagement: function (query) { //months in bid management
+            getMonthsBidManagement: function () { //months in bid management
                 return $http.get(base + '/app_bidmanagement/months');
             },
             getBidManagement: function (query) {
@@ -165,6 +165,9 @@ angular.module('ticflow.services')
                 return $http.get(base + '/app_bidmanagement/' + _id);
             },
 
+            getMonthsVisiting: function () { //months in visiting
+                return $http.get(base + '/visiting/months');
+            },
             getVisiting: function (query) {
                 return $http.get(base + '/visiting', {
                     params: query
@@ -183,6 +186,9 @@ angular.module('ticflow.services')
                 return $http.post(base + '/visiting/remove/' + _id);
             },
 
+            getMonthsTracing: function () { //months in tracing
+                return $http.get(base + '/tracing/months');
+            },
             getTracing: function (query) {
                 return $http.get(base + '/tracing', {
                     params: query

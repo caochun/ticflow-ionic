@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('TracingDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $filter, $ionicPopup) {
+.controller('TracingDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicPopup) {
 
 	$scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadTracingDetail();
@@ -13,7 +13,6 @@ angular.module('ticflow.controllers')
         API.getTracingDetail(_id)
             .success(function (tracing) {
                 $scope.tracing = tracing;
-                $scope.tracing.date = $filter('date')($scope.tracing.date, "yyyy-MM-dd HH:mm");
 
                 $scope.isCreater = (API.getId() == $scope.tracing.saler)
             })
@@ -33,6 +32,96 @@ angular.module('ticflow.controllers')
     };
 
     $scope.update = function () {
+        if (!$scope.tracing.year) {
+            $rootScope.notify("年份不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.season) {
+            $rootScope.notify("季度不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.week) {
+            $rootScope.notify("周不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.school) {
+            $rootScope.notify("学校不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.department) {
+            $rootScope.notify("院系名称不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.name) {
+            $rootScope.notify("客户姓名不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.phone) {
+            $rootScope.notify("联系方式不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.projectName) {
+            $rootScope.notify("项目名称不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.budget) {
+            $rootScope.notify("项目预算不能为空！");
+            return false;
+        }
+
+        if (isNaN($scope.tracing.budget)) {
+            $rootScope.notify("项目预算不合法！");
+            return false;
+        }
+
+        if (!$scope.tracing.fund) {
+            $rootScope.notify("项目经费不能为空！");
+            return false;
+        }
+
+        if (isNaN($scope.tracing.fund)) {
+            $rootScope.notify("项目经费不合法！");
+            return false;
+        }
+
+        if (!$scope.tracing.plan) {
+            $rootScope.notify("项目进度不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.percent) {
+            $rootScope.notify("中标率不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.product) {
+            $rootScope.notify("投标产品不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.competitor) {
+            $rootScope.notify("竞争对手不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.overview) {
+            $rootScope.notify("各投标价及产品概述不能为空！");
+            return false;
+        }
+
+        if (!$scope.tracing.summary) {
+            $rootScope.notify("项目总结不能为空！");
+            return false;
+        }
+        
     	API.updateTracing($scope.tracing._id, $scope.tracing)
             .success(function (tracing) {
                 $rootScope.notify("修改成功!");

@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('NewVisitingCtrl', function ($rootScope, $scope, API, $window, $q, $ionicActionSheet, $cordovaCamera, $cordovaImagePicker, $ionicModal) {
+.controller('NewVisitingCtrl', function ($rootScope, $scope, API, $window, $filter, $q, $ionicActionSheet, $cordovaCamera, $cordovaImagePicker, $ionicModal) {
 	$scope.visiting = {
 		year: "",
 		season: "",
@@ -94,6 +94,10 @@ angular.module('ticflow.controllers')
         }
 
         $scope.visiting.saler = API.getId();
+
+        $scope.visiting.date = new Date();
+
+        $scope.visiting.month = $filter('date')(new Date(), "yyyy-MM"); 
 
         var d0 = $q.defer(), d1 = $q.defer(), d2 = $q.defer();
         $rootScope.show("图片上传中...");

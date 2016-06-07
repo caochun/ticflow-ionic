@@ -41,7 +41,7 @@
       </select>
     </div>
     <div class="item item-input">
-      <span class="input-label">学校</span>
+      <span class="input-label">学校名称</span>
       <input type="text" ng-model="tracing.school">
     </div>
     <div class="item item-input">
@@ -68,9 +68,17 @@
       <span class="input-label">项目经费</span>
       <input type="number" ng-model="tracing.fund" >
     </div>
-    <div class="item item-input item-stacked-label">
+    <div class="item item-input item-select">
       <span class="input-label">项目进度</span>
-      <textarea wrap="virtual" rows="2" type="text" ng-model="tracing.plan" ></textarea>
+      <select ng-model="tracing.plan">
+        <option value="">请选择</option>
+        <option value="申请预算">申请预算</option>
+        <option value="预算下款">预算下款</option>
+        <option value="竞争对手调研">竞争对手调研</option>
+        <option value="确认投标方案">确认投标方案</option>
+        <option value="招标流程申请">招标流程申请</option>
+        <option value="招标">招标</option>
+      </select>
     </div>
     <div class="item item-input item-select">
       <span class="input-label">中标率</span>
@@ -93,8 +101,8 @@
       <span class="input-label">招标结果</span>
       <select ng-model="tracing.result">
         <option value="">请选择</option>
-        <option value="yes">中标</option>
-        <option value="no">未中标</option>
+        <option value="中标">中标</option>
+        <option value="未中标">未中标</option>
       </select>
     </div>
     <div class="item item-input item-stacked-label">

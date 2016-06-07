@@ -25,6 +25,14 @@ angular.module('ticflow.controllers')
                 });
         }
 
+        API.getMonthsVisiting()
+            .success(function (months) {
+                $scope.months = months.sort().reverse();
+            })
+            .error(function () {
+                $rootScope.notify("获取月份列表失败！请检查您的网络！");
+            });
+
         $scope.loadVisiting();
     });
 
@@ -37,6 +45,9 @@ angular.module('ticflow.controllers')
             }
         } else if ($scope.isSaler) {
             query.saler = API.getId();
+        }
+        if ($scope.select.month !== "") {
+            query.month = $scope.select.month;
         }
 
         $scope.currentPage = 0;

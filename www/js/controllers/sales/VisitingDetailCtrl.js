@@ -1,6 +1,6 @@
 angular.module('ticflow.controllers')
 
-.controller('VisitingDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $filter, $ionicActionSheet, $cordovaCamera, $cordovaImagePicker, $ionicModal, $q, $ionicPopup) {
+.controller('VisitingDetailCtrl', function ($rootScope, $scope, API, $window, $stateParams, $ionicActionSheet, $cordovaCamera, $cordovaImagePicker, $ionicModal, $q, $ionicPopup) {
 
 	$scope.$on('$ionicView.beforeEnter', function () {
         $scope.loadVisitingDetail();
@@ -19,7 +19,6 @@ angular.module('ticflow.controllers')
         API.getVisitingDetail(_id)
             .success(function (visiting) {
                 $scope.visiting = visiting;
-                $scope.visiting.date = $filter('date')($scope.visiting.date, "yyyy-MM-dd HH:mm");
 
                 $scope.isCreater = (API.getId() == $scope.visiting.saler);
 
@@ -131,6 +130,71 @@ angular.module('ticflow.controllers')
     };
 
     $scope.update = function () {
+        if (!$scope.visiting.year) {
+            $rootScope.notify("年份不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.season) {
+            $rootScope.notify("季度不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.week) {
+            $rootScope.notify("周不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.school) {
+            $rootScope.notify("学校不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.client_sort) {
+            $rootScope.notify("客户分类不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.new) {
+            $rootScope.notify("新/老客户不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.department) {
+            $rootScope.notify("院系名称不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.name) {
+            $rootScope.notify("客户姓名不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.phone) {
+            $rootScope.notify("联系方式不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.result) {
+            $rootScope.notify("拜访结果不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.opportunity) {
+            $rootScope.notify("有/无商机不能为空！");
+            return false;
+        }
+
+        if (!$scope.visiting.money) {
+            $rootScope.notify("预算金额不能为空！");
+            return false;
+        }
+
+        if (isNaN($scope.visiting.money)) {
+            $rootScope.notify("预算金额不合法！");
+            return false;
+        }
+        
         var d0 = $q.defer(), d1 = $q.defer(), d2 = $q.defer();
         $rootScope.show("图片上传中...");
         
